@@ -1,6 +1,7 @@
 package co.infinum.productive.dagger.modules;
 
 import co.infinum.productive.mvp.interactors.LoginInteractor;
+import co.infinum.productive.mvp.interactors.impl.LoginInteractorImpl;
 import co.infinum.productive.mvp.presenters.LoginPresenter;
 import co.infinum.productive.mvp.presenters.impl.LoginPresenterImpl;
 import co.infinum.productive.mvp.views.LoginView;
@@ -22,8 +23,8 @@ public class LoginModule {
     }
 
     @Provides
-    public LoginInteractor provideInteractor() {
-        return null; // TODO
+    public LoginInteractor provideInteractor(LoginInteractorImpl interactor) {
+        return interactor;
     }
 
     @Provides
