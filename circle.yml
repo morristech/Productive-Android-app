@@ -1,15 +1,5 @@
 # Build configuration file for Circle CI
 # needs to be named `circle.yml` and should be in the top level dir of the repo
-
-experimental:
-  # this will enable chat notifications only for certain branches
-  notify:
-    branches:
-      only:
-        - master
-        - labs
-        - development
-
 machine:
   environment:
     # set the adb install timeout to 8 minutes (default is 2 minutes)
