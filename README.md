@@ -1,4 +1,5 @@
 # Productive Android App
+[![Circle CI](https://circleci.com/gh/infinum/Productive-Android-app.svg?style=svg)](https://circleci.com/gh/infinum/Productive-Android-app)
 
 ## Requirements
 
