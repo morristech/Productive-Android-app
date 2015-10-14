@@ -57,12 +57,12 @@ android {
     productFlavors {
         staging {
             dimension 'api'
-            applicationId 'com.currencyfair.apps.android.currencyfair.staging'
-            buildConfigField STRING, API_URL, '"https://api.staging.currencyfair.com/"'
+            applicationId 'co.infinum.productive.staging'
+            buildConfigField STRING, API_URL, '"https://productive-staging.infinum.co/"'
         }
         production {
             dimension 'api'
-            buildConfigField STRING, API_URL, '"https://productive-staging.infinum.co/"'
+            buildConfigField STRING, API_URL, '"https://productive.io/"'
         }
     }
 
