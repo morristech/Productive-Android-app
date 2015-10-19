@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-//
+
         if (savedInstanceState != null) {
             etEmail.setText(savedInstanceState.getString(EMAIL));
             etPassword.setText(savedInstanceState.getString(PASSWORD));
@@ -89,17 +89,16 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private void showErrorDialog(String message) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
         builder.setTitle(R.string.app_name);
-        if(message != null){
-            builder.setMessage(Html.fromHtml(message));
-        }
-        else{
-            builder.setMessage("");
-        }
+
+        if (message != null) {
+            builder.setMessage(Html.fromHtml(message)); }
+        else {
+            builder.setMessage(""); }
+
         builder.setPositiveButton(android.R.string.ok, null);
 
-        if(!isFinishing()){
+        if (!isFinishing()) {
             builder.show();
         }
     }
@@ -111,26 +110,22 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         outState.putString(PASSWORD, etPassword.getText().toString());
     }
 
-    private void showProgressDialog(){
-        if(progressDialog == null || !progressDialog.isShowing()){
+    private void showProgressDialog() {
+        if (progressDialog == null || !progressDialog.isShowing()) {
             progressDialog = new ProgressDialog(this);
             progressDialog.setMessage(getString(R.string.login_progress_dialog_message));
-            progressDialog.setCanceledOnTouchOutside(false);
-        }
-        if(!isFinishing()){
-            progressDialog.show();
-        }
+            progressDialog.setCanceledOnTouchOutside(false); }
+        if (!isFinishing()) {
+            progressDialog.show(); }
     }
 
-    private void hideProgressDialog(){
-        if(progressDialog != null && progressDialog.isShowing()){
-            if(!isFinishing()){
+    private void hideProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            if (!isFinishing()) {
                 progressDialog.dismiss();
             }
         }
     }
-
-
 
 
 }

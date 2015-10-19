@@ -11,14 +11,9 @@ import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Retrofit;
 
-/**
- * Created by dino on 12/10/15.
- */
 public class LoginInteractorImpl implements LoginInteractor {
 
     private ApiService apiService;
-
-    private Listener<LoginResponse> listener;
 
     private boolean isCanceled = false;
 
@@ -29,8 +24,6 @@ public class LoginInteractorImpl implements LoginInteractor {
 
     @Override
     public void authorize(String username, String password, final Listener<LoginResponse> listener) {
-        this.listener = listener;
-
         Call<Response<LoginResponse>> call = apiService.login(username, password);
         call.enqueue(new Callback<Response<LoginResponse>>() {
             @Override
@@ -44,7 +37,6 @@ public class LoginInteractorImpl implements LoginInteractor {
                     }
                 }
             }
-
             @Override
             public void onFailure(Throwable t) {
                 listener.onConnectionFailure(t.getMessage());

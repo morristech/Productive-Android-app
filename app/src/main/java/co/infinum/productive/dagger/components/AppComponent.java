@@ -11,9 +11,7 @@ import co.infinum.productive.dagger.modules.GsonConverterModule;
 import co.infinum.productive.dagger.modules.HostModule;
 import dagger.Component;
 
-/**
- * Created by dino on 03/09/15.
- */
+
 @Component(modules = {
         AppContextModule.class,
         HostModule.class,
