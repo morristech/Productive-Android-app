@@ -92,10 +92,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         builder.setTitle(R.string.app_name);
 
         if (message != null) {
-            builder.setMessage(Html.fromHtml(message)); }
-        else {
-            builder.setMessage(""); }
-
+            builder.setMessage(Html.fromHtml(message));
+        } else {
+            builder.setMessage("");
+        }
         builder.setPositiveButton(android.R.string.ok, null);
 
         if (!isFinishing()) {
@@ -114,9 +114,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         if (progressDialog == null || !progressDialog.isShowing()) {
             progressDialog = new ProgressDialog(this);
             progressDialog.setMessage(getString(R.string.login_progress_dialog_message));
-            progressDialog.setCanceledOnTouchOutside(false); }
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
         if (!isFinishing()) {
-            progressDialog.show(); }
+            progressDialog.show();
+        }
     }
 
     private void hideProgressDialog() {

@@ -6,7 +6,6 @@ import retrofit.Call;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.POST;
-import retrofit.http.Path;
 
 /**
  * Created by dino on 12/10/15.

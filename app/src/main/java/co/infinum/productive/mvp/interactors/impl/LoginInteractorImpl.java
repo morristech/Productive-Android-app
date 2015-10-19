@@ -28,8 +28,7 @@ public class LoginInteractorImpl implements LoginInteractor {
         call.enqueue(new Callback<Response<LoginResponse>>() {
             @Override
             public void onResponse(retrofit.Response<Response<LoginResponse>> response, Retrofit retrofit) {
-                if (!isCanceled)
-                {
+                if (!isCanceled) {
                     if (response.isSuccess()) {
                         listener.onSuccess(response.body().getResponse());
                     } else {
