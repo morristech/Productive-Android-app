@@ -4,6 +4,7 @@ import android.app.Application;
 
 import javax.inject.Inject;
 
+import co.infinum.productive.dagger.components.DaggerAppComponent;
 import co.infinum.productive.network.ApiService;
 
 public class ProductiveApp extends Application {
@@ -17,6 +18,8 @@ public class ProductiveApp extends Application {
     public void onCreate() {
         super.onCreate();
         setInstance(this);
+
+        DaggerAppComponent.create().inject(this);
     }
 
     public static ProductiveApp getInstance() {
