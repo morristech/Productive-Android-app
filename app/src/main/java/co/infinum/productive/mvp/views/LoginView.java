@@ -1,8 +1,10 @@
 package co.infinum.productive.mvp.views;
 
-import co.infinum.productive.models.LoginResponse;
-
 public interface LoginView extends BaseView {
 
-    void navigateToMainScreen(LoginResponse loginResponse);
+    void navigateToMainScreen(String token);
+
+    void onUsernameEmpty(String message);
+
+    void onPasswordEmpty(String message);
 }

@@ -1,15 +1,10 @@
 package co.infinum.productive.activities;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -19,19 +14,15 @@ import butterknife.OnClick;
 import co.infinum.productive.R;
 import co.infinum.productive.dagger.components.DaggerLoginComponent;
 import co.infinum.productive.dagger.modules.LoginModule;
-import co.infinum.productive.models.LoginResponse;
+import co.infinum.productive.helpers.SharedPrefsHelper;
 import co.infinum.productive.mvp.presenters.LoginPresenter;
 import co.infinum.productive.mvp.views.LoginView;
 
-public class LoginActivity extends AppCompatActivity implements LoginView {
+public class LoginActivity extends BaseActivity implements LoginView {
 
     public static final String EMAIL = "email";
 
     public static final String PASSWORD = "password";
-
-    public static final String TOKEN = "token";
-
-    private ProgressDialog progressDialog;
 
     @Bind(R.id.et_email)
     EditText etEmail;
@@ -52,7 +43,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             etEmail.setText(savedInstanceState.getString(EMAIL));
             etPassword.setText(savedInstanceState.getString(PASSWORD));
         }
-
         DaggerLoginComponent.builder()
                 .loginModule(new LoginModule(this))
                 .build()
@@ -61,73 +51,30 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @OnClick(R.id.login_button)
     public void onLoginClick() {
-        presenter.onLoginClicked(etEmail.getText().toString(), etPassword.getText().toString());
+        presenter.onLoginClicked(etEmail.getText().toString().trim(), etPassword.getText().toString().trim());
     }
 
     @Override
-    public void navigateToMainScreen(LoginResponse loginResponse) {
-        PreferenceManager.getDefaultSharedPreferences(this).edit().putString(TOKEN, loginResponse.getToken()).apply();
+    public void navigateToMainScreen(String token) {
+        SharedPrefsHelper.saveToken(token);
         Intent intent = new Intent(this, ProjectListActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void showProgress() {
-        showProgressDialog();
+    public void onUsernameEmpty(String message) {
+        etEmail.setError(message);
     }
 
     @Override
-    public void hideProgress() {
-        hideProgressDialog();
-    }
-
-    @Override
-    public void showError(String title, String message) {
-        showErrorDialog(message);
-        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    private void showErrorDialog(String message) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.app_name);
-
-        if (message != null) {
-            builder.setMessage(Html.fromHtml(message));
-        } else {
-            builder.setMessage("");
-        }
-        builder.setPositiveButton(android.R.string.ok, null);
-
-        if (!isFinishing()) {
-            builder.show();
-        }
+    public void onPasswordEmpty(String message) {
+        etPassword.setError(message);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
-        outState.putString(EMAIL, etEmail.getText().toString());
-        outState.putString(PASSWORD, etPassword.getText().toString());
+        outState.putString(EMAIL, etEmail.getText().toString().trim());
+        outState.putString(PASSWORD, etPassword.getText().toString().trim());
     }
-
-    private void showProgressDialog() {
-        if (progressDialog == null || !progressDialog.isShowing()) {
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage(getString(R.string.login_progress_dialog_message));
-            progressDialog.setCanceledOnTouchOutside(false);
-        }
-        if (!isFinishing()) {
-            progressDialog.show();
-        }
-    }
-
-    private void hideProgressDialog() {
-        if (progressDialog != null && progressDialog.isShowing()) {
-            if (!isFinishing()) {
-                progressDialog.dismiss();
-            }
-        }
-    }
-
-
 }

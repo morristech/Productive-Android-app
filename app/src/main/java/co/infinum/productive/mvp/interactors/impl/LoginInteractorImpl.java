@@ -1,15 +1,17 @@
 package co.infinum.productive.mvp.interactors.impl;
 
+import android.support.annotation.Nullable;
+
 import javax.inject.Inject;
 
-import co.infinum.productive.models.LoginResponse;
-import co.infinum.productive.models.Response;
+import co.infinum.productive.models.BaseResponse;
+import co.infinum.productive.models.User;
 import co.infinum.productive.mvp.Listener;
 import co.infinum.productive.mvp.interactors.LoginInteractor;
 import co.infinum.productive.network.ApiService;
+import co.infinum.productive.network.BaseCallback;
 import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Retrofit;
+import retrofit.Response;
 
 public class LoginInteractorImpl implements LoginInteractor {
 
@@ -17,34 +19,35 @@ public class LoginInteractorImpl implements LoginInteractor {
 
     private boolean isCanceled = false;
 
+    private Call<BaseResponse<User>> call;
+
+    private BaseCallback<BaseResponse<User>> callback;
+
     @Inject
     public LoginInteractorImpl(ApiService apiService) {
         this.apiService = apiService;
     }
 
     @Override
-    public void authorize(String username, String password, final Listener<LoginResponse> listener) {
-        Call<Response<LoginResponse>> call = apiService.login(username, password);
-        call.enqueue(new Callback<Response<LoginResponse>>() {
+    public void authorize(String username, String password, final Listener<User> listener) {
+        call = apiService.login(username, password);
+        call.enqueue(new BaseCallback<BaseResponse<User>>() {
             @Override
-            public void onResponse(retrofit.Response<Response<LoginResponse>> response, Retrofit retrofit) {
-                if (!isCanceled) {
-                    if (response.isSuccess()) {
-                        listener.onSuccess(response.body().getResponse());
-                    } else {
-                        listener.onFailure(response.message());
-                    }
-                }
+            public void onUnknownError(@Nullable String error) {
+                listener.onFailure(error);
             }
+
             @Override
-            public void onFailure(Throwable t) {
-                listener.onConnectionFailure(t.getMessage());
+            public void onSuccess(BaseResponse<User> body, Response<BaseResponse<User>> response) {
+                listener.onSuccess(body.getResponse());
             }
         });
+
     }
 
     @Override
     public void cancel() {
-        isCanceled = true;
+        call.cancel();
+        callback.cancel();
     }
 }

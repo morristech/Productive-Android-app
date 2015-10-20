@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Response<T> implements Serializable {
+public class BaseResponse<T> implements Serializable {
 
     @SerializedName("response")
     private T response;

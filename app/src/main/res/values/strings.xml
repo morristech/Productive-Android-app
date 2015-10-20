@@ -3,6 +3,7 @@
     <string name="login_hint_email">Email</string>
     <string name="login_hint_password">Password</string>
     <string name="login_button_text">Login</string>
-    <string name="empty_email_or_password_text">Email or password fields are empty</string>
-    <string name="login_progress_dialog_message">Logging you in</string>
+    <string name="empty_email">Email field is empty</string>
+    <string name="empty_password">Password field is empty</string>
+    <string name="please_wait">Please wait…</string>
 </resources>
