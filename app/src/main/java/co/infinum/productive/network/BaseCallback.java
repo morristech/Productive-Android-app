@@ -13,7 +13,7 @@ import timber.log.Timber;
 
 public abstract class BaseCallback<Response> implements Callback<Response> {
 
-    private boolean isCanceled;
+    private volatile boolean isCanceled;
 
     @Override
     public void onResponse(retrofit.Response<Response> response, Retrofit retrofit) {
@@ -31,7 +31,6 @@ public abstract class BaseCallback<Response> implements Callback<Response> {
             ResponseBody errorBody = response.errorBody();
             failure(errorBody, statusCode);
         }
-
     }
 
     @Override

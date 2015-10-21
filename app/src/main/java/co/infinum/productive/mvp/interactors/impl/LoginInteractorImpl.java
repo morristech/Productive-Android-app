@@ -17,8 +17,6 @@ public class LoginInteractorImpl implements LoginInteractor {
 
     private ApiService apiService;
 
-    private boolean isCanceled = false;
-
     private Call<BaseResponse<User>> call;
 
     private BaseCallback<BaseResponse<User>> callback;
@@ -31,7 +29,7 @@ public class LoginInteractorImpl implements LoginInteractor {
     @Override
     public void authorize(String username, String password, final Listener<User> listener) {
         call = apiService.login(username, password);
-        call.enqueue(new BaseCallback<BaseResponse<User>>() {
+        callback = new BaseCallback<BaseResponse<User>>() {
             @Override
             public void onUnknownError(@Nullable String error) {
                 listener.onFailure(error);
@@ -41,8 +39,8 @@ public class LoginInteractorImpl implements LoginInteractor {
             public void onSuccess(BaseResponse<User> body, Response<BaseResponse<User>> response) {
                 listener.onSuccess(body.getResponse());
             }
-        });
-
+        };
+        call.enqueue(callback);
     }
 
     @Override

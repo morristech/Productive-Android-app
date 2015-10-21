@@ -74,7 +74,11 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
-        outState.putString(EMAIL, etEmail.getText().toString().trim());
-        outState.putString(PASSWORD, etPassword.getText().toString().trim());
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        presenter.cancel();
     }
 }
