@@ -1,6 +1,6 @@
 package co.infinum.productive.mvp.interactors;
 
-import co.infinum.productive.models.LoginResponse;
+import co.infinum.productive.models.User;
 import co.infinum.productive.mvp.Listener;
 
 /**
@@ -8,5 +8,5 @@ import co.infinum.productive.mvp.Listener;
  */
 public interface LoginInteractor extends BaseInteractor {
 
-    void authorize(String username, String password, Listener<LoginResponse> listener);
+    void authorize(String username, String password, Listener<User> listener);
 }

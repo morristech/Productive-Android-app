@@ -1,18 +1,25 @@
 package co.infinum.productive.mvp.interactors.impl;
 
+import android.support.annotation.Nullable;
+
 import javax.inject.Inject;
 
-import co.infinum.productive.models.LoginResponse;
+import co.infinum.productive.models.BaseResponse;
+import co.infinum.productive.models.User;
 import co.infinum.productive.mvp.Listener;
 import co.infinum.productive.mvp.interactors.LoginInteractor;
 import co.infinum.productive.network.ApiService;
+import co.infinum.productive.network.BaseCallback;
+import retrofit.Call;
+import retrofit.Response;
 
-/**
- * Created by dino on 12/10/15.
- */
 public class LoginInteractorImpl implements LoginInteractor {
 
     private ApiService apiService;
+
+    private Call<BaseResponse<User>> call;
+
+    private BaseCallback<BaseResponse<User>> callback;
 
     @Inject
     public LoginInteractorImpl(ApiService apiService) {
@@ -20,12 +27,25 @@ public class LoginInteractorImpl implements LoginInteractor {
     }
 
     @Override
-    public void authorize(String username, String password, Listener<LoginResponse> listener) {
-        // TODO
+    public void authorize(String username, String password, final Listener<User> listener) {
+        call = apiService.login(username, password);
+        callback = new BaseCallback<BaseResponse<User>>() {
+            @Override
+            public void onUnknownError(@Nullable String error) {
+                listener.onFailure(error);
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<User> body, Response<BaseResponse<User>> response) {
+                listener.onSuccess(body.getResponse());
+            }
+        };
+        call.enqueue(callback);
     }
 
     @Override
     public void cancel() {
-        // TODO
+        call.cancel();
+        callback.cancel();
     }
 }
