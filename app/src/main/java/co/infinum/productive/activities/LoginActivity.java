@@ -16,9 +16,11 @@ import co.infinum.productive.dagger.components.DaggerLoginComponent;
 import co.infinum.productive.dagger.modules.LoginModule;
 import co.infinum.productive.helpers.SharedPrefsHelper;
 import co.infinum.productive.mvp.presenters.LoginPresenter;
+import co.infinum.productive.mvp.presenters.OrganizationPresenter;
 import co.infinum.productive.mvp.views.LoginView;
+import co.infinum.productive.mvp.views.OrganizationView;
 
-public class LoginActivity extends BaseActivity implements LoginView {
+public class LoginActivity extends BaseActivity implements LoginView, OrganizationView {
 
     public static final String EMAIL = "email";
 
@@ -31,7 +33,10 @@ public class LoginActivity extends BaseActivity implements LoginView {
     EditText etPassword;
 
     @Inject
-    LoginPresenter presenter;
+    LoginPresenter loginPresenter;
+
+    @Inject
+    OrganizationPresenter organizationPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,19 +49,25 @@ public class LoginActivity extends BaseActivity implements LoginView {
             etPassword.setText(savedInstanceState.getString(PASSWORD));
         }
         DaggerLoginComponent.builder()
-                .loginModule(new LoginModule(this))
+                .loginModule(new LoginModule(this, this))
                 .build()
                 .inject(this);
+
+        SharedPrefsHelper.saveToken("PRAZAN SAM");
     }
 
     @OnClick(R.id.login_button)
     public void onLoginClick() {
-        presenter.onLoginClicked(etEmail.getText().toString().trim(), etPassword.getText().toString().trim());
+        loginPresenter.onLoginClicked(etEmail.getText().toString().trim(), etPassword.getText().toString().trim());
     }
 
     @Override
-    public void navigateToMainScreen(String token) {
-        SharedPrefsHelper.saveToken(token);
+    public void proceedToOrganizationFetching() {
+        organizationPresenter.getOrganizations();
+    }
+
+    @Override
+    public void navigateToMainScreen() {
         Intent intent = new Intent(this, ProjectListActivity.class);
         startActivity(intent);
     }
@@ -79,6 +90,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        presenter.cancel();
+        loginPresenter.cancel();
     }
 }

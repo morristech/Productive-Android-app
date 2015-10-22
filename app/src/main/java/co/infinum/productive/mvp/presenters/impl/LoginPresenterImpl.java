@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import co.infinum.productive.ProductiveApp;
 import co.infinum.productive.R;
+import co.infinum.productive.helpers.SharedPrefsHelper;
 import co.infinum.productive.models.User;
 import co.infinum.productive.mvp.Listener;
 import co.infinum.productive.mvp.interactors.LoginInteractor;
@@ -47,7 +48,8 @@ public class LoginPresenterImpl implements LoginPresenter, Listener<User> {
     public void onSuccess(User user) {
         loginView.hideProgress();
         ProductiveApp.setUserSession(user);
-        loginView.navigateToMainScreen(user.getToken());
+        SharedPrefsHelper.saveToken(user.getToken());
+        loginView.proceedToOrganizationFetching();
     }
 
     @Override
