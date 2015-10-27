@@ -17,11 +17,9 @@ import co.infinum.productive.dagger.components.DaggerLoginComponent;
 import co.infinum.productive.dagger.modules.LoginModule;
 import co.infinum.productive.helpers.SharedPrefsHelper;
 import co.infinum.productive.mvp.presenters.LoginPresenter;
-import co.infinum.productive.mvp.presenters.OrganizationPresenter;
 import co.infinum.productive.mvp.views.LoginView;
-import co.infinum.productive.mvp.views.OrganizationView;
 
-public class LoginActivity extends BaseActivity implements LoginView, OrganizationView {
+public class LoginActivity extends BaseActivity implements LoginView {
 
     public static final String EMAIL = "email";
 
@@ -36,8 +34,6 @@ public class LoginActivity extends BaseActivity implements LoginView, Organizati
     @Inject
     LoginPresenter loginPresenter;
 
-    @Inject
-    OrganizationPresenter organizationPresenter;
 
     @Bind(R.id.toggle_password)
     Button togglePassword;
@@ -52,12 +48,11 @@ public class LoginActivity extends BaseActivity implements LoginView, Organizati
             etEmail.setText(savedInstanceState.getString(EMAIL));
             etPassword.setText(savedInstanceState.getString(PASSWORD));
         }
+
         DaggerLoginComponent.builder()
-                .loginModule(new LoginModule(this, this))
+                .loginModule(new LoginModule(this))
                 .build()
                 .inject(this);
-
-        SharedPrefsHelper.saveToken("");
     }
 
     @OnClick(R.id.login_button)
@@ -71,12 +66,9 @@ public class LoginActivity extends BaseActivity implements LoginView, Organizati
     }
 
     @Override
-    public void proceedToOrganizationFetching() {
-        organizationPresenter.getOrganizations();
-    }
+    public void onLoginSuccess(String token) {
+        SharedPrefsHelper.saveToken(token);
 
-    @Override
-    public void navigateToMainScreen() {
         Intent intent = new Intent(this, ProjectListActivity.class);
         startActivity(intent);
     }
@@ -94,5 +86,11 @@ public class LoginActivity extends BaseActivity implements LoginView, Organizati
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        loginPresenter.cancel();
     }
 }

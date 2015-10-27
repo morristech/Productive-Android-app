@@ -9,4 +9,6 @@ public interface LoginPresenter extends BasePresenter {
     void onLoginClicked(String username, String password);
 
     void onToggle(EditText editText, Button button, Context context);
+
+    void getOrganizations();
 }
