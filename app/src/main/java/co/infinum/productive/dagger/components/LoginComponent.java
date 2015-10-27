@@ -8,7 +8,7 @@ import dagger.Component;
 
 @Component(modules = {
         NetworkModule.class,
-        LoginModule.class
+        LoginModule.class,
 })
 public interface LoginComponent {
 

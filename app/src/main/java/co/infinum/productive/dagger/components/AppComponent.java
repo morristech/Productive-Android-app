@@ -17,7 +17,7 @@ import dagger.Component;
         HostModule.class,
         GsonConverterModule.class,
         ClientModule.class,
-        ApiModule.class
+        ApiModule.class,
 })
 @Singleton
 public interface AppComponent {

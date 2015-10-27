@@ -16,11 +16,9 @@ import co.infinum.productive.dagger.components.DaggerLoginComponent;
 import co.infinum.productive.dagger.modules.LoginModule;
 import co.infinum.productive.helpers.SharedPrefsHelper;
 import co.infinum.productive.mvp.presenters.LoginPresenter;
-import co.infinum.productive.mvp.presenters.OrganizationPresenter;
 import co.infinum.productive.mvp.views.LoginView;
-import co.infinum.productive.mvp.views.OrganizationView;
 
-public class LoginActivity extends BaseActivity implements LoginView, OrganizationView {
+public class LoginActivity extends BaseActivity implements LoginView {
 
     public static final String EMAIL = "email";
 
@@ -35,9 +33,6 @@ public class LoginActivity extends BaseActivity implements LoginView, Organizati
     @Inject
     LoginPresenter loginPresenter;
 
-    @Inject
-    OrganizationPresenter organizationPresenter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,12 +43,11 @@ public class LoginActivity extends BaseActivity implements LoginView, Organizati
             etEmail.setText(savedInstanceState.getString(EMAIL));
             etPassword.setText(savedInstanceState.getString(PASSWORD));
         }
+
         DaggerLoginComponent.builder()
-                .loginModule(new LoginModule(this, this))
+                .loginModule(new LoginModule(this))
                 .build()
                 .inject(this);
-
-        SharedPrefsHelper.saveToken("PRAZAN SAM");
     }
 
     @OnClick(R.id.login_button)
@@ -62,8 +56,9 @@ public class LoginActivity extends BaseActivity implements LoginView, Organizati
     }
 
     @Override
-    public void proceedToOrganizationFetching() {
-        organizationPresenter.getOrganizations();
+    public void onLoginSuccess(String token) {
+        SharedPrefsHelper.saveToken(token);
+        loginPresenter.getOrganizations();
     }
 
     @Override
@@ -88,8 +83,8 @@ public class LoginActivity extends BaseActivity implements LoginView, Organizati
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    protected void onStop() {
+        super.onStop();
         loginPresenter.cancel();
     }
 }

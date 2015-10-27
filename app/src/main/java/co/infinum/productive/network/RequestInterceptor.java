@@ -13,20 +13,17 @@ import co.infinum.productive.helpers.SharedPrefsHelper;
  */
 public class RequestInterceptor implements Interceptor {
 
+    private static final String LOGIN_URL = "https://productive.io/api/v1/users/login";
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request originalRequest = chain.request();
         Request changedRequest;
 
-        if (!originalRequest.urlString().equals("https://productive.io/api/v1/users/login")) {
-            Request.Builder builder = new Request.Builder();
+        if (!originalRequest.urlString().equals(LOGIN_URL)) {
+            Request.Builder builder = originalRequest.newBuilder();
 
             builder.url(originalRequest.urlString() + "?token=" + SharedPrefsHelper.getToken());
-
-            if (originalRequest.body() != null) {
-                builder.put(originalRequest.body());
-            }
-
             changedRequest = builder.build();
 
             return chain.proceed(changedRequest);
