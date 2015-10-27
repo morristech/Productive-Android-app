@@ -4,6 +4,7 @@ package co.infinum.productive.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.widget.Button;
 import android.widget.EditText;
 
 import javax.inject.Inject;
@@ -38,6 +39,9 @@ public class LoginActivity extends BaseActivity implements LoginView, Organizati
     @Inject
     OrganizationPresenter organizationPresenter;
 
+    @Bind(R.id.toggle_password)
+    Button togglePassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +57,17 @@ public class LoginActivity extends BaseActivity implements LoginView, Organizati
                 .build()
                 .inject(this);
 
-        SharedPrefsHelper.saveToken("PRAZAN SAM");
+        SharedPrefsHelper.saveToken("");
     }
 
     @OnClick(R.id.login_button)
     public void onLoginClick() {
         loginPresenter.onLoginClicked(etEmail.getText().toString().trim(), etPassword.getText().toString().trim());
+    }
+
+    @OnClick(R.id.toggle_password)
+    public void onToggle(){
+        loginPresenter.onToggle(etPassword, togglePassword, getApplicationContext());
     }
 
     @Override
@@ -85,11 +94,5 @@ public class LoginActivity extends BaseActivity implements LoginView, Organizati
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        loginPresenter.cancel();
     }
 }

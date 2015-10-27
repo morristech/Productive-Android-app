@@ -1,6 +1,10 @@
 package co.infinum.productive.mvp.presenters.impl;
 
+import android.content.Context;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
+import android.widget.Button;
+import android.widget.EditText;
 
 import javax.inject.Inject;
 
@@ -12,6 +16,7 @@ import co.infinum.productive.mvp.Listener;
 import co.infinum.productive.mvp.interactors.LoginInteractor;
 import co.infinum.productive.mvp.presenters.LoginPresenter;
 import co.infinum.productive.mvp.views.LoginView;
+
 
 
 public class LoginPresenterImpl implements LoginPresenter, Listener<User> {
@@ -35,6 +40,16 @@ public class LoginPresenterImpl implements LoginPresenter, Listener<User> {
         } else {
             loginView.showProgress();
             loginInteractor.authorize(username, password, this);
+        }
+    }
+    @Override
+    public void onToggle(EditText etPassword, Button togglePassword, Context context) {
+        if(!togglePassword.getText().equals(context.getString(R.string.alternative_show_hide_text))){
+            togglePassword.setText(R.string.alternative_show_hide_text);
+            etPassword.setTransformationMethod(null);
+        }else{
+            togglePassword.setText(R.string.show_button_text);
+            etPassword.setTransformationMethod(new PasswordTransformationMethod());
         }
     }
 

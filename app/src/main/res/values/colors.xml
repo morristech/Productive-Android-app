@@ -3,4 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="signinButtonDefaultColor">#e36539</color>
+    <color name="signinButtonHighlight">#cc6539</color>
+    <color name="registerButtonHighlight">#e7e7e8</color>
 </resources>
