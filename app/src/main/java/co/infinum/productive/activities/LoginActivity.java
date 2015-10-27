@@ -61,7 +61,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     }
 
     @OnClick(R.id.toggle_password)
-    public void onToggle(){
+    public void onToggle() {
         loginPresenter.onToggle(etPassword, togglePassword, getApplicationContext());
     }
 

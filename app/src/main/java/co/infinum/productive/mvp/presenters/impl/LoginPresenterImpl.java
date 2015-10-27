@@ -54,10 +54,10 @@ public class LoginPresenterImpl implements LoginPresenter {
     }
     @Override
     public void onToggle(EditText etPassword, Button togglePassword, Context context) {
-        if(!togglePassword.getText().equals(context.getString(R.string.alternative_show_hide_text))){
+        if (!togglePassword.getText().equals(context.getString(R.string.alternative_show_hide_text))) {
             togglePassword.setText(R.string.alternative_show_hide_text);
             etPassword.setTransformationMethod(null);
-        }else{
+        } else {
             togglePassword.setText(R.string.show_button_text);
             etPassword.setTransformationMethod(new PasswordTransformationMethod());
         }
