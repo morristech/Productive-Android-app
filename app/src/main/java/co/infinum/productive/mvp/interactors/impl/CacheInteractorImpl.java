@@ -12,11 +12,11 @@ import co.infinum.productive.mvp.interactors.CacheInteractor;
 public class CacheInteractorImpl implements CacheInteractor {
 
     private static final int CACHE_SIZE = 2 * 1024; // in number of items not in bytes
-    private volatile LruCache<String, Object> lruCache = new LruCache<>(CACHE_SIZE);
+    private volatile LruCache<String, Object> lruCache;
 
     @Inject
     public CacheInteractorImpl() {
-        // construct
+        lruCache = new LruCache<>(CACHE_SIZE);
     }
 
     @Override

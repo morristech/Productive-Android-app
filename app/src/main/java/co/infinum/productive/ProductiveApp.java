@@ -5,6 +5,7 @@ import android.app.Application;
 import javax.inject.Inject;
 
 import co.infinum.productive.dagger.components.DaggerAppComponent;
+import co.infinum.productive.mvp.interactors.CacheInteractor;
 import co.infinum.productive.network.ApiService;
 
 public class ProductiveApp extends Application {
@@ -13,6 +14,9 @@ public class ProductiveApp extends Application {
 
     @Inject
     protected ApiService apiService;
+
+    @Inject
+    protected CacheInteractor cacheInteractor;
 
     public static ProductiveApp getInstance() {
         return instance;
@@ -32,5 +36,9 @@ public class ProductiveApp extends Application {
 
     public ApiService getApiService() {
         return apiService;
+    }
+
+    public CacheInteractor getCacheInteractor() {
+        return cacheInteractor;
     }
 }
