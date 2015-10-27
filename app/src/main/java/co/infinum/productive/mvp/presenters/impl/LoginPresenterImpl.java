@@ -59,7 +59,7 @@ public class LoginPresenterImpl implements LoginPresenter {
         public void onSuccess(User user) {
             loginView.hideProgress();
             cacheInteractor.setCache(USER, user);
-            loginView.onLoginSuccess(user.getToken());
+            getOrganizations();
         }
 
         @Override
@@ -79,7 +79,7 @@ public class LoginPresenterImpl implements LoginPresenter {
         public void onSuccess(ArrayList<Organization> organizations) {
             loginView.hideProgress();
             cacheInteractor.setCache(ORGANIZATIONS, organizations);
-            loginView.navigateToMainScreen();
+            loginView.onLoginSuccess(((User) cacheInteractor.getCache(USER)).getToken());
         }
 
         @Override

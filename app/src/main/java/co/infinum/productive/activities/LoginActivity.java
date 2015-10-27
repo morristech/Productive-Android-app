@@ -58,11 +58,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void onLoginSuccess(String token) {
         SharedPrefsHelper.saveToken(token);
-        loginPresenter.getOrganizations();
-    }
 
-    @Override
-    public void navigateToMainScreen() {
         Intent intent = new Intent(this, ProjectListActivity.class);
         startActivity(intent);
     }
