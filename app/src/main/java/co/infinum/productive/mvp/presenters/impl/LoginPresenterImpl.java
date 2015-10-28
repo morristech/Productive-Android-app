@@ -24,9 +24,6 @@ import co.infinum.productive.mvp.views.LoginView;
 
 public class LoginPresenterImpl implements LoginPresenter {
 
-    public static final String USER = "user";
-    public static final String ORGANIZATIONS = "organizations";
-
     private final LoginView loginView;
     private final LoginInteractor loginInteractor;
     private final OrganizationInteractor organizationInteractor;
@@ -72,7 +69,7 @@ public class LoginPresenterImpl implements LoginPresenter {
         @Override
         public void onSuccess(User user) {
             loginView.hideProgress();
-            cacheInteractor.setCache(USER, user);
+            cacheInteractor.cacheUser(user);
             getOrganizations();
         }
 
@@ -84,6 +81,7 @@ public class LoginPresenterImpl implements LoginPresenter {
 
         @Override
         public void onConnectionFailure(String message) {
+            loginView.hideProgress();
             loginView.showError(message);
         }
     };
@@ -92,8 +90,8 @@ public class LoginPresenterImpl implements LoginPresenter {
         @Override
         public void onSuccess(ArrayList<Organization> organizations) {
             loginView.hideProgress();
-            cacheInteractor.setCache(ORGANIZATIONS, organizations);
-            loginView.onLoginSuccess(((User) cacheInteractor.getCache(USER)).getToken());
+            cacheInteractor.cacheOrganizations(organizations);
+            loginView.onLoginSuccess(((User) cacheInteractor.getUser()).getToken());
         }
 
         @Override
@@ -104,6 +102,7 @@ public class LoginPresenterImpl implements LoginPresenter {
 
         @Override
         public void onConnectionFailure(String message) {
+            loginView.hideProgress();
             loginView.showError(message);
         }
     };
