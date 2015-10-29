@@ -12,9 +12,9 @@ public interface CacheInteractor {
 
     void cacheOrganizations(ArrayList<Organization> organizations);
 
-    Object getOrganizations();
+    ArrayList<Organization> getOrganizations();
 
     void cacheUser(User user);
 
-    Object getUser();
+    User getUser();
 }

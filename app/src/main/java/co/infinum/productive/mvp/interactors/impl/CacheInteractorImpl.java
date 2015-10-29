@@ -40,8 +40,8 @@ public class CacheInteractorImpl implements CacheInteractor {
     }
 
     @Override
-    public Object getOrganizations() {
-        return getCache(ORGANIZATIONS);
+    public ArrayList<Organization> getOrganizations() {
+        return (ArrayList<Organization>) getCache(ORGANIZATIONS);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class CacheInteractorImpl implements CacheInteractor {
     }
 
     @Override
-    public Object getUser() {
-        return getCache(USER);
+    public User getUser() {
+        return (User) getCache(USER);
     }
 }

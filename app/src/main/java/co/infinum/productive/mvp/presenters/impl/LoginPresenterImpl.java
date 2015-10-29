@@ -91,7 +91,7 @@ public class LoginPresenterImpl implements LoginPresenter {
         public void onSuccess(ArrayList<Organization> organizations) {
             loginView.hideProgress();
             cacheInteractor.cacheOrganizations(organizations);
-            loginView.onLoginSuccess(((User) cacheInteractor.getUser()).getToken());
+            loginView.onLoginSuccess(cacheInteractor.getUser().getToken());
         }
 
         @Override
