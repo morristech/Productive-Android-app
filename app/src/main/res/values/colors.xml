@@ -6,4 +6,6 @@
     <color name="signinButtonDefaultColor">#e36539</color>
     <color name="signinButtonHighlight">#cc6539</color>
     <color name="registerButtonHighlight">#e7e7e8</color>
+    <color name="showHideButtonTextColor">#888888</color>
+    <color name="loginCredentialsContainerBackgroundColor">#f7f7f7</color>
 </resources>

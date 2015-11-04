@@ -17,4 +17,7 @@
     <dimen name="credentials_spacing">30dp</dimen>
     <dimen name="register_button_margin_top">20dp</dimen>
     <dimen name="side_margin_buttons">30dp</dimen>
+    <dimen name="show_hide_button_margin_top">110dp</dimen>
+    <dimen name="show_hide_button_width">70dp</dimen>
+    <dimen name="show_hide_button_height">30dp</dimen>
 </resources>
