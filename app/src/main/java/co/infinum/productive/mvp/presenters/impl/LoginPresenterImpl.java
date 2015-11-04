@@ -111,5 +111,6 @@ public class LoginPresenterImpl implements LoginPresenter {
     public void cancel() {
         loginView.hideProgress();
         loginInteractor.cancel();
+        organizationInteractor.cancel();
     }
 }
