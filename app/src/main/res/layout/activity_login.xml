@@ -1,67 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/default_spacing"
-        android:layout_marginBottom="@dimen/default_spacing"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/default_spacing"
+    android:layout_marginTop="@dimen/default_spacing"
+    tools:context=".MainActivity">
 
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/productive_logo"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/logo_image"
-            />
+        android:id="@+id/logo_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/productive_logo" />
 
-    <LinearLayout
-            style="@style/loginCredentialsContainer"
-            android:id="@+id/login_credentials_container" >
-
-        <EditText
-                style="@style/loginCredentials"
-                android:id="@+id/et_email"
-                android:layout_marginBottom="@dimen/credentials_spacing"
-                android:inputType="textEmailAddress"
-                android:hint="@string/login_hint_email" />
+    <RelativeLayout
+        android:id="@+id/login_credentials_container"
+        style="@style/loginCredentialsContainer">
 
         <EditText
-                style="@style/loginCredentials"
-                android:inputType="textPassword"
-                android:id="@+id/et_password"
-                android:hint="@string/login_hint_password" />
-    </LinearLayout>
+            android:id="@+id/et_email"
+            style="@style/loginCredentials"
+            android:layout_marginBottom="@dimen/credentials_spacing"
+            android:hint="@string/login_hint_email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/et_password"
+            style="@style/loginCredentials"
+            android:layout_below="@+id/et_email"
+            android:hint="@string/login_hint_password"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/toggle_password"
+            android:layout_width="@dimen/show_hide_button_width"
+            android:layout_height="@dimen/show_hide_button_height"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/et_email"
+            android:background="@android:color/transparent"
+            android:text="@string/show_button_text"
+            android:textAllCaps="true"
+            android:textColor="@color/showHideButtonTextColor" />
+
+    </RelativeLayout>
+
 
     <Button
-        android:layout_width="@dimen/show_hide_button_width"
-        android:layout_height="@dimen/show_hide_button_height"
-        android:background="@android:color/transparent"
-        android:text="@string/show_button_text"
-        android:id="@+id/toggle_password"
-        android:layout_marginTop="@dimen/show_hide_button_margin_top"
-        android:textColor="@color/showHideButtonTextColor"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/logo_image"
-        android:textAllCaps="true"/>
+        android:id="@+id/login_button"
+        style="@style/signInAndRegisterButton"
+        android:layout_above="@+id/register_button"
+        android:background="@drawable/signin_selector_button_orange"
+        android:text="@string/login_button_text"
+        android:textColor="@android:color/white" />
 
     <Button
-            style="@style/signInAndRegisterButton"
-            android:layout_above="@+id/register_button"
-            android:text="@string/login_button_text"
-            android:id="@+id/login_button"
-            android:background="@drawable/signin_selector_button_orange"
-            android:textColor="@android:color/white"
-            />
-
-    <Button
-            style="@style/signInAndRegisterButton"
-            android:text="@string/create_account_button_text"
-            android:background="@drawable/register_selector_button_white"
-            android:layout_marginTop="@dimen/register_button_margin_top"
-            android:id="@+id/register_button"
-            android:layout_alignParentBottom="true"
-            />
+        android:id="@+id/register_button"
+        style="@style/signInAndRegisterButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/register_button_margin_top"
+        android:background="@drawable/register_selector_button_white"
+        android:text="@string/create_account_button_text" />
 
 </RelativeLayout>

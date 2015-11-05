@@ -1,6 +1,7 @@
 package co.infinum.productive.mvp.interactors.impl;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import javax.inject.Inject;
 

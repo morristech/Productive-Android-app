@@ -3,6 +3,7 @@ package co.infinum.productive.mvp.presenters.impl;
 import android.content.Context;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
