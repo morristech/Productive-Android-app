@@ -51,7 +51,9 @@ public class OrganizationInteractorImpl implements OrganizationInteractor {
 
     @Override
     public void cancel() {
-        call.cancel();
-        callback.cancel();
+        if (call != null && callback != null) {
+            call.cancel();
+            callback.cancel();
+        }
     }
 }
