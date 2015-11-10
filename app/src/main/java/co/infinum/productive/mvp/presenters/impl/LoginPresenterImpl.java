@@ -54,9 +54,11 @@ public class LoginPresenterImpl implements LoginPresenter {
         if (!togglePassword.getText().equals(context.getString(R.string.alternative_show_hide_text))) {
             togglePassword.setText(R.string.alternative_show_hide_text);
             etPassword.setTransformationMethod(null);
+            etPassword.setSelection(etPassword.getText().length());
         } else {
             togglePassword.setText(R.string.show_button_text);
             etPassword.setTransformationMethod(new PasswordTransformationMethod());
+            etPassword.setSelection(etPassword.getText().length());
         }
     }
 
