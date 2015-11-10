@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import co.infinum.productive.ProductiveApp;
 import co.infinum.productive.R;
+import co.infinum.productive.helpers.SharedPrefsHelper;
 import co.infinum.productive.models.Organization;
 import co.infinum.productive.models.User;
 import co.infinum.productive.mvp.Listener;
@@ -72,6 +73,10 @@ public class LoginPresenterImpl implements LoginPresenter {
         public void onSuccess(User user) {
             loginView.hideProgress();
             cacheInteractor.cacheUser(user);
+
+            // can't fetch organizations without this step here
+            SharedPrefsHelper.saveToken(user.getToken());
+
             getOrganizations();
         }
 
@@ -93,7 +98,7 @@ public class LoginPresenterImpl implements LoginPresenter {
         public void onSuccess(ArrayList<Organization> organizations) {
             loginView.hideProgress();
             cacheInteractor.cacheOrganizations(organizations);
-            loginView.onLoginSuccess(cacheInteractor.getUser().getToken());
+            loginView.onLoginSuccess();
         }
 
         @Override

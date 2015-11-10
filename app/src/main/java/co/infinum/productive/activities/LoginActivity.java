@@ -15,7 +15,6 @@ import butterknife.OnClick;
 import co.infinum.productive.R;
 import co.infinum.productive.dagger.components.DaggerLoginComponent;
 import co.infinum.productive.dagger.modules.LoginModule;
-import co.infinum.productive.helpers.SharedPrefsHelper;
 import co.infinum.productive.mvp.presenters.LoginPresenter;
 import co.infinum.productive.mvp.views.LoginView;
 
@@ -66,9 +65,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     }
 
     @Override
-    public void onLoginSuccess(String token) {
-        SharedPrefsHelper.saveToken(token);
-
+    public void onLoginSuccess() {
         Intent intent = new Intent(this, ProjectListActivity.class);
         startActivity(intent);
     }
