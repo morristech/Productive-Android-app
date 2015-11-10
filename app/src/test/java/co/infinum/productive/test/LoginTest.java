@@ -1,16 +1,14 @@
 package co.infinum.productive.test;
 
-import android.widget.Button;
-import android.widget.EditText;
-
 import com.squareup.okhttp.mockwebserver.RecordedRequest;
-
-import junit.framework.Assert;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.util.ActivityController;
+
+import android.widget.Button;
+import android.widget.EditText;
 
 import co.infinum.productive.R;
 import co.infinum.productive.activities.LoginActivity;
@@ -27,7 +25,7 @@ public class LoginTest extends BaseTest {
 
 
     @Test
-    public void successfulLogin(){
+    public void successfulLogin() {
         ActivityController<LoginActivity> loginActivityActivityController = Robolectric.buildActivity(LoginActivity.class);
 
         LoginActivity loginActivity = loginActivityActivityController.create()
@@ -44,10 +42,10 @@ public class LoginTest extends BaseTest {
         passwordEditText.setText("servis");
         loginButton.performClick();
 
-        try{
+        try {
             RecordedRequest recordedRequest = takeLastRequest();
             assertThat(recordedRequest.getHeader("Content-type"), equalTo("application/json; charset=UTF-8"));
-        }catch(InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

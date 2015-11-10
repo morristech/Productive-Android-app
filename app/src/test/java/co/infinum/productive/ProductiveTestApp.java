@@ -1,16 +1,15 @@
 package co.infinum.productive;
 
-import android.annotation.SuppressLint;
-
 import com.google.gson.Gson;
+
 import com.squareup.okhttp.mockwebserver.MockWebServer;
 
 import org.robolectric.TestLifecycleApplication;
 
+import android.annotation.SuppressLint;
+
 import java.lang.reflect.Method;
 
-import co.infinum.productive.dagger.component.AppTestComponent;
-import co.infinum.productive.dagger.components.DaggerAppComponent;
 import co.infinum.productive.dagger.module.MockHostModule;
 
 /**
@@ -43,7 +42,7 @@ public class ProductiveTestApp extends ProductiveApp implements TestLifecycleApp
     public void beforeTest(Method method) {
         MockHostModule mockHostModule = new MockHostModule();
         setMockWebServer(mockHostModule);
-        
+
     }
 
     @Override
