@@ -7,7 +7,7 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
-import co.infinum.productive.helpers.SharedPrefsHelper;
+import co.infinum.productive.ProductiveApp;
 
 /**
  * Created by mjurinic on 22.10.15..
@@ -17,7 +17,6 @@ public class RequestInterceptor implements Interceptor {
     public static final String LOGIN_URL = "https://productive.io/api/v1/users/login";
     public static final String TOKEN = "token";
 
-    @Override
     public Response intercept(Chain chain) throws IOException {
         Request originalRequest = chain.request();
         Request changedRequest;
@@ -26,7 +25,7 @@ public class RequestInterceptor implements Interceptor {
             Request.Builder builder = originalRequest.newBuilder();
 
             HttpUrl changedUrl = originalRequest.httpUrl().newBuilder()
-                    .addQueryParameter(TOKEN, SharedPrefsHelper.getToken())
+                    .addQueryParameter(TOKEN, ProductiveApp.getInstance().getCacheInteractor().getUser().getToken())
                     .build();
 
             builder.url(changedUrl.toString());

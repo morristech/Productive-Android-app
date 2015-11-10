@@ -21,7 +21,6 @@ import co.infinum.productive.mvp.views.LoginView;
 public class LoginActivity extends BaseActivity implements LoginView {
 
     public static final String EMAIL = "email";
-
     public static final String PASSWORD = "password";
 
     @Bind(R.id.et_email)
@@ -30,12 +29,11 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Bind(R.id.et_password)
     EditText etPassword;
 
-    @Inject
-    LoginPresenter loginPresenter;
-
-
     @Bind(R.id.toggle_password)
     Button togglePassword;
+
+    @Inject
+    LoginPresenter loginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
