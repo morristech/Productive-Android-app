@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 
 import java.lang.reflect.Method;
 
+import co.infinum.productive.dagger.component.DaggerAppTestComponent;
 import co.infinum.productive.dagger.module.MockHostModule;
 
 /**
@@ -42,7 +43,10 @@ public class ProductiveTestApp extends ProductiveApp implements TestLifecycleApp
     public void beforeTest(Method method) {
         MockHostModule mockHostModule = new MockHostModule();
         setMockWebServer(mockHostModule);
-
+        DaggerAppTestComponent.builder()
+                .mockHostModule(mockHostModule)
+                .build()
+                .inject(this);
     }
 
     @Override

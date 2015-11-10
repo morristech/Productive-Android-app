@@ -23,9 +23,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(CustomRobolectricGradleTestRunner.class)
 public class LoginTest extends BaseTest {
 
-
     @Test
     public void successfulLogin() {
+
+        enqueueResponse("user.json", 200);
+
         ActivityController<LoginActivity> loginActivityActivityController = Robolectric.buildActivity(LoginActivity.class);
 
         LoginActivity loginActivity = loginActivityActivityController.create()

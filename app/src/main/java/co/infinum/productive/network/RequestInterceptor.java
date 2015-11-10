@@ -23,7 +23,6 @@ public class RequestInterceptor implements Interceptor {
 
         if (!originalRequest.urlString().equals(LOGIN_URL)) {
             Request.Builder builder = originalRequest.newBuilder();
-
             HttpUrl changedUrl = originalRequest.httpUrl().newBuilder()
                     .addQueryParameter(TOKEN, ProductiveApp.getInstance().getCacheInteractor().getUser().getToken())
                     .build();
