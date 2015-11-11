@@ -7,6 +7,7 @@ import com.squareup.okhttp.mockwebserver.MockWebServer;
 import org.robolectric.TestLifecycleApplication;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 import java.lang.reflect.Method;
 

@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import co.infinum.productive.models.BaseResponse;
 import co.infinum.productive.models.Organization;
+import co.infinum.productive.models.Project;
 import co.infinum.productive.models.User;
 import retrofit.Call;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.Path;
 
 public interface ApiService {
 
@@ -19,6 +21,9 @@ public interface ApiService {
 
     @GET("/api/v1/organizations")
     Call<BaseResponse<ArrayList<Organization>>> getOrganizations();
+
+    @GET("/api/v1/{organizationId}/projects")
+    Call<BaseResponse<ArrayList<Project>>> getProjects(@Path("organizationId") int organizationId);
 
     // TODO specify REST API
 }
