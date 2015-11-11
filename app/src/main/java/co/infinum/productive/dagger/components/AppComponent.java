@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 import co.infinum.productive.ProductiveApp;
 import co.infinum.productive.dagger.modules.ApiModule;
 import co.infinum.productive.dagger.modules.AppContextModule;
+import co.infinum.productive.dagger.modules.CacheInstanceModule;
 import co.infinum.productive.dagger.modules.ClientModule;
 import co.infinum.productive.dagger.modules.GsonConverterModule;
 import co.infinum.productive.dagger.modules.HostModule;
@@ -17,7 +18,8 @@ import dagger.Component;
         HostModule.class,
         GsonConverterModule.class,
         ClientModule.class,
-        ApiModule.class
+        ApiModule.class,
+        CacheInstanceModule.class,
 })
 @Singleton
 public interface AppComponent {

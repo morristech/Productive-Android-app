@@ -12,6 +12,8 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0.0"
+        testApplicationId "co.infinum.productive.ProductiveApp.instrument.test"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -87,17 +89,10 @@ android {
     }
 }
 
-/**
- * @return a build number suffix if this build has the CIRCLE_BUILD_NUM environment variable set, an empty string otherwise
- */
-def getBuildNumberSuffix() {
-
-    def buildNumber = System.getenv("CIRCLE_BUILD_NUM")
-
-    if (buildNumber?.trim()) {
-        return '-b' + buildNumber
-    } else {
-        return ''
+configurations.all {
+    resolutionStrategy {
+        // should fix support-annotations versions mismatch between app and test app
+        force 'com.android.support:support-annotations:23.1.0'
     }
 }
 
@@ -114,43 +109,62 @@ dependencies {
     compile 'com.google.dagger:dagger:2.0'
     apt 'com.google.dagger:dagger-compiler:2.0'
     compile 'org.glassfish:javax.annotation:10.0-b28'
-    testCompile 'junit:junit:4.12'
 
     compile('com.afollestad.material-dialogs:core:0.8.4.2@aar') {
         transitive = true
     }
 
-
-    //robolectric
-    testCompile ('com.squareup.okhttp:mockwebserver:2.5.0') {
-        exclude module: 'okio'
-    }
+    // unit tests
+    testCompile 'org.robolectric:robolectric:3.0'
+    testCompile 'org.robolectric:shadows-support-v4:3.0'
+    testCompile 'org.robolectric:shadows-play-services:3.0'
+    testApt 'com.google.dagger:dagger-compiler:2.0'
+    testCompile 'com.squareup.okhttp:mockwebserver:2.5.0'
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.squareup.assertj:assertj-android:1.1.0'
     testCompile 'org.mockito:mockito-core:1.10.19'
-    testCompile 'com.google.dexmaker:dexmaker:1.2'
-    testCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
+}
 
-    testCompile 'org.hamcrest:hamcrest-integration:1.1'
-    testCompile 'org.hamcrest:hamcrest-core:1.1'
-    testCompile 'org.hamcrest:hamcrest-library:1.1'
-    testCompile('junit:junit:4.12') {
-        exclude module: 'hamcrest-core'
+/**
+ * @return a build number suffix if this build has the CIRCLE_BUILD_NUM environment variable set, an empty string otherwise
+ */
+def getBuildNumberSuffix() {
+
+    def buildNumber = System.getenv("CIRCLE_BUILD_NUM")
+
+    if (buildNumber?.trim()) {
+        return '-b' + buildNumber
+    } else {
+        return ''
     }
-    testCompile('org.robolectric:robolectric:3.0-rc3') {
-        exclude module: 'classworlds'
-        exclude module: 'commons-logging'
-        exclude module: 'httpclient'
-        exclude module: 'maven-artifact'
-        exclude module: 'maven-artifact-manager'
-        exclude module: 'maven-error-diagnostics'
-        exclude module: 'maven-model'
-        exclude module: 'maven-project'
-        exclude module: 'maven-settings'
-        exclude module: 'plexus-container-default'
-        exclude module: 'plexus-interpolation'
-        exclude module: 'plexus-utils'
-        exclude module: 'support-v4'
-        exclude module: 'wagon-file'
-        exclude module: 'wagon-http-lightweight'
-        exclude module: 'wagon-provider-api'
+}
+
+// Configure robolectric tests.
+android.testOptions.unitTests.all {
+
+    include '**/*Test.class'
+    exclude '**/espresso/**/*.class'
+
+    // Configure max heap size of the test JVM
+    maxHeapSize = '2048m'
+
+    // Configure the test JVM arguments - Does not apply to Java 8
+    jvmArgs '-XX:MaxPermSize=512m', '-XX:-UseSplitVerifier'
+
+    // Specify max number of processes (default is 1)
+    maxParallelForks = 1
+
+    // Specify max number of test classes to execute in     a test process
+    // before restarting the process (default is unlimited)
+    forkEvery = 150
+
+    // configure whether failing tests should fail the build
+    ignoreFailures false
+
+    // use afterTest to listen to the test execution results
+    afterTest { descriptor, result ->
+        def classNameParts = descriptor.className.tokenize('.')
+        def simpleClassName = classNameParts[classNameParts.size - 1]
+        println "Executed test ${simpleClassName}.${descriptor.name}: ${result.resultType}"
     }
 }

@@ -5,17 +5,18 @@ import android.app.Application;
 import javax.inject.Inject;
 
 import co.infinum.productive.dagger.components.DaggerAppComponent;
-import co.infinum.productive.models.User;
+import co.infinum.productive.mvp.interactors.CacheInteractor;
 import co.infinum.productive.network.ApiService;
 
 public class ProductiveApp extends Application {
 
     protected static ProductiveApp instance;
 
-    protected static User user;
-
     @Inject
     protected ApiService apiService;
+
+    @Inject
+    protected CacheInteractor cacheInteractor;
 
     public static ProductiveApp getInstance() {
         return instance;
@@ -23,10 +24,6 @@ public class ProductiveApp extends Application {
 
     public static void setInstance(ProductiveApp instance) {
         ProductiveApp.instance = instance;
-    }
-
-    public static void setUserSession(User user) {
-        ProductiveApp.user = user;
     }
 
     @Override
@@ -39,5 +36,9 @@ public class ProductiveApp extends Application {
 
     public ApiService getApiService() {
         return apiService;
+    }
+
+    public CacheInteractor getCacheInteractor() {
+        return cacheInteractor;
     }
 }

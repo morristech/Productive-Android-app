@@ -2,8 +2,11 @@
     <string name="app_name">Productive</string>
     <string name="login_hint_email">Email</string>
     <string name="login_hint_password">Password</string>
-    <string name="login_button_text">Login</string>
+    <string name="login_button_text">Sign in</string>
     <string name="empty_email">Email field is empty</string>
     <string name="empty_password">Password field is empty</string>
     <string name="please_wait">Please wait…</string>
+    <string name="create_account_button_text">Create an account here</string>
+    <string name="show_button_text">Show</string>
+    <string name="alternative_show_hide_text">Hide</string>
 </resources>

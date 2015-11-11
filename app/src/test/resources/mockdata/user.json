@@ -1,0 +1,22 @@
+{
+  "response": {
+    "uid": "1353",
+    "first_name": "Stefano",
+    "last_name": "Kliba",
+    "avatar_url": "/images/missing-person.png",
+    "time_zone": "Europe/Berlin",
+    "token": "a33ffa9b-e115-450a-bf64-13b64dd139e3",
+    "default_organization": {
+      "id": 10,
+      "name": "Sandbox d.o.o.",
+      "currency": "HRK",
+      "deals_url": "https://productive.io/api/v1/10/deals",
+      "projects_url": "https://productive.io/api/v1/10/projects",
+      "notifications_url": "https://productive.io/api/v1/10/notifications",
+      "dismiss_all_notifications_url": "https://productive.io/api/v1/10/notifications/dismiss_all",
+      "tasks_url": "https://productive.io/api/v1/10/tasks",
+      "permissions_url": "https://productive.io/api/v1/10/permissions",
+      "avatar_url": "https://s3.amazonaws.com/infinum.productive.production/accounts/avatars/000/000/010/thumb/1800341_1512779668943504_8390840667216861718_n.png?1435667677"
+    }
+  }
+}

@@ -8,4 +8,30 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="loginCredentialsContainer" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/loginCredentialsContainerBackgroundColor</item>
+        <item name="android:layout_marginTop">@dimen/logo_to_credentials_spacing</item>
+        <item name="android:padding">@dimen/login_credentials_padding</item>
+        <item name="android:layout_below">@+id/logo_image</item>
+    </style>
+    
+    <style name="loginCredentials">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/credentials_text_size</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+    
+    <style name="signInAndRegisterButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginLeft">@dimen/side_margin_buttons</item>
+        <item name="android:textAllCaps">true</item>
+
+    </style>
 </resources>

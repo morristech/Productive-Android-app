@@ -4,6 +4,7 @@ import com.squareup.okhttp.OkHttpClient;
 
 import javax.inject.Singleton;
 
+import co.infinum.productive.network.RequestInterceptor;
 import dagger.Module;
 import dagger.Provides;
 
@@ -13,6 +14,9 @@ public class ClientModule {
     @Provides
     @Singleton
     public OkHttpClient provideClient() {
-        return new OkHttpClient();
+        OkHttpClient client = new OkHttpClient();
+        client.interceptors().add(new RequestInterceptor());
+
+        return client;
     }
 }
