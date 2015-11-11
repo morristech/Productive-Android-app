@@ -34,4 +34,9 @@
         <item name="android:textAllCaps">true</item>
 
     </style>
+
+    <style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
 </resources>

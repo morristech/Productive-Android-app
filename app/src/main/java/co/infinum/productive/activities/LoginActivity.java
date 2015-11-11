@@ -50,6 +50,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 .loginModule(new LoginModule(this))
                 .build()
                 .inject(this);
+
+
+        //used for testing purposes, will get removed as soon as the app is done
+        etEmail.setText(R.string.valid_username);
+        etPassword.setText(R.string.valid_password);
+
     }
 
     @OnClick(R.id.login_button)
@@ -64,7 +70,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void onLoginSuccess() {
-        Intent intent = new Intent(this, ProjectListActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
