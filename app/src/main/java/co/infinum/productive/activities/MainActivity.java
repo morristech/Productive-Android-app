@@ -5,6 +5,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -17,9 +19,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.tab_layout)
     TabLayout tabLayout;
+
     @Bind(R.id.viewPager)
     ViewPager pager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tasks_active).setText("My Tasks"));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_projects_inactive).setText("Projects"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tasks_inactive).setText("My Tasks"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_projects_active).setText("Projects"));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_notifications_inactive).setText("Notifications"));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_more_inactive).setText("More"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -68,5 +70,18 @@ public class MainActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+        //open projects first
+        pager.setCurrentItem(1);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mainactivity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return true;
     }
 }
