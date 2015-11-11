@@ -12,7 +12,7 @@ import co.infinum.productive.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MoreFragment extends android.support.v4.app.Fragment {
+public class MoreFragment extends BaseFragment {
 
 
     public MoreFragment() {

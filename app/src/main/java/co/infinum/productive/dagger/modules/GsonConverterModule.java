@@ -3,8 +3,11 @@ package co.infinum.productive.dagger.modules;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.joda.time.DateTime;
+
 import javax.inject.Singleton;
 
+import co.infinum.productive.helpers.DateTimeSerializer;
 import dagger.Module;
 import dagger.Provides;
 import retrofit.Converter;
@@ -16,7 +19,10 @@ public class GsonConverterModule {
     @Provides
     @Singleton
     public Converter.Factory provideConverterFactory() {
-        Gson gson = new GsonBuilder().create();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(DateTime.class, new DateTimeSerializer())
+                .create();
+
         return GsonConverterFactory.create(gson);
     }
 }
