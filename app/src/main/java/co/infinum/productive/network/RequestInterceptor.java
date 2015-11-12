@@ -14,14 +14,15 @@ import co.infinum.productive.ProductiveApp;
  */
 public class RequestInterceptor implements Interceptor {
 
-    public static final String LOGIN_URL = "https://productive.io/api/v1/users/login";
+    public static final String LOGIN_URL = "/api/v1/users/login";
+
     public static final String TOKEN = "token";
 
     public Response intercept(Chain chain) throws IOException {
         Request originalRequest = chain.request();
         Request changedRequest;
 
-        if (!originalRequest.urlString().equals(LOGIN_URL)) {
+        if (!originalRequest.uri().getPath().equals(LOGIN_URL)) {
             Request.Builder builder = originalRequest.newBuilder();
             HttpUrl changedUrl = originalRequest.httpUrl().newBuilder()
                     .addQueryParameter(TOKEN, ProductiveApp.getInstance().getCacheInteractor().getUser().getToken())
