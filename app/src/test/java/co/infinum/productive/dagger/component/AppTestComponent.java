@@ -3,12 +3,12 @@ package co.infinum.productive.dagger.component;
 import javax.inject.Singleton;
 
 import co.infinum.productive.dagger.components.AppComponent;
+import co.infinum.productive.dagger.module.ClientSynchronousModule;
+import co.infinum.productive.dagger.module.MockApiModule;
 import co.infinum.productive.dagger.module.MockHostModule;
 import co.infinum.productive.dagger.module.SynchronousExecutorsModule;
-import co.infinum.productive.dagger.modules.ApiModule;
 import co.infinum.productive.dagger.modules.AppContextModule;
 import co.infinum.productive.dagger.modules.CacheInstanceModule;
-import co.infinum.productive.dagger.modules.ClientModule;
 import co.infinum.productive.dagger.modules.GsonConverterModule;
 import dagger.Component;
 
@@ -19,8 +19,8 @@ import dagger.Component;
          AppContextModule.class,
          MockHostModule.class,
          GsonConverterModule.class,
-         ClientModule.class,
-         ApiModule.class,
+         ClientSynchronousModule.class,
+         MockApiModule.class,
          CacheInstanceModule.class,
          SynchronousExecutorsModule.class
  })
