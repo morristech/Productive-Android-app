@@ -44,7 +44,7 @@ public class LoginTest extends BaseTest {
 
         try {
             RecordedRequest recordedRequest = takeLastRequest();
-            assertThat(recordedRequest.getHeader("Content-type"), equalTo("application/json; charset=UTF-8"));
+            assertThat(recordedRequest.getHeader("Content-type"), equalTo("application/x-www-form-urlencoded"));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
