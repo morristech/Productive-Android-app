@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import javax.inject.Singleton;
 
-import co.infinum.productive.BuildConfig;
 import dagger.Module;
 import dagger.Provides;
 
@@ -23,9 +22,9 @@ public class MockHostModule {
 
     public MockHostModule() {
         mockWebServer = new MockWebServer();
-        try{
+        try {
             mockWebServer.start();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to start mockWebServer");
         }
@@ -33,17 +32,17 @@ public class MockHostModule {
 
     @Provides
     @Singleton
-    public String provideEndpoint(){
-        return BuildConfig.API_URL;
+    public String provideEndpoint() {
+        return mockWebServer.url("/").toString();
     }
 
-    public MockWebServer getMockWebServer(){
+    public MockWebServer getMockWebServer() {
         return mockWebServer;
     }
 
     @Provides
     @Singleton
-    public Integer provideNetworkTimeout(){
+    public Integer provideNetworkTimeout() {
         return NETWORK_TIMEOUT_SECONDS;
     }
 }

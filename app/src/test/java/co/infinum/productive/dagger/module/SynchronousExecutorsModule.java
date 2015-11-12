@@ -1,8 +1,16 @@
 package co.infinum.productive.dagger.module;
 
-import java.util.concurrent.Executor;
+import android.support.annotation.NonNull;
 
-import javax.inject.Named;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,7 +26,7 @@ import dagger.Provides;
 @Module
 public class SynchronousExecutorsModule {
 
-    class SychronousExecutor implements Executor{
+    class SychronousExecutor implements Executor {
 
         @Override
         public void execute(Runnable command) {
@@ -26,15 +34,92 @@ public class SynchronousExecutorsModule {
         }
     }
 
-    @Provides
-    @Named("HttpExecutor")
-    public Executor provideHttpExecutor(){
-        return new SychronousExecutor();
+
+    class SynchronousExecutorService implements ExecutorService {
+
+        @Override
+        public void execute(Runnable command) {
+            command.run();
+        }
+
+        @Override
+        public void shutdown() {
+
+        }
+
+        @NonNull
+        @Override
+        public List<Runnable> shutdownNow() {
+            return null;
+        }
+
+        @Override
+        public boolean isShutdown() {
+            return false;
+        }
+
+        @Override
+        public boolean isTerminated() {
+            return false;
+        }
+
+        @Override
+        public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+            return false;
+        }
+
+        @NonNull
+        @Override
+        public <T> Future<T> submit(Callable<T> task) {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public <T> Future<T> submit(Runnable task, T result) {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public Future<?> submit(Runnable task) {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) throws InterruptedException {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+                throws InterruptedException {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public <T> T invokeAny(Collection<? extends Callable<T>> tasks) throws InterruptedException, ExecutionException {
+            return null;
+        }
+
+        @Override
+        public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+                throws InterruptedException, ExecutionException, TimeoutException {
+            return null;
+        }
     }
 
     @Provides
-    @Named("CallbackExecutor")
-    public Executor provideCallbackExecutor(){
+    public ExecutorService provideHttpExecutorService() {
+        return new SynchronousExecutorService();
+    }
+
+
+    @Provides
+    public Executor provideCallbackExecutor() {
         return new SychronousExecutor();
     }
 
