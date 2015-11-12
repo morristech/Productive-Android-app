@@ -17,6 +17,10 @@ public class BaseFragment extends android.support.v4.app.Fragment implements Bas
     private MaterialDialog progressDialog;
     private Context context;
 
+    public Context getContext() {
+        return context;
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
