@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import co.infinum.productive.ProductiveApp;
 import co.infinum.productive.models.BaseResponse;
 import co.infinum.productive.models.Project;
 import co.infinum.productive.mvp.Listener;
@@ -21,8 +20,9 @@ import retrofit.Response;
  */
 public class ProjectInteractorImpl implements ProjectInteractor {
 
-    private ApiService apiService;
+    public static final int ORGANIZATION_ID = 491;
 
+    private ApiService apiService;
     private Call<BaseResponse<ArrayList<Project>>> call;
     private BaseCallback<BaseResponse<ArrayList<Project>>> callback;
 
@@ -33,7 +33,8 @@ public class ProjectInteractorImpl implements ProjectInteractor {
 
     @Override
     public void fetchProjects(final Listener<ArrayList<Project>> listener) {
-        call = apiService.getProjects(ProductiveApp.getInstance().getCacheInteractor().getOrganizations().get(0).getId());
+        //call = apiService.getProjects(ProductiveApp.getInstance().getCacheInteractor().getOrganizations().get(0).getId());
+        call = apiService.getProjects(ORGANIZATION_ID); //debug purpose only (we have more projects here)
 
         callback = new BaseCallback<BaseResponse<ArrayList<Project>>>() {
             @Override
