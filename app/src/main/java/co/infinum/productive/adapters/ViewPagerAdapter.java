@@ -14,7 +14,7 @@ import co.infinum.productive.fragments.TasksFragment;
  */
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    int numberOfTabs;
+    private int numberOfTabs;
 
     public ViewPagerAdapter(FragmentManager fm, int numb) {
         super(fm);
