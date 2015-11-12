@@ -1,10 +1,10 @@
 package co.infinum.productive.fragments;
 
-import android.content.Context;
-import android.text.Html;
-
 import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.afollestad.materialdialogs.MaterialDialog;
+
+import android.content.Context;
+import android.text.Html;
 
 import co.infinum.productive.R;
 import co.infinum.productive.mvp.views.BaseView;
@@ -15,6 +15,7 @@ import co.infinum.productive.mvp.views.BaseView;
 public class BaseFragment extends android.support.v4.app.Fragment implements BaseView {
 
     private MaterialDialog progressDialog;
+
     protected Context context;
 
     @Override

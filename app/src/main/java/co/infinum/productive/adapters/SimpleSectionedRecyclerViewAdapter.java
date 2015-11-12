@@ -23,15 +23,21 @@ public class SimpleSectionedRecyclerViewAdapter extends RecyclerView.Adapter<Rec
     public static final int SECTION_TYPE = 0;
 
     private boolean mValid = true;
+
     private int mSectionResourceId;
+
     private int mTextResourceId;
+
     private Context mContext;
+
     private LayoutInflater mLayoutInflater;
+
     private RecyclerView.Adapter mBaseAdapter;
+
     private SparseArray<Section> mSections = new SparseArray<Section>();
 
     public SimpleSectionedRecyclerViewAdapter(Context context, int sectionResourceId,
-                                              int textResourceId, RecyclerView.Adapter baseAdapter) {
+            int textResourceId, RecyclerView.Adapter baseAdapter) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mSectionResourceId = sectionResourceId;
         mTextResourceId = textResourceId;
@@ -108,7 +114,9 @@ public class SimpleSectionedRecyclerViewAdapter extends RecyclerView.Adapter<Rec
     public static class Section {
 
         int firstPosition;
+
         int sectionedPosition;
+
         CharSequence title;
 
         public Section(int firstPosition, CharSequence title) {
@@ -128,7 +136,7 @@ public class SimpleSectionedRecyclerViewAdapter extends RecyclerView.Adapter<Rec
         Arrays.sort(sections, new Comparator<Section>() {
             @Override
             public int compare(Section o, Section o1) {
-                return  o.firstPosition == o1.firstPosition
+                return o.firstPosition == o1.firstPosition
                         ? 0
                         : o.firstPosition < o1.firstPosition ? -1 : 1;
             }

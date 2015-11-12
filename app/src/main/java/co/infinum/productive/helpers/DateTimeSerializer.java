@@ -4,7 +4,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
@@ -36,9 +35,9 @@ public class DateTimeSerializer implements JsonSerializer<DateTime>, JsonDeseria
         String ret = "";
 
         if (src != null) {
-            ret = DATE_FORMAT.print(src);
+            ret = src.toString(DATE_FORMAT);
         }
 
-        return new JsonPrimitive(ret);
+        return context.serialize(ret);
     }
 }

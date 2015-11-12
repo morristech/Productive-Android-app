@@ -37,10 +37,6 @@ public class ProjectsFragment extends BaseFragment implements ProjectView {
 
     private RecyclerView.Adapter mAdapter;
 
-    public ProjectsFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_projects, container, false);

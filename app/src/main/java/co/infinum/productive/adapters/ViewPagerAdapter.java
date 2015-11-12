@@ -14,8 +14,6 @@ import co.infinum.productive.fragments.TasksFragment;
  */
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private static final int THREE_IS_A_MAGIC_NUMBER = 3;
-
     int numberOfTabs;
 
     public ViewPagerAdapter(FragmentManager fm, int numb) {
@@ -27,19 +25,13 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                TasksFragment tasksFragment = new TasksFragment();
-                return tasksFragment;
+                return new TasksFragment();
             case 1:
-                ProjectsFragment projectsFragment = new ProjectsFragment();
-                return projectsFragment;
+                return new ProjectsFragment();
             case 2:
-                NotificationsFragment notificationsFragment = new NotificationsFragment();
-                return notificationsFragment;
-            case THREE_IS_A_MAGIC_NUMBER:
-                MoreFragment moreFragment = new MoreFragment();
-                return moreFragment;
+                return new NotificationsFragment();
             default:
-                return null;
+                return new MoreFragment();
         }
     }
 

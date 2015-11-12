@@ -1,5 +1,8 @@
 package co.infinum.productive.adapters;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,9 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 
@@ -25,10 +25,11 @@ import co.infinum.productive.models.Project;
 public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleViewHolder> {
 
     private Context mContext;
+
     private ArrayList<Project> projects;
 
     public void add(Project s, int position) {
-        position = position == -1 ? getItemCount()  : position;
+        position = position == -1 ? getItemCount() : position;
         projects.add(position, s);
         notifyItemInserted(position);
     }
@@ -75,8 +76,8 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         holder.description.setText("Updated 5 hours ago by " + projects.get(position).getProjectManager().getName());
 
         Glide.with(mContext).load(projects.get(position).getClient().getAvatarUrl())
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .into(holder.thumbnail);
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.thumbnail);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
