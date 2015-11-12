@@ -14,15 +14,9 @@ import co.infinum.productive.R;
  */
 public class ProjectsFragment extends BaseFragment {
 
-
-    public ProjectsFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_projects, container, false);
     }
