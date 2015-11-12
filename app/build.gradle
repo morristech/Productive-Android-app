@@ -12,7 +12,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0.0"
-        testApplicationId "co.infinum.productive.ProductiveApp.instrument.test"
+        testApplicationId "co.infinum.productive.instrument.test"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
