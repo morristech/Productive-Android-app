@@ -1,7 +1,11 @@
 package co.infinum.productive.dagger.modules;
 
 import co.infinum.productive.mvp.interactors.ProjectInteractor;
+import co.infinum.productive.mvp.interactors.TaskDetailsInteractor;
+import co.infinum.productive.mvp.interactors.TaskInteractor;
 import co.infinum.productive.mvp.interactors.impl.ProjectInteractorImpl;
+import co.infinum.productive.mvp.interactors.impl.TaskDetailsInteractorImpl;
+import co.infinum.productive.mvp.interactors.impl.TaskInteractorImpl;
 import co.infinum.productive.mvp.presenters.ProjectPresenter;
 import co.infinum.productive.mvp.presenters.impl.ProjectPresenterImpl;
 import co.infinum.productive.mvp.views.ProjectView;
@@ -32,6 +36,16 @@ public class ProjectsFragmentModule {
 
     @Provides
     public ProjectInteractor provideProjectInteractor(ProjectInteractorImpl interactor) {
+        return interactor;
+    }
+
+    @Provides
+    public TaskInteractor provideTaskInteractor(TaskInteractorImpl interactor) {
+        return interactor;
+    }
+
+    @Provides
+    public TaskDetailsInteractor provideTaskDetailsInteractor(TaskDetailsInteractorImpl interactor) {
         return interactor;
     }
 }

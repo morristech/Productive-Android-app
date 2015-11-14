@@ -76,11 +76,11 @@ public class ProjectsFragment extends BaseFragment implements ProjectView {
             emptyProjectsInfo.bringToFront();
         }
 
-        initAdapters(projects);
-
-       if (isRefreshed) {
+        if (isRefreshed) {
             refreshAdapters(projects);
-       }
+        } else {
+            initAdapters(projects);
+        }
     }
 
     private void initSwipeRefresh() {
@@ -99,13 +99,8 @@ public class ProjectsFragment extends BaseFragment implements ProjectView {
     }
 
     private void initAdapters(ArrayList<Project> projects) {
-        if (mAdapter == null) {
-            mAdapter = new ProjectAdapter(context, getResources(), projects);
-        }
-
-        if (mSectionAdapter == null) {
-            mSectionAdapter = new ProjectSectionAdapter(context, R.layout.list_section_separator, mAdapter);
-        }
+        mAdapter = new ProjectAdapter(context, getResources(), projects);
+        mSectionAdapter = new ProjectSectionAdapter(context, R.layout.list_section_separator, mAdapter);
 
         setSections(projects);
 

@@ -64,12 +64,14 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
 
         String updateInfo = "";
         String updatedBy = projects.get(position).getProjectManager().getName();
+
+        //TODO add TasksInteractor & TaskDetailsInteractor in order to get the right person
         String elapsedTime = getElapsedTime(projects.get(position).getUpdatedAt());
 
-        if (Integer.parseInt(elapsedTime.replaceAll("\\D+", "")) == 1) {
-            updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 1, elapsedTime, updatedBy));
-        } else {
+        if (Integer.parseInt(elapsedTime.replaceAll("\\D+", "")) != 1) {
             updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 2, elapsedTime, updatedBy));
+        } else {
+            updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 1, elapsedTime, updatedBy));
         }
 
         holder.description.setText(updateInfo);

@@ -16,5 +16,5 @@ import dagger.Component;
 })
 public interface ProjectsFragmentComponent {
 
-    void inject(ProjectsFragment fragmet);
+    void inject(ProjectsFragment fragment);
 }
