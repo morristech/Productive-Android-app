@@ -18,7 +18,7 @@ import co.infinum.productive.R;
 /**
  * Created by mjurinic on 09.11.15..
  */
-public class SimpleSectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ProjectSectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int SECTION_TYPE = 0;
 
@@ -28,7 +28,7 @@ public class SimpleSectionedRecyclerViewAdapter extends RecyclerView.Adapter<Rec
     private RecyclerView.Adapter mBaseAdapter;
     private SparseArray<Section> mSections = new SparseArray<>();
 
-    public SimpleSectionedRecyclerViewAdapter(Context context, int sectionResourceId, RecyclerView.Adapter baseAdapter) {
+    public ProjectSectionAdapter(Context context, int sectionResourceId, RecyclerView.Adapter baseAdapter) {
         mSectionResourceId = sectionResourceId;
         mBaseAdapter = baseAdapter;
         mContext = context;

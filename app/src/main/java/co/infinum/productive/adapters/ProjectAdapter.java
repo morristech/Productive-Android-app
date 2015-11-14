@@ -22,7 +22,7 @@ import co.infinum.productive.models.Project;
 /**
  * Created by mjurinic on 09.11.15..
  */
-public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleViewHolder> {
+public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleViewHolder> {
 
     private Context mContext;
     private ArrayList<Project> projects;
@@ -44,7 +44,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         }
     }
 
-    public SimpleAdapter(Context context, ArrayList<Project> projects) {
+    public ProjectAdapter(Context context, ArrayList<Project> projects) {
         mContext = context;
         this.projects = projects;
     }

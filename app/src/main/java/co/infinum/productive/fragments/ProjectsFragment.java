@@ -18,8 +18,8 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import co.infinum.productive.R;
-import co.infinum.productive.adapters.SimpleAdapter;
-import co.infinum.productive.adapters.SimpleSectionedRecyclerViewAdapter;
+import co.infinum.productive.adapters.ProjectAdapter;
+import co.infinum.productive.adapters.ProjectSectionAdapter;
 import co.infinum.productive.dagger.components.DaggerProjectsFragmentComponent;
 import co.infinum.productive.dagger.modules.ProjectsFragmentModule;
 import co.infinum.productive.models.Project;
@@ -44,7 +44,7 @@ public class ProjectsFragment extends BaseFragment implements ProjectView {
     TextView emptyProjectsInfo;
 
     private RecyclerView.Adapter mAdapter;
-    private SimpleSectionedRecyclerViewAdapter mSectionAdapter;
+    private ProjectSectionAdapter mSectionAdapter;
     private Context context;
     private boolean isRefreshed = false;
 
@@ -100,11 +100,11 @@ public class ProjectsFragment extends BaseFragment implements ProjectView {
 
     private void initAdapters(ArrayList<Project> projects) {
         if (mAdapter == null) {
-            mAdapter = new SimpleAdapter(context, projects);
+            mAdapter = new ProjectAdapter(context, projects);
         }
 
         if (mSectionAdapter == null) {
-            mSectionAdapter = new SimpleSectionedRecyclerViewAdapter(context, R.layout.list_section_separator, mAdapter);
+            mSectionAdapter = new ProjectSectionAdapter(context, R.layout.list_section_separator, mAdapter);
         }
 
         setSections(projects);
@@ -113,7 +113,7 @@ public class ProjectsFragment extends BaseFragment implements ProjectView {
     }
 
     private void setSections(ArrayList<Project> projects) {
-        ArrayList<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
+        ArrayList<ProjectSectionAdapter.Section> sections = new ArrayList<>();
 
         // calculates offset for each client and sets sections
         String prevClientName = "";
@@ -127,14 +127,14 @@ public class ProjectsFragment extends BaseFragment implements ProjectView {
                 ++currentOffset;
             } else {
                 overallOffset += currentOffset;
-                sections.add(new SimpleSectionedRecyclerViewAdapter.Section(overallOffset, currClientName));
+                sections.add(new ProjectSectionAdapter.Section(overallOffset, currClientName));
                 currentOffset = 1;
             }
 
             prevClientName = currClientName;
         }
 
-        SimpleSectionedRecyclerViewAdapter.Section[] sectionsList = new SimpleSectionedRecyclerViewAdapter.Section[sections.size()];
+        ProjectSectionAdapter.Section[] sectionsList = new ProjectSectionAdapter.Section[sections.size()];
 
         mSectionAdapter.setSections(sections.toArray(sectionsList));
     }
@@ -144,7 +144,7 @@ public class ProjectsFragment extends BaseFragment implements ProjectView {
             isRefreshed = false;
 
             setSections(projects);
-            ((SimpleAdapter) mAdapter).refresh(projects);
+            ((ProjectAdapter) mAdapter).refresh(projects);
 
             swipeRefreshLayout.setRefreshing(false);
         }
