@@ -22,4 +22,9 @@
     <dimen name="show_hide_button_height">30dp</dimen>
 
     <dimen name="empty_list_message_text_size">18sp</dimen>
+    <dimen name="project_list_arrow_width_height">32dp</dimen>
+    <dimen name="project_list_thumbnail_pic_width_height">52dp</dimen>
+    <dimen name="title_text_size">16sp</dimen>
+    <dimen name="title_to_description_margin">4dp</dimen>
+    <dimen name="small_text_size">11sp</dimen>
 </resources>

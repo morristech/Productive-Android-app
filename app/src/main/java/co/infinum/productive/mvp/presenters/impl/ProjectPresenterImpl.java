@@ -73,7 +73,9 @@ public class ProjectPresenterImpl implements ProjectPresenter, Listener<ArrayLis
         ArrayList<Project> ret = new ArrayList<>();
 
         for (int i = 0; i < projects.size(); ++i) {
-            if (!projects.get(i).isDeleted()) ret.add(projects.get(i));
+            if (!projects.get(i).isDeleted()) {
+                ret.add(projects.get(i));
+            }
         }
 
         return ret;
