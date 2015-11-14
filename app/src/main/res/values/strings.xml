@@ -9,4 +9,18 @@
     <string name="create_account_button_text">Create an account here</string>
     <string name="show_button_text">Show</string>
     <string name="alternative_show_hide_text">Hide</string>
+    <string name="my_tasks_text">My Tasks</string>
+    <string name="projects_text">Projects</string>
+    <string name="notifications_text">Notifications</string>
+    <string name="more_text">More</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="valid_username">skliba@foi.hr</string>
+    <string name="valid_password">servis</string>
+    <string name="search_menu_button_title">search</string>
+    <string name="my_tasks_tab">My Tasks</string>
+    <string name="projects_tab">Projects</string>
+    <string name="notifications_tab">Notifications</string>
+    <string name="more_tab">More</string>
 </resources>

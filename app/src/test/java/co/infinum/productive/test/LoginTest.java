@@ -25,9 +25,6 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void successfulLogin() {
-
-        enqueueResponse("user.json", 200);
-
         ActivityController<LoginActivity> loginActivityActivityController = Robolectric.buildActivity(LoginActivity.class);
 
         LoginActivity loginActivity = loginActivityActivityController.create()
@@ -43,10 +40,11 @@ public class LoginTest extends BaseTest {
         emailEditText.setText("skliba@foi.hr");
         passwordEditText.setText("servis");
         loginButton.performClick();
+        enqueueResponse("user.json", 200);
 
         try {
             RecordedRequest recordedRequest = takeLastRequest();
-            assertThat(recordedRequest.getHeader("Content-type"), equalTo("application/json; charset=UTF-8"));
+            assertThat(recordedRequest.getHeader("Content-type"), equalTo("application/x-www-form-urlencoded"));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

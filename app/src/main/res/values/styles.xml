@@ -21,7 +21,7 @@
     <style name="loginCredentials">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/credentials_text_size</item>
+        <item name="android:textSize">@dimen/credentials_hint_text_size</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
     
@@ -33,5 +33,10 @@
         <item name="android:layout_marginLeft">@dimen/side_margin_buttons</item>
         <item name="android:textAllCaps">true</item>
 
+    </style>
+
+    <style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 </resources>
