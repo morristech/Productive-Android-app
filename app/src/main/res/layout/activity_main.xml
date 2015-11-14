@@ -19,6 +19,7 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:tabPadding="0dp"
             app:tabIndicatorColor="@android:color/transparent"
             app:tabSelectedTextColor="@color/signinButtonDefaultColor"
             app:tabTextAppearance="@style/TabLayoutTextAppearance"/>
