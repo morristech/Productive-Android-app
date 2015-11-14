@@ -66,7 +66,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
         String updatedBy = projects.get(position).getProjectManager().getName();
         String elapsedTime = getElapsedTime(projects.get(position).getUpdatedAt());
 
-        if (new Integer(elapsedTime.replaceAll("\\D+", "")) == 1) {
+        if (Integer.parseInt(elapsedTime.replaceAll("\\D+", "")) == 1) {
             updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 1, elapsedTime, updatedBy));
         } else {
             updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 2, elapsedTime, updatedBy));
