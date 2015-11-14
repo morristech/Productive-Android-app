@@ -1,8 +1,8 @@
 package co.infinum.productive.network;
 
-import com.squareup.okhttp.ResponseBody;
-
 import android.support.annotation.Nullable;
+
+import com.squareup.okhttp.ResponseBody;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

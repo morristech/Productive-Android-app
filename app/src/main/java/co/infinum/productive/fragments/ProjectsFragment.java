@@ -100,7 +100,7 @@ public class ProjectsFragment extends BaseFragment implements ProjectView {
 
     private void initAdapters(ArrayList<Project> projects) {
         if (mAdapter == null) {
-            mAdapter = new ProjectAdapter(context, projects);
+            mAdapter = new ProjectAdapter(context, getResources(), projects);
         }
 
         if (mSectionAdapter == null) {

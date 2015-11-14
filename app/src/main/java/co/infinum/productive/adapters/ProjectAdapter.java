@@ -1,6 +1,7 @@
 package co.infinum.productive.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 
@@ -26,6 +29,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
 
     private Context mContext;
     private ArrayList<Project> projects;
+    private Resources res;
 
     public static class SimpleViewHolder extends RecyclerView.ViewHolder {
 
@@ -44,8 +48,9 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
         }
     }
 
-    public ProjectAdapter(Context context, ArrayList<Project> projects) {
+    public ProjectAdapter(Context context, Resources res, ArrayList<Project> projects) {
         mContext = context;
+        this.res = res;
         this.projects = projects;
     }
 
@@ -57,8 +62,17 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
     public void onBindViewHolder(SimpleViewHolder holder, final int position) {
         holder.title.setText(projects.get(position).getName());
 
-        //TODO calculate elapsed time
-        holder.description.setText("Updated 5 hours ago by " + projects.get(position).getProjectManager().getName());
+        String updateInfo = "";
+        String updatedBy = projects.get(position).getProjectManager().getName();
+        String elapsedTime = getElapsedTime(projects.get(position).getUpdatedAt());
+
+        if (new Integer(elapsedTime.replaceAll("\\D+", "")) == 1) {
+            updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 1, elapsedTime, updatedBy));
+        } else {
+            updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 2, elapsedTime, updatedBy));
+        }
+
+        holder.description.setText(updateInfo);
 
         Glide.with(mContext).load(projects.get(position).getClient().getAvatarUrl())
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -82,5 +96,33 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
         this.projects.clear();
         this.projects.addAll(projects); //memory efficient, we're always updating the initial List
         notifyDataSetChanged();
+    }
+
+    private String getElapsedTime(DateTime updatedAt) {
+        DateTime currentTime = new DateTime();
+        String ret = "";
+
+        int years = Math.abs(currentTime.getYear() - updatedAt.getYear());
+        int months = Math.abs(currentTime.getMonthOfYear() - updatedAt.getMonthOfYear());
+        int days = Math.abs(currentTime.getDayOfMonth() - updatedAt.getDayOfMonth());
+        int hours = Math.abs(currentTime.getHourOfDay() - updatedAt.getHourOfDay());
+        int minutes = Math.abs(currentTime.getMinuteOfHour() - updatedAt.getMinuteOfHour());
+        int seconds = Math.abs(currentTime.getSecondOfMinute() - updatedAt.getSecondOfMinute());
+
+        if (years != 0) {
+            ret += years + res.getString(R.string.year_text);
+        } else if (months != 0) {
+            ret += months + res.getString(R.string.month_text);
+        } else if (days != 0) {
+            ret += days + res.getString(R.string.day_text);
+        } else if (hours != 0) {
+            ret += hours + res.getString(R.string.hour_text);
+        } else if (minutes != 0) {
+            ret += minutes + res.getString(R.string.minute_text);
+        } else if (seconds != 0) {
+            ret += seconds + res.getString(R.string.second_text);
+        }
+
+        return ret;
     }
 }
