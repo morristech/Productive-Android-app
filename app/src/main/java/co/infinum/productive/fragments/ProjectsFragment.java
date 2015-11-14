@@ -1,12 +1,15 @@
 package co.infinum.productive.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -14,7 +17,6 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import co.infinum.productive.ProductiveApp;
 import co.infinum.productive.R;
 import co.infinum.productive.adapters.SimpleAdapter;
 import co.infinum.productive.adapters.SimpleSectionedRecyclerViewAdapter;
@@ -35,11 +37,16 @@ public class ProjectsFragment extends BaseFragment implements ProjectView {
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
-    private RecyclerView.Adapter mAdapter;
+    @Bind(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
-    public ProjectsFragment() {
-        // Required empty public constructor
-    }
+    @Bind(R.id.empty_projects_info)
+    TextView emptyProjectsInfo;
+
+    private RecyclerView.Adapter mAdapter;
+    private SimpleSectionedRecyclerViewAdapter mSectionAdapter;
+    private Context context;
+    private boolean isRefreshed = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +58,9 @@ public class ProjectsFragment extends BaseFragment implements ProjectView {
                 .build()
                 .inject(this);
 
+        context = getActivity();
+
+        initSwipeRefresh();
         initRecyclerView();
 
         projectPresenter.getProjects();
@@ -59,22 +69,53 @@ public class ProjectsFragment extends BaseFragment implements ProjectView {
     }
 
     @Override
-    public void onSuccess() {
-        initAdapters();
+    public void onSuccess(ArrayList<Project> projects) {
+        if (projects.size() != 0) {
+            mRecyclerView.bringToFront();
+        } else {
+            emptyProjectsInfo.bringToFront();
+        }
+
+        initAdapters(projects);
+
+       if (isRefreshed) {
+            refreshAdapters(projects);
+       }
+    }
+
+    private void initSwipeRefresh() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                isRefreshed = true;
+                projectPresenter.getProjects();
+            }
+        });
     }
 
     private void initRecyclerView() {
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(super.context));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
     }
 
-    private void initAdapters() {
-        ArrayList<Project> projects = ProductiveApp.getInstance().getCacheInteractor().getProjects();
+    private void initAdapters(ArrayList<Project> projects) {
+        if (mAdapter == null) {
+            mAdapter = new SimpleAdapter(context, projects);
+        }
+
+        if (mSectionAdapter == null) {
+            mSectionAdapter = new SimpleSectionedRecyclerViewAdapter(context, R.layout.list_section_separator, mAdapter);
+        }
+
+        setSections(projects);
+
+        mRecyclerView.setAdapter(mSectionAdapter);
+    }
+
+    private void setSections(ArrayList<Project> projects) {
         ArrayList<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
 
-        mAdapter = new SimpleAdapter(super.context, projects);
-
-        // calculate each clients project count
+        // calculates offset for each client and sets sections
         String prevClientName = "";
         int overallOffset = 0;
         int currentOffset = 0;
@@ -93,13 +134,19 @@ public class ProjectsFragment extends BaseFragment implements ProjectView {
             prevClientName = currClientName;
         }
 
-        SimpleSectionedRecyclerViewAdapter.Section[] dummy = new SimpleSectionedRecyclerViewAdapter.Section[sections.size()];
+        SimpleSectionedRecyclerViewAdapter.Section[] sectionsList = new SimpleSectionedRecyclerViewAdapter.Section[sections.size()];
 
-        SimpleSectionedRecyclerViewAdapter mSectionAdapter =
-                new SimpleSectionedRecyclerViewAdapter(super.context, R.layout.list_section_separator, R.id.section_title, mAdapter);
+        mSectionAdapter.setSections(sections.toArray(sectionsList));
+    }
 
-        mSectionAdapter.setSections(sections.toArray(dummy));
+    private void refreshAdapters(ArrayList<Project> projects) {
+        if (mAdapter != null && mSectionAdapter != null) {
+            isRefreshed = false;
 
-        mRecyclerView.setAdapter(mSectionAdapter);
+            setSections(projects);
+            ((SimpleAdapter) mAdapter).refresh(projects);
+
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

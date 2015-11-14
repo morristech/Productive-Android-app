@@ -12,17 +12,11 @@ import co.infinum.productive.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TasksFragment extends android.support.v4.app.Fragment {
-
-
-    public TasksFragment() {
-        // Required empty public constructor
-    }
-
+public class TasksFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tasks, container, false);
     }

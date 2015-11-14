@@ -1,9 +1,11 @@
 package co.infinum.productive.mvp.presenters.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.inject.Inject;
 
+import co.infinum.productive.helpers.ProjectComparator;
 import co.infinum.productive.models.Project;
 import co.infinum.productive.mvp.Listener;
 import co.infinum.productive.mvp.interactors.CacheInteractor;
@@ -41,8 +43,11 @@ public class ProjectPresenterImpl implements ProjectPresenter, Listener<ArrayLis
     @Override
     public void onSuccess(ArrayList<Project> projects) {
         projectView.hideProgress();
+
+        projects = sortProjects(filterProjects(projects));
         cacheInteractor.cacheProjects(projects);
-        projectView.onSuccess();
+
+        projectView.onSuccess(projects);
     }
 
     @Override
@@ -55,5 +60,22 @@ public class ProjectPresenterImpl implements ProjectPresenter, Listener<ArrayLis
     public void onConnectionFailure(String message) {
         projectView.hideProgress();
         projectView.showError(message);
+    }
+
+    private ArrayList<Project> sortProjects(ArrayList<Project> projects) {
+        Collections.sort(projects, new ProjectComparator());
+
+        return projects;
+    }
+
+    // removes "deleted" projects
+    private ArrayList<Project> filterProjects(ArrayList<Project> projects) {
+        ArrayList<Project> ret = new ArrayList<>();
+
+        for (int i = 0; i < projects.size(); ++i) {
+            if (!projects.get(i).isDeleted()) ret.add(projects.get(i));
+        }
+
+        return ret;
     }
 }

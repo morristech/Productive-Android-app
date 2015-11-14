@@ -27,19 +27,6 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
     private Context mContext;
     private ArrayList<Project> projects;
 
-    public void add(Project s, int position) {
-        position = position == -1 ? getItemCount()  : position;
-        projects.add(position, s);
-        notifyItemInserted(position);
-    }
-
-    public void remove(int position) {
-        if (position < getItemCount()) {
-            projects.remove(position);
-            notifyItemRemoved(position);
-        }
-    }
-
     public static class SimpleViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.item_title)
@@ -63,8 +50,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
     }
 
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
-        return new SimpleViewHolder(view);
+        return new SimpleViewHolder(LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false));
     }
 
     @Override
@@ -90,5 +76,11 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
     @Override
     public int getItemCount() {
         return projects.size();
+    }
+
+    public void refresh(ArrayList<Project> projects) {
+        this.projects.clear();
+        this.projects.addAll(projects); //memory efficient, we're always updating the initial List
+        notifyDataSetChanged();
     }
 }

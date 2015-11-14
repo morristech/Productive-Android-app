@@ -12,17 +12,11 @@ import co.infinum.productive.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NotificationsFragment extends android.support.v4.app.Fragment {
-
-
-    public NotificationsFragment() {
-        // Required empty public constructor
-    }
-
+public class NotificationsFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_notifications, container, false);
     }

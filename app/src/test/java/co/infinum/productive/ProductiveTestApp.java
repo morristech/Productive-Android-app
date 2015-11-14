@@ -1,13 +1,11 @@
 package co.infinum.productive;
 
-import com.google.gson.Gson;
+import android.annotation.SuppressLint;
 
+import com.google.gson.Gson;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
 
 import org.robolectric.TestLifecycleApplication;
-
-import android.annotation.SuppressLint;
-import android.util.Log;
 
 import java.lang.reflect.Method;
 

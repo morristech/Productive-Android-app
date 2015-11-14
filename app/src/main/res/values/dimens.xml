@@ -20,4 +20,6 @@
     <dimen name="show_hide_button_margin_top">110dp</dimen>
     <dimen name="show_hide_button_width">70dp</dimen>
     <dimen name="show_hide_button_height">30dp</dimen>
+
+    <dimen name="empty_list_message_text_size">18sp</dimen>
 </resources>
