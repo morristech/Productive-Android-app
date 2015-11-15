@@ -11,6 +11,9 @@
             style="@style/ProjectSeparator"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             tools:text="Header 1"/>
 
 </LinearLayout>

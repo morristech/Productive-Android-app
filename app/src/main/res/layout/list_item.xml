@@ -1,35 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:paddingLeft="@dimen/default_spacing">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:background="@android:color/white"
+    android:paddingLeft="@dimen/default_spacing">
 
     <LinearLayout
             android:id="@+id/content_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
+            android:background="@drawable/item_card_border"
             android:layout_toRightOf="@+id/item_thumbnail"
+            android:layout_toLeftOf="@+id/arrow_right"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingRight="16dp"
+            android:layout_marginLeft="16dp"
             android:orientation="vertical">
 
         <TextView
                 android:id="@+id/item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/title_to_description_margin"
-                android:layout_marginRight="@dimen/recycler_title_text_padding_right"
-                android:paddingTop="@dimen/recycler_title_text_padding_top"
                 android:textSize="@dimen/title_text_size"
-                android:textStyle="bold"
-                tools:text="Sample Title with an enormous title which you cannot fit in a normal cellphone"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:lines="1"
+                android:ellipsize="end"
+                tools:text="This is something we're trying to test"/>
 
         <TextView
                 android:id="@+id/item_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="@dimen/small_text_size"
                 tools:text="Updated 3 hours ago by Mislav J."/>
 
@@ -38,18 +45,18 @@
     <ImageView
             android:id="@+id/arrow_right"
             android:layout_width="@dimen/project_list_arrow_width_height"
-            android:layout_height="@dimen/project_list_arrow_width_height"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:background="@drawable/item_card_border"
             android:src="@drawable/ic_keyboard_arrow_right"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
-
             android:id="@id/item_thumbnail"
             android:layout_width="@dimen/project_list_thumbnail_pic_width_height"
             android:layout_height="@dimen/project_list_thumbnail_pic_width_height"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/default_spacing"
+            android:layout_marginRight="8dp"
             android:src="@mipmap/ic_launcher"
             app:civ_border_color="#FFF"
             app:civ_border_width="5dp"/>
