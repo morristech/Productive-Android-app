@@ -69,8 +69,8 @@ public class CacheInteractorImpl implements CacheInteractor {
         setCache(PROJECTS, cachedProjects);
     }
 
-        @Override
-        public HashMap<Integer, String> getProjects () {
-            return (HashMap<Integer, String>) getCache(PROJECTS);
-        }
+    @Override
+    public HashMap<Integer, String> getProjects() {
+        return (HashMap<Integer, String>) getCache(PROJECTS);
     }
+}
