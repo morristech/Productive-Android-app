@@ -10,7 +10,6 @@ import co.infinum.productive.dagger.module.SynchronousExecutorsModule;
 import co.infinum.productive.dagger.modules.AppContextModule;
 import co.infinum.productive.dagger.modules.CacheInstanceModule;
 import co.infinum.productive.dagger.modules.GsonConverterModule;
-import co.infinum.productive.dagger.modules.HostModule;
 import dagger.Component;
 
 /**

@@ -15,8 +15,7 @@ import co.infinum.productive.mvp.views.BaseView;
 public class BaseFragment extends android.support.v4.app.Fragment implements BaseView {
 
     private MaterialDialog progressDialog;
-
-    protected Context context;
+    private Context context;
 
     @Override
     public void onAttach(Context context) {

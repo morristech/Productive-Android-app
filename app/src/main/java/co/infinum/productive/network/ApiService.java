@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import co.infinum.productive.models.BaseResponse;
 import co.infinum.productive.models.Organization;
 import co.infinum.productive.models.Project;
+import co.infinum.productive.models.Task;
+import co.infinum.productive.models.TaskDetails;
 import co.infinum.productive.models.User;
 import retrofit.Call;
 import retrofit.http.Field;
@@ -24,6 +26,14 @@ public interface ApiService {
 
     @GET("/api/v1/{organizationId}/projects")
     Call<BaseResponse<ArrayList<Project>>> getProjects(@Path("organizationId") int organizationId);
+
+    @GET("/api/v1/projects/{projectId}/tasks")  //TODO sort response by updated_at DESC
+    Call<BaseResponse<ArrayList<Task>>> getTasks(@Path("projectId") int projectId);
+
+    @GET("/api/v1/{organizationId}/projects/{projectId}/tasks/{taskId}")
+    Call<BaseResponse<ArrayList<TaskDetails>>> getTaskDetails(@Path("organizationId") int organizationId,
+                                                              @Path("projectId") int projectId,
+                                                              @Path("taskId") int taskId);
 
     // TODO specify REST API
 }

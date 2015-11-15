@@ -12,7 +12,7 @@ import co.infinum.productive.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TasksFragment extends android.support.v4.app.Fragment {
+public class TasksFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

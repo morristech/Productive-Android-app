@@ -4,39 +4,28 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import co.infinum.productive.fragments.MoreFragment;
-import co.infinum.productive.fragments.NotificationsFragment;
-import co.infinum.productive.fragments.ProjectsFragment;
-import co.infinum.productive.fragments.TasksFragment;
+import java.util.ArrayList;
+
 
 /**
  * Created by noxqs on 10.11.15..
  */
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private int numberOfTabs;
+    private ArrayList<Fragment> fragmentArrayList;
 
-    public ViewPagerAdapter(FragmentManager fm, int numb) {
+    public ViewPagerAdapter(FragmentManager fm, ArrayList<Fragment> arr) {
         super(fm);
-        this.numberOfTabs = numb;
+        this.fragmentArrayList = arr;
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return new TasksFragment();
-            case 1:
-                return new ProjectsFragment();
-            case 2:
-                return new NotificationsFragment();
-            default:
-                return new MoreFragment();
-        }
+        return fragmentArrayList != null ? fragmentArrayList.get(position) : null;
     }
 
     @Override
     public int getCount() {
-        return numberOfTabs;
+        return fragmentArrayList != null ? fragmentArrayList.size() : 0;
     }
 }
