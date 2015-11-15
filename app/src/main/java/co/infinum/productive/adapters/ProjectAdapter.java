@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import co.infinum.productive.R;
+import co.infinum.productive.listeners.OnProjectClickListener;
 import co.infinum.productive.models.Project;
 
 /**
@@ -28,30 +29,18 @@ import co.infinum.productive.models.Project;
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleViewHolder> {
 
     private Context mContext;
+
     private ArrayList<Project> projects;
+
     private Resources res;
 
-    public static class SimpleViewHolder extends RecyclerView.ViewHolder {
+    private OnProjectClickListener listener;
 
-        @Bind(R.id.item_title)
-        TextView title;
-
-        @Bind(R.id.item_description)
-        TextView description;
-
-        @Bind(R.id.item_thumbnail)
-        ImageView thumbnail;
-
-        public SimpleViewHolder(View v) {
-            super(v);
-            ButterKnife.bind(this, v);
-        }
-    }
-
-    public ProjectAdapter(Context context, Resources res, ArrayList<Project> projects) {
+    public ProjectAdapter(Context context, Resources res, ArrayList<Project> projects, OnProjectClickListener listener) {
         mContext = context;
         this.res = res;
         this.projects = projects;
+        this.listener = listener;
     }
 
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -77,14 +66,13 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
         holder.description.setText(updateInfo);
 
         Glide.with(mContext).load(projects.get(position).getClient().getAvatarUrl())
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .into(holder.thumbnail);
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.thumbnail);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO show project details
-                Toast.makeText(mContext, "Position = " + position, Toast.LENGTH_SHORT).show();
+                listener.onProjectsClick(projects.get(position));
             }
         });
     }
@@ -126,5 +114,22 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
         }
 
         return ret;
+    }
+
+    public static class SimpleViewHolder extends RecyclerView.ViewHolder {
+
+        @Bind(R.id.item_title)
+        TextView title;
+
+        @Bind(R.id.item_description)
+        TextView description;
+
+        @Bind(R.id.item_thumbnail)
+        ImageView thumbnail;
+
+        public SimpleViewHolder(View v) {
+            super(v);
+            ButterKnife.bind(this, v);
+        }
     }
 }

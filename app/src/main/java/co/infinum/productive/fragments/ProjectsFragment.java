@@ -2,6 +2,7 @@ package co.infinum.productive.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,8 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import co.infinum.productive.R;
+import co.infinum.productive.activities.MainActivity;
+import co.infinum.productive.activities.TasksListActivity;
 import co.infinum.productive.adapters.ProjectAdapter;
 import co.infinum.productive.adapters.ProjectSectionAdapter;
 import co.infinum.productive.dagger.components.DaggerProjectsFragmentComponent;
@@ -31,6 +34,8 @@ import co.infinum.productive.mvp.views.ProjectView;
  * A simple {@link Fragment} subclass.
  */
 public class ProjectsFragment extends BaseFragment implements ProjectView, OnProjectClickListener {
+
+    public static final String PROJECT = "project";
 
     @Inject
     ProjectPresenter projectPresenter;
@@ -111,7 +116,7 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
     }
 
     private void initAdapters(ArrayList<Project> projects) {
-        mAdapter = new ProjectAdapter(context, getResources(), projects);
+        mAdapter = new ProjectAdapter(context, getResources(), projects, this);
         mSectionAdapter = new ProjectSectionAdapter(context, R.layout.list_section_separator, mAdapter);
 
         setSections(projects);
@@ -159,6 +164,8 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
 
     @Override
     public void onProjectsClick(Project project) {
-
+        Intent intent = new Intent(getActivity(), TasksListActivity.class);
+        intent.putExtra(PROJECT, project);
+        startActivity(intent);
     }
 }

@@ -25,8 +25,11 @@ public class ProjectSectionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private boolean mValid = true;
 
     private int mSectionResourceId;
+
     private Context mContext;
+
     private RecyclerView.Adapter mBaseAdapter;
+
     private SparseArray<Section> mSections = new SparseArray<>();
 
     public ProjectSectionAdapter(Context context, int sectionResourceId, RecyclerView.Adapter baseAdapter) {
@@ -64,7 +67,7 @@ public class ProjectSectionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         Arrays.sort(sections, new Comparator<Section>() {
             @Override
             public int compare(Section o, Section o1) {
-                return  o.firstPosition == o1.firstPosition ? 0 : o.firstPosition < o1.firstPosition ? -1 : 1;
+                return o.firstPosition == o1.firstPosition ? 0 : o.firstPosition < o1.firstPosition ? -1 : 1;
             }
         });
 
@@ -127,7 +130,9 @@ public class ProjectSectionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public static class Section {
 
         int firstPosition;
+
         int sectionedPosition;
+
         String title;
 
         public Section(int firstPosition, String title) {
