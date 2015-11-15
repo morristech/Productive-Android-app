@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by mjurinic on 14.11.15..
@@ -30,7 +31,7 @@ public class Task implements Serializable {
     private String title;
 
     @SerializedName("due_date")
-    private DateTime dueDate;
+    private Date dueDate;
 
     @SerializedName("private")
     private boolean isPrivate;
@@ -103,11 +104,11 @@ public class Task implements Serializable {
         this.title = title;
     }
 
-    public DateTime getDueDate() {
+    public Date getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(DateTime dueDate) {
+    public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
 

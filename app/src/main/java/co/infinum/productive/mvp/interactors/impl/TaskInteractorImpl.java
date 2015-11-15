@@ -21,6 +21,7 @@ import retrofit.Response;
 public class TaskInteractorImpl implements TaskInteractor {
 
     // "/api/v1/projects/{projectId}/tasks"
+    public static final int ORGANIZATION_ID = 491;
 
     private ApiService apiService;
     private Call<BaseResponse<ArrayList<Task>>> call;
@@ -33,7 +34,7 @@ public class TaskInteractorImpl implements TaskInteractor {
 
     @Override
     public void fetchTasks(final Listener<ArrayList<Task>> listener, int projectId) {
-        call = apiService.getTasks(projectId);
+        call = apiService.getTasks(ORGANIZATION_ID, projectId);
 
         callback = new BaseCallback<BaseResponse<ArrayList<Task>>>() {
             @Override

@@ -103,7 +103,13 @@ public class TasksFragment extends BaseFragment implements TasksView {
 
     @Override
     public void onTasksFetched(ArrayList<Task> tasks) {
-        //tasksRecyclerView.setAdapter();
+        if (tasks.size() == 0) {
+            tasksRecyclerView.setVisibility(View.GONE);
+            emptyTasksInfo.setVisibility(View.VISIBLE);
+        } else {
+            emptyTasksInfo.setVisibility(View.GONE);
+            tasksRecyclerView.setVisibility(View.VISIBLE);
+        }
 
         if (isRefreshed) {
             refreshAdapters(tasks);
