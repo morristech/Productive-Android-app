@@ -19,7 +19,6 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import co.infinum.productive.R;
-import co.infinum.productive.activities.MainActivity;
 import co.infinum.productive.activities.TasksListActivity;
 import co.infinum.productive.adapters.ProjectAdapter;
 import co.infinum.productive.adapters.ProjectSectionAdapter;
