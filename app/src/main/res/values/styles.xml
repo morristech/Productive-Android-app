@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="loginCredentialsContainer">
+    <style name="LoginCredentialsContainer">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">vertical</item>
@@ -18,14 +18,14 @@
         <item name="android:layout_below">@+id/logo_image</item>
     </style>
 
-    <style name="loginCredentials">
+    <style name="LoginCredentials">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/credentials_hint_text_size</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="signInAndRegisterButton">
+    <style name="SignInAndRegisterButton">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@android:color/transparent</item>
@@ -40,7 +40,7 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
-    <style name="ProjectSeparator">
+    <style name="Separator">
         <item name="android:layout_marginTop">16dp</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginBottom">8dp</item>

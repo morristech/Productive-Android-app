@@ -9,21 +9,21 @@
     android:paddingLeft="@dimen/default_spacing">
 
     <LinearLayout
-            android:id="@+id/content_layout"
+            android:id="@+id/projects_content_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:background="@drawable/item_card_border"
             android:layout_toRightOf="@+id/item_thumbnail"
-            android:layout_toLeftOf="@+id/arrow_right"
+            android:layout_toLeftOf="@+id/projects_arrow_right"
             android:paddingTop="20dp"
-            android:paddingBottom="20dp"
+            android:paddingBottom="10dp"
             android:paddingRight="16dp"
             android:layout_marginLeft="16dp"
             android:orientation="vertical">
 
         <TextView
-                android:id="@+id/item_title"
+                android:id="@+id/projects_item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/title_text_size"
@@ -33,7 +33,7 @@
                 tools:text="This is something we're trying to test"/>
 
         <TextView
-                android:id="@+id/item_description"
+                android:id="@+id/projects_item_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -43,7 +43,7 @@
     </LinearLayout>
 
     <ImageView
-            android:id="@+id/arrow_right"
+            android:id="@+id/projects_arrow_right"
             android:layout_width="@dimen/project_list_arrow_width_height"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"

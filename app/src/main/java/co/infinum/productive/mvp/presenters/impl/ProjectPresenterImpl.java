@@ -1,15 +1,17 @@
 package co.infinum.productive.mvp.presenters.impl;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.inject.Inject;
 
 import co.infinum.productive.helpers.ProjectComparator;
+import co.infinum.productive.listeners.Listener;
 import co.infinum.productive.models.Project;
 import co.infinum.productive.models.Task;
 import co.infinum.productive.models.TaskDetails;
-import co.infinum.productive.mvp.Listener;
 import co.infinum.productive.mvp.interactors.CacheInteractor;
 import co.infinum.productive.mvp.interactors.ProjectInteractor;
 import co.infinum.productive.mvp.interactors.TaskDetailsInteractor;
@@ -62,6 +64,7 @@ public class ProjectPresenterImpl implements ProjectPresenter {
     private Listener<ArrayList<Project>> projectListener = new Listener<ArrayList<Project>>() {
         @Override
         public void onSuccess(ArrayList<Project> projects) {
+            //TODO rework this solution
             // temp solution so skliba can continue
             projectView.hideProgress();
             projectView.onSuccess(sortProjects(filterProjects(projects)));
@@ -103,7 +106,7 @@ public class ProjectPresenterImpl implements ProjectPresenter {
         @Override
         public void onSuccess(ArrayList<TaskDetails> taskDetailses) {
             projectView.hideProgress();
-            //projectView.onSuccess(); //TODO should return ProjectTile?
+            //projectView.onSuccess(); //TODO should return ProjectTitle?
         }
 
         @Override
@@ -134,7 +137,12 @@ public class ProjectPresenterImpl implements ProjectPresenter {
                 ret.add(projects.get(i));
             }
         }
-
+        saveProjectsToCache(ret);
         return ret;
+    }
+
+    private void saveProjectsToCache(ArrayList<Project> ret) {
+        cacheInteractor.cacheProjects(ret);
+        Log.e("PROJECTS CACHE", "" + cacheInteractor.getProjects());
     }
 }

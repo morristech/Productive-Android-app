@@ -13,7 +13,8 @@
     <string name="projects_text">Projects</string>
     <string name="notifications_text">Notifications</string>
     <string name="more_text">More</string>
-    <string name="empty_projects">You are not assigned to any project yet</string>
+    <string name="empty_projects_list">You are not assigned to any project yet</string>
+    <string name="empty_tasks_list">You have no tasks on any project</string>
     <string name="year_text">&#160;year</string>
     <string name="month_text">&#160;month</string>
     <string name="day_text">&#160;day</string>

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,39 +20,40 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import co.infinum.productive.R;
-import co.infinum.productive.listeners.OnProjectClickListener;
-import co.infinum.productive.models.Project;
+import co.infinum.productive.models.Task;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by mjurinic on 09.11.15..
+ * Created by noxqs on 15.11.15..
  */
-public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectsViewHolder> {
+public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHolder> {
 
     private Context mContext;
-    private ArrayList<Project> projects;
+
+    private ArrayList<Task> tasks;
+
     private Resources res;
-    private OnProjectClickListener listener;
 
-    public ProjectAdapter(Context context, Resources res, ArrayList<Project> projects, OnProjectClickListener listener) {
-        mContext = context;
+
+    public TasksAdapter(Context mContext, ArrayList<Task> tasks, Resources res) {
+        this.mContext = mContext;
+        this.tasks = tasks;
         this.res = res;
-        this.projects = projects;
-        this.listener = listener;
-    }
-
-    public ProjectsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ProjectsViewHolder(LayoutInflater.from(mContext).inflate(R.layout.projects_list_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(ProjectsViewHolder holder, final int position) {
-        holder.title.setText(projects.get(position).getName());
+    public TasksViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new TasksViewHolder(LayoutInflater.from(mContext).inflate(R.layout.tasks_list_item, parent, false));
+    }
+
+    @Override
+    public void onBindViewHolder(TasksViewHolder holder, int position) {
+        holder.tasksItemTitle.setText(tasks.get(position).getTitle());
 
         String updateInfo = "";
-        String updatedBy = projects.get(position).getProjectManager().getName();
+        String updatedBy = tasks.get(position).getAssignee().getName();
 
-        //TODO add TasksInteractor & TaskDetailsInteractor in order to get the right person
-        String elapsedTime = getElapsedTime(projects.get(position).getUpdatedAt());
+        String elapsedTime = getElapsedTime(tasks.get(position).getUpdatedAt());
 
         if (Integer.parseInt(elapsedTime.replaceAll("\\D+", "")) != 1) {
             updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 2, elapsedTime, updatedBy));
@@ -59,28 +61,21 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.Projects
             updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 1, elapsedTime, updatedBy));
         }
 
-        holder.description.setText(updateInfo);
+        holder.tasksItemDescription.setText(elapsedTime);
 
-        Glide.with(mContext).load(projects.get(position).getClient().getAvatarUrl())
+        Glide.with(mContext).load(tasks.get(position).getAssignee().getAvatarUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.thumbnail);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onProjectsClick(projects.get(position));
-            }
-        });
+                .into(holder.itemThumbnail);
     }
 
     @Override
     public int getItemCount() {
-        return projects.size();
+        return tasks.size();
     }
 
-    public void refresh(ArrayList<Project> projects) {
-        this.projects.clear();
-        this.projects.addAll(projects); //memory efficient, we're always updating the initial List
+    public void refresh(ArrayList<Task> tasks) {
+        this.tasks.clear();
+        this.tasks.addAll(this.tasks); //memory efficient, we're always updating the initial List
         notifyDataSetChanged();
     }
 
@@ -112,20 +107,26 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.Projects
         return ret;
     }
 
-    public static class ProjectsViewHolder extends RecyclerView.ViewHolder {
+    public class TasksViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.projects_item_title)
-        TextView title;
+        @Bind(R.id.tasks_item_title)
+        TextView tasksItemTitle;
 
-        @Bind(R.id.projects_item_description)
-        TextView description;
+        @Bind(R.id.tasks_item_description)
+        TextView tasksItemDescription;
+
+        @Bind(R.id.tasks_content_layout)
+        LinearLayout tasksContentLayout;
+
+        @Bind(R.id.tasks_arrow_right)
+        ImageView tasksArrowRight;
 
         @Bind(R.id.item_thumbnail)
-        ImageView thumbnail;
+        CircleImageView itemThumbnail;
 
-        public ProjectsViewHolder(View v) {
-            super(v);
-            ButterKnife.bind(this, v);
+        public TasksViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

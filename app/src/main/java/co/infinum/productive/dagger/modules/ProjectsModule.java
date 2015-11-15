@@ -16,11 +16,11 @@ import dagger.Provides;
  * Created by mjurinic on 11.11.15..
  */
 @Module
-public class ProjectsFragmentModule {
+public class ProjectsModule {
 
     private ProjectView projectView;
 
-    public ProjectsFragmentModule(ProjectView projectView) {
+    public ProjectsModule(ProjectView projectView) {
         this.projectView = projectView;
     }
 

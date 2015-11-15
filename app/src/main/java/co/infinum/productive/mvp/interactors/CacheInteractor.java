@@ -1,6 +1,7 @@
 package co.infinum.productive.mvp.interactors;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import co.infinum.productive.models.Organization;
 import co.infinum.productive.models.Project;
@@ -21,5 +22,5 @@ public interface CacheInteractor {
 
     void cacheProjects(ArrayList<Project> projects);
 
-    ArrayList<Project> getProjects();
+    HashMap<Integer, String> getProjects();
 }

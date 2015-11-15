@@ -16,64 +16,65 @@ import butterknife.ButterKnife;
 import co.infinum.productive.R;
 
 /**
- * Created by mjurinic on 09.11.15..
+ * Created by noxqs on 15.11.15..
  */
-public class ProjectSectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TasksSectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int SECTION_TYPE = 0;
-
     private boolean mValid = true;
-
     private int mSectionResourceId;
-
     private Context mContext;
-
     private RecyclerView.Adapter mBaseAdapter;
+    private SparseArray<TaskSection> mSections = new SparseArray<>();
 
-    private SparseArray<Section> mSections = new SparseArray<>();
-
-    public ProjectSectionAdapter(Context context, int sectionResourceId, RecyclerView.Adapter baseAdapter) {
-        mSectionResourceId = sectionResourceId;
-        mBaseAdapter = baseAdapter;
-        mContext = context;
+    public TasksSectionAdapter(int mSectionResourceId, Context mContext, RecyclerView.Adapter mBaseAdapter) {
+        this.mSectionResourceId = mSectionResourceId;
+        this.mContext = mContext;
+        this.mBaseAdapter = mBaseAdapter;
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int typeView) {
-        if (typeView == SECTION_TYPE) {
-            return new SectionViewHolder(LayoutInflater.from(mContext).inflate(mSectionResourceId, parent, false));
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == SECTION_TYPE) {
+            return new TaskSectionViewHolder(LayoutInflater.from(mContext).inflate(mSectionResourceId, parent, false));
         } else {
-            return mBaseAdapter.onCreateViewHolder(parent, typeView - 1);
+            return mBaseAdapter.onCreateViewHolder(parent, viewType - 1);
         }
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder sectionViewHolder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (isSectionHeaderPosition(position)) {
-            ((SectionViewHolder) sectionViewHolder).title.setText(mSections.get(position).title);
+            ((TaskSectionViewHolder) holder).title.setText(mSections.get(position).title);
         } else {
-            mBaseAdapter.onBindViewHolder(sectionViewHolder, sectionedPositionToPosition(position));
+            mBaseAdapter.onBindViewHolder(holder, sectionedPositionToPosition(position));
         }
     }
+
+    @Override
+    public int getItemCount() {
+        return mValid ? mBaseAdapter.getItemCount() + mSections.size() : 0;
+    }
+
 
     @Override
     public int getItemViewType(int position) {
         return isSectionHeaderPosition(position) ? SECTION_TYPE : mBaseAdapter.getItemViewType(sectionedPositionToPosition(position)) + 1;
     }
 
-    public void setSections(Section[] sections) {
+    public void setSections(TaskSection[] sections) {
         mSections.clear();
 
-        Arrays.sort(sections, new Comparator<Section>() {
+        Arrays.sort(sections, new Comparator<TaskSection>() {
             @Override
-            public int compare(Section o, Section o1) {
+            public int compare(TaskSection o, TaskSection o1) {
                 return o.firstPosition == o1.firstPosition ? 0 : o.firstPosition < o1.firstPosition ? -1 : 1;
             }
         });
 
         int offset = 0; // offset positions for the headers we're adding
 
-        for (Section section : sections) {
+        for (TaskSection section : sections) {
             section.sectionedPosition = section.firstPosition + offset;
             mSections.append(section.sectionedPosition, section);
             ++offset;
@@ -111,23 +112,18 @@ public class ProjectSectionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 : mBaseAdapter.getItemId(sectionedPositionToPosition(position));
     }
 
-    @Override
-    public int getItemCount() {
-        return mValid ? mBaseAdapter.getItemCount() + mSections.size() : 0;
-    }
+    public static class TaskSectionViewHolder extends RecyclerView.ViewHolder {
 
-    public static class SectionViewHolder extends RecyclerView.ViewHolder {
-
-        @Bind(R.id.projects_section_title)
+        @Bind(R.id.tasks_section_title)
         TextView title;
 
-        public SectionViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
+        public TaskSectionViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 
-    public static class Section {
+    public static class TaskSection {
 
         int firstPosition;
 
@@ -135,7 +131,7 @@ public class ProjectSectionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         String title;
 
-        public Section(int firstPosition, String title) {
+        public TaskSection(int firstPosition, String title) {
             this.firstPosition = firstPosition;
             this.title = title;
         }

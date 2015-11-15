@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import co.infinum.productive.listeners.Listener;
 import co.infinum.productive.models.BaseResponse;
 import co.infinum.productive.models.Project;
-import co.infinum.productive.mvp.Listener;
 import co.infinum.productive.mvp.interactors.ProjectInteractor;
 import co.infinum.productive.network.ApiService;
 import co.infinum.productive.network.BaseCallback;

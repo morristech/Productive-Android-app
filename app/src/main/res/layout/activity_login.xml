@@ -16,18 +16,18 @@
 
     <RelativeLayout
         android:id="@+id/login_credentials_container"
-        style="@style/loginCredentialsContainer">
+        style="@style/LoginCredentialsContainer">
 
         <EditText
             android:id="@+id/et_email"
-            style="@style/loginCredentials"
+            style="@style/LoginCredentials"
             android:layout_marginBottom="@dimen/credentials_spacing"
             android:hint="@string/login_hint_email"
             android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/et_password"
-            style="@style/loginCredentials"
+            style="@style/LoginCredentials"
             android:layout_below="@+id/et_email"
             android:hint="@string/login_hint_password"
             android:inputType="textPassword" />
@@ -48,7 +48,7 @@
 
     <Button
         android:id="@+id/login_button"
-        style="@style/signInAndRegisterButton"
+        style="@style/SignInAndRegisterButton"
         android:layout_above="@+id/register_button"
         android:background="@drawable/signin_selector_button_orange"
         android:text="@string/login_button_text"
@@ -56,7 +56,7 @@
 
     <Button
         android:id="@+id/register_button"
-        style="@style/signInAndRegisterButton"
+        style="@style/SignInAndRegisterButton"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/register_button_margin_top"
         android:background="@drawable/register_selector_button_white"
