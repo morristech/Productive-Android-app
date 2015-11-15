@@ -78,14 +78,6 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         Glide.with(mContext).load(projects.get(position).getClient().getAvatarUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.thumbnail);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO show project details
-                Toast.makeText(mContext, "Position = " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
