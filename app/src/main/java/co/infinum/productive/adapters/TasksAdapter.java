@@ -53,10 +53,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
         String updateInfo = "";
         String updatedBy;
-        if(tasks.get(position).getAssignee() != null){
+        if (tasks.get(position).getAssignee() != null) {
             updatedBy = "" + tasks.get(position).getAssignee().getName();
-        }
-        else{
+        } else {
             updatedBy = "";
         }
 
@@ -69,7 +68,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         }
 
         holder.tasksItemDescription.setText(elapsedTime);
-        if(tasks.get(position).getAssignee() != null){
+        if (tasks.get(position).getAssignee() != null) {
             Glide.with(mContext).load(tasks.get(position).getAssignee().getAvatarUrl())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.itemThumbnail);

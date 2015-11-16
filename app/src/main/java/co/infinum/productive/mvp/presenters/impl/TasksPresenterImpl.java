@@ -20,7 +20,9 @@ import co.infinum.productive.mvp.views.TasksView;
 public class TasksPresenterImpl implements TasksPresenter {
 
     private TaskInteractor taskInteractor;
+
     private TasksView view;
+
     private CacheInteractor cacheInteractor;
 
     @Inject
@@ -32,9 +34,9 @@ public class TasksPresenterImpl implements TasksPresenter {
 
     @Override
     public void getTasks() {
-        if(cacheInteractor.getProjects() != null){
+        if (cacheInteractor.getProjects() != null) {
             HashMap<Integer, String> projectIds = cacheInteractor.getProjects();
-            for(Integer projectId : projectIds.keySet()){
+            for (Integer projectId : projectIds.keySet()) {
                 taskInteractor.fetchTasks(tasksListener, projectId);
             }
         }

@@ -21,12 +21,12 @@ public class TasksModule {
     }
 
     @Provides
-    public TasksView provideTaskView(){
+    public TasksView provideTaskView() {
         return tasksView;
     }
 
     @Provides
-    public TasksPresenter provideTaskPresenter(TasksPresenterImpl tasksPresenter){
+    public TasksPresenter provideTaskPresenter(TasksPresenterImpl tasksPresenter) {
         return tasksPresenter;
     }
 
