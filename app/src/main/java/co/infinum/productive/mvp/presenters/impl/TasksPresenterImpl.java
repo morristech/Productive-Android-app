@@ -47,7 +47,6 @@ public class TasksPresenterImpl implements TasksPresenter {
     private Listener<ArrayList<Task>> tasksListener = new Listener<ArrayList<Task>>() {
         @Override
         public void onSuccess(ArrayList<Task> tasks) {
-            Log.e("SUCCESS", "GREAT SUCCESS AT FETCHING");
             view.onTasksFetched(tasks);
         }
 

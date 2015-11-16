@@ -4,10 +4,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by mjurinic on 14.11.15..
@@ -31,7 +31,7 @@ public class Task implements Serializable {
     private String title;
 
     @SerializedName("due_date")
-    private Date dueDate;
+    private LocalDate dueDate;
 
     @SerializedName("private")
     private boolean isPrivate;
@@ -104,11 +104,11 @@ public class Task implements Serializable {
         this.title = title;
     }
 
-    public Date getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 

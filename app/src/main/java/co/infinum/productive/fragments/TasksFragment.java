@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,6 @@ public class TasksFragment extends BaseFragment implements TasksView {
     private LinearLayoutManager layoutManager;
 
     private Context context;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -109,6 +109,11 @@ public class TasksFragment extends BaseFragment implements TasksView {
         } else {
             emptyTasksInfo.setVisibility(View.GONE);
             tasksRecyclerView.setVisibility(View.VISIBLE);
+        }
+
+        Log.d("PRINT", "Printing tasks...");
+        for (int i = 0; i < tasks.size(); ++i) {
+            Log.d("DEBUG", tasks.get(i).getTitle());
         }
 
         if (isRefreshed) {
