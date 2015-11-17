@@ -3,7 +3,6 @@ package co.infinum.productive.mvp.presenters.impl;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -19,11 +18,14 @@ import co.infinum.productive.mvp.views.TasksView;
  */
 public class TasksPresenterImpl implements TasksPresenter {
 
+    public static final int ORGANIZATIONS = 491;
+
     private TaskInteractor taskInteractor;
 
     private TasksView view;
 
     private CacheInteractor cacheInteractor;
+
 
     @Inject
     public TasksPresenterImpl(TaskInteractor taskInteractor, TasksView view, CacheInteractor cacheInteractor) {
@@ -34,12 +36,13 @@ public class TasksPresenterImpl implements TasksPresenter {
 
     @Override
     public void getTasks() {
-        if (cacheInteractor.getProjects() != null) {
-            HashMap<Integer, String> projectIds = cacheInteractor.getProjects();
-            for (Integer projectId : projectIds.keySet()) {
-                taskInteractor.fetchTasks(tasksListener, projectId);
-            }
-        }
+        /*
+        TODO temporary solution because in organization 491 we have more projects and therefore tasks, will get modified as soon as
+        TODO the testing phase is done
+        taskInteractor.fetchTasks(tasksListener, cacheInteractor.getOrganizations().get(0).getId());
+        */
+
+        taskInteractor.fetchTasks(tasksListener, ORGANIZATIONS);
     }
 
     @Override

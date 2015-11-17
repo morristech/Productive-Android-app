@@ -1,7 +1,5 @@
 package co.infinum.productive.mvp.presenters.impl;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -143,6 +141,5 @@ public class ProjectPresenterImpl implements ProjectPresenter {
 
     private void saveProjectsToCache(ArrayList<Project> ret) {
         cacheInteractor.cacheProjects(ret);
-        Log.e("PROJECTS CACHE", "" + cacheInteractor.getProjects());
     }
 }

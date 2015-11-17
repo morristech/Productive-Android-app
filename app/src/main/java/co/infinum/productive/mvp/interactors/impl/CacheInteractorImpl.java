@@ -3,7 +3,6 @@ package co.infinum.productive.mvp.interactors.impl;
 import android.util.LruCache;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -62,15 +61,11 @@ public class CacheInteractorImpl implements CacheInteractor {
 
     @Override
     public void cacheProjects(ArrayList<Project> projects) {
-        HashMap<Integer, String> cachedProjects = new HashMap<>();
-        for (Project iteratedProject : projects) {
-            cachedProjects.put(iteratedProject.getId(), iteratedProject.getName());
-        }
-        setCache(PROJECTS, cachedProjects);
+        setCache(PROJECTS, projects);
     }
 
     @Override
-    public HashMap<Integer, String> getProjects() {
-        return (HashMap<Integer, String>) getCache(PROJECTS);
+    public ArrayList<Project> getProjects() {
+        return (ArrayList<Project>) getCache(PROJECTS);
     }
 }

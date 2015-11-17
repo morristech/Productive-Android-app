@@ -10,10 +10,8 @@
             android:id="@+id/tasks_section_title"
             style="@style/Separator"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:layout_height="@dimen/material_subheader_height"
+            android:textSize="@dimen/material_subheader_text_size"
             tools:text="Header 1"/>
 
 </LinearLayout>

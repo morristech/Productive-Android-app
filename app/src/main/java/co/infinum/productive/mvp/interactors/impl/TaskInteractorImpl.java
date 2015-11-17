@@ -20,11 +20,12 @@ import retrofit.Response;
  */
 public class TaskInteractorImpl implements TaskInteractor {
 
-    // "/api/v1/projects/{projectId}/tasks"
-    public static final int ORGANIZATION_ID = 491;
+    // https://productive.io/api/v1/491/tasks
 
     private ApiService apiService;
+
     private Call<BaseResponse<ArrayList<Task>>> call;
+
     private BaseCallback<BaseResponse<ArrayList<Task>>> callback;
 
     @Inject
@@ -33,8 +34,8 @@ public class TaskInteractorImpl implements TaskInteractor {
     }
 
     @Override
-    public void fetchTasks(final Listener<ArrayList<Task>> listener, int projectId) {
-        call = apiService.getTasks(ORGANIZATION_ID, projectId);
+    public void fetchTasks(final Listener<ArrayList<Task>> listener, int organizationId) {
+        call = apiService.getTasks(organizationId);
 
         callback = new BaseCallback<BaseResponse<ArrayList<Task>>>() {
             @Override
