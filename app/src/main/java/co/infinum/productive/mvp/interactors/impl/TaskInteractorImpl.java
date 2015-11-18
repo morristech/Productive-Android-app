@@ -20,8 +20,6 @@ import retrofit.Response;
  */
 public class TaskInteractorImpl implements TaskInteractor {
 
-    // "/api/v1/projects/{projectId}/tasks"
-
     private ApiService apiService;
     private Call<BaseResponse<ArrayList<Task>>> call;
     private BaseCallback<BaseResponse<ArrayList<Task>>> callback;
@@ -32,8 +30,8 @@ public class TaskInteractorImpl implements TaskInteractor {
     }
 
     @Override
-    public void fetchTasks(final Listener<ArrayList<Task>> listener, int projectId) {
-        call = apiService.getTasks(projectId);
+    public void fetchTasks(final Listener<ArrayList<Task>> listener, int organizationId) {
+        call = apiService.getTasks(organizationId);
 
         callback = new BaseCallback<BaseResponse<ArrayList<Task>>>() {
             @Override

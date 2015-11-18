@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import co.infinum.productive.R;
-import co.infinum.productive.models.Project;
+import co.infinum.productive.models.ProjectTile;
 
 public class TasksListActivity extends AppCompatActivity {
 
@@ -17,8 +17,6 @@ public class TasksListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tasks_list);
 
         Intent intent = getIntent();
-        Project pro = (Project) intent.getSerializableExtra(PROJECT);
-
-
+        ProjectTile projectTile = (ProjectTile) intent.getSerializableExtra(PROJECT);
     }
 }

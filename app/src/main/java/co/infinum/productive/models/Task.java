@@ -3,6 +3,7 @@ package co.infinum.productive.models;
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class Task implements Serializable {
     private String title;
 
     @SerializedName("due_date")
-    private DateTime dueDate;
+    private LocalDate dueDate;
 
     @SerializedName("private")
     private boolean isPrivate;
@@ -98,11 +99,11 @@ public class Task implements Serializable {
         this.title = title;
     }
 
-    public DateTime getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(DateTime dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 

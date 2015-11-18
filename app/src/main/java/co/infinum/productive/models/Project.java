@@ -20,24 +20,6 @@ public class Project implements Serializable {
     @SerializedName("updated_at")
     private DateTime updatedAt;
 
-    @SerializedName("project_url")
-    private String projectUrl;
-
-    @SerializedName("tasks_url")
-    private String tasksUrl;
-
-    @SerializedName("task_lists_url")
-    private String taskListsUrl;
-
-    @SerializedName("people_url")
-    private String peopleUrl;
-
-    @SerializedName("subscribers_url")
-    private String subscribersUrl;
-
-    @SerializedName("tags_url")
-    private String tagsUrl;
-
     @SerializedName("account_id")
     private int accountId;
 
@@ -72,54 +54,6 @@ public class Project implements Serializable {
 
     public void setUpdatedAt(DateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public String getProjectUrl() {
-        return projectUrl;
-    }
-
-    public void setProjectUrl(String projectUrl) {
-        this.projectUrl = projectUrl;
-    }
-
-    public String getTasksUrl() {
-        return tasksUrl;
-    }
-
-    public void setTasksUrl(String tasksUrl) {
-        this.tasksUrl = tasksUrl;
-    }
-
-    public String getTaskListsUrl() {
-        return taskListsUrl;
-    }
-
-    public void setTaskListsUrl(String taskListsUrl) {
-        this.taskListsUrl = taskListsUrl;
-    }
-
-    public String getPeopleUrl() {
-        return peopleUrl;
-    }
-
-    public void setPeopleUrl(String peopleUrl) {
-        this.peopleUrl = peopleUrl;
-    }
-
-    public String getSubscribersUrl() {
-        return subscribersUrl;
-    }
-
-    public void setSubscribersUrl(String subscribersUrl) {
-        this.subscribersUrl = subscribersUrl;
-    }
-
-    public String getTagsUrl() {
-        return tagsUrl;
-    }
-
-    public void setTagsUrl(String tagsUrl) {
-        this.tagsUrl = tagsUrl;
     }
 
     public int getAccountId() {

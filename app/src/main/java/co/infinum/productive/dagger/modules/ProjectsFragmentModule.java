@@ -1,10 +1,12 @@
 package co.infinum.productive.dagger.modules;
 
+import android.content.res.Resources;
+
 import co.infinum.productive.mvp.interactors.ProjectInteractor;
-import co.infinum.productive.mvp.interactors.TaskDetailsInteractor;
+import co.infinum.productive.mvp.interactors.TaskActivitiesInteractor;
 import co.infinum.productive.mvp.interactors.TaskInteractor;
 import co.infinum.productive.mvp.interactors.impl.ProjectInteractorImpl;
-import co.infinum.productive.mvp.interactors.impl.TaskDetailsInteractorImpl;
+import co.infinum.productive.mvp.interactors.impl.TaskActivitiesInteractorImpl;
 import co.infinum.productive.mvp.interactors.impl.TaskInteractorImpl;
 import co.infinum.productive.mvp.presenters.ProjectPresenter;
 import co.infinum.productive.mvp.presenters.impl.ProjectPresenterImpl;
@@ -19,14 +21,21 @@ import dagger.Provides;
 public class ProjectsFragmentModule {
 
     private ProjectView projectView;
+    private Resources resources;
 
-    public ProjectsFragmentModule(ProjectView projectView) {
+    public ProjectsFragmentModule(ProjectView projectView, Resources resources) {
         this.projectView = projectView;
+        this.resources = resources;
     }
 
     @Provides
     public ProjectView provideProjectView() {
         return projectView;
+    }
+
+    @Provides
+    public Resources provideResources() {
+        return resources;
     }
 
     @Provides
@@ -45,7 +54,7 @@ public class ProjectsFragmentModule {
     }
 
     @Provides
-    public TaskDetailsInteractor provideTaskDetailsInteractor(TaskDetailsInteractorImpl interactor) {
+    public TaskActivitiesInteractor provideTaskActivities(TaskActivitiesInteractorImpl interactor) {
         return interactor;
     }
 }

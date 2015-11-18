@@ -10,5 +10,5 @@ import co.infinum.productive.mvp.Listener;
  */
 public interface TaskInteractor extends BaseInteractor {
 
-    void fetchTasks(Listener<ArrayList<Task>> listener, int projectId);
+    void fetchTasks(Listener<ArrayList<Task>> listener, int organizationId);
 }
