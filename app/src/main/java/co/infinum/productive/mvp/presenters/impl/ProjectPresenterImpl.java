@@ -61,7 +61,6 @@ public class ProjectPresenterImpl implements ProjectPresenter {
 
     @Override
     public void getProjects() {
-        projectView.showProgress();
         projectInteractor.fetchProjects(projectListener);
     }
 
@@ -81,7 +80,7 @@ public class ProjectPresenterImpl implements ProjectPresenter {
 
     @Override
     public void cancel() {
-        projectView.hideProgress();
+        
         projectInteractor.cancel();
     }
 
@@ -94,13 +93,11 @@ public class ProjectPresenterImpl implements ProjectPresenter {
 
         @Override
         public void onFailure(String message) {
-            projectView.hideProgress();
             projectView.showError(message);
         }
 
         @Override
         public void onConnectionFailure(String message) {
-            projectView.hideProgress();
             projectView.showError(message);
         }
     };
@@ -117,13 +114,11 @@ public class ProjectPresenterImpl implements ProjectPresenter {
 
         @Override
         public void onFailure(String message) {
-            projectView.hideProgress();
             projectView.showError(message);
         }
 
         @Override
         public void onConnectionFailure(String message) {
-            projectView.hideProgress();
             projectView.showError(message);
         }
     };
@@ -190,19 +185,16 @@ public class ProjectPresenterImpl implements ProjectPresenter {
 
             allActivties.clear();
 
-            projectView.hideProgress();
             projectView.onSuccess(tiles);
         }
 
         @Override
         public void onFailure(String message) {
-            projectView.hideProgress();
             projectView.showError(message);
         }
 
         @Override
         public void onConnectionFailure(String message) {
-            projectView.hideProgress();
             projectView.showError(message);
         }
     };

@@ -71,6 +71,8 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
         initSwipeRefresh();
         initRecyclerView();
 
+        this.showProgress();
+
         projectPresenter.getProjects();
 
         return view;
@@ -78,6 +80,9 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
 
     @Override
     public void onSuccess(ArrayList<ProjectTile> projectTiles) {
+
+        this.hideProgress();
+
         if (projectTiles.size() == 0) {
             mRecyclerView.setVisibility(View.GONE);
             emptyProjectsInfo.setVisibility(View.VISIBLE);
