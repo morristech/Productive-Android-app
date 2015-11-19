@@ -80,7 +80,6 @@ public class ProjectPresenterImpl implements ProjectPresenter {
 
     @Override
     public void cancel() {
-        
         projectInteractor.cancel();
     }
 
