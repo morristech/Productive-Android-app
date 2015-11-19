@@ -11,8 +11,8 @@ public class TileComparator implements Comparator<ProjectTile> {
 
     @Override
     public int compare(ProjectTile lhs, ProjectTile rhs) {
-        return !lhs.getClientName().equals(rhs.getClientName()) ?
-                lhs.getClientName().compareTo(rhs.getClientName()) :
-                lhs.getProjectName().compareTo(rhs.getProjectName());
+        return !lhs.getClientName().equals(rhs.getClientName())
+                ? lhs.getClientName().compareTo(rhs.getClientName())
+                : lhs.getProjectName().compareTo(rhs.getProjectName());
     }
 }
