@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 import co.infinum.productive.R;
 import co.infinum.productive.helpers.TaskByDateComparator;
-import co.infinum.productive.helpers.TilesByClientNameComparator;
+import co.infinum.productive.helpers.TileComparator;
 import co.infinum.productive.listeners.TaskActivityListener;
 import co.infinum.productive.models.Project;
 import co.infinum.productive.models.ProjectTile;
@@ -186,7 +186,7 @@ public class ProjectPresenterImpl implements ProjectPresenter {
                 }
             }
 
-            Collections.sort(tiles, new TilesByClientNameComparator());
+            Collections.sort(tiles, new TileComparator());
 
             allActivties.clear();
 
@@ -229,8 +229,6 @@ public class ProjectPresenterImpl implements ProjectPresenter {
 
     /**
      * keeps just the last updated tasks for a project
-     *
-     * missing isClosed and isPrivated filtering
      */
     private ArrayList<Task> filterTasks(ArrayList<Task> tasks) {
         ArrayList<Task> ret = new ArrayList<>();

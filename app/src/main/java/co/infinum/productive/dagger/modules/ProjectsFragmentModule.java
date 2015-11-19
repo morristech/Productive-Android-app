@@ -54,7 +54,7 @@ public class ProjectsFragmentModule {
     }
 
     @Provides
-    public TaskActivitiesInteractor provideTaskActivities(TaskActivitiesInteractorImpl interactor) {
+    public TaskActivitiesInteractor provideTaskActivitiesInteractor(TaskActivitiesInteractorImpl interactor) {
         return interactor;
     }
 }
