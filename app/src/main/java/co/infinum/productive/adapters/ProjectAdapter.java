@@ -29,6 +29,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
     private ArrayList<ProjectTile> projectTiles;
     private Resources res;
     private OnProjectClickListener listener;
+    private ProjectSectionAdapter projectSectionAdapter;
 
     public ProjectAdapter(Context context, Resources res, ArrayList<ProjectTile> projectTiles, OnProjectClickListener listener) {
         mContext = context;
@@ -38,14 +39,14 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
     }
 
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new SimpleViewHolder(LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false));
+        return new SimpleViewHolder(LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false), listener);
     }
 
     @Override
     public void onBindViewHolder(SimpleViewHolder holder, final int position) {
         holder.title.setText(projectTiles.get(position).getProjectName());
 
-        String updateInfo = "";
+        String updateInfo;
         String updatedBy = projectTiles.get(position).getUpdatedBy();
         String elapsedTime = projectTiles.get(position).getElapsedTime();
 
@@ -60,18 +61,15 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
         Glide.with(mContext).load(projectTiles.get(position).getAvatarUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.thumbnail);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onProjectsClick(projectTiles.get(position));
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
         return projectTiles.size();
+    }
+
+    public ProjectTile getItem(int position) {
+        return projectTiles.get(position);
     }
 
     public void refresh(ArrayList<ProjectTile> projectTiles) {
@@ -80,7 +78,11 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
         notifyDataSetChanged();
     }
 
-    public static class SimpleViewHolder extends RecyclerView.ViewHolder {
+    public void setProjectSectionAdapter(ProjectSectionAdapter projectSectionAdapter) {
+        this.projectSectionAdapter = projectSectionAdapter;
+    }
+
+    public class SimpleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.item_title)
         TextView title;
@@ -91,9 +93,20 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
         @Bind(R.id.item_thumbnail)
         ImageView thumbnail;
 
-        public SimpleViewHolder(View v) {
+        private OnProjectClickListener listener;
+
+        public SimpleViewHolder(View v, OnProjectClickListener listener) {
             super(v);
             ButterKnife.bind(this, v);
+
+            v.setOnClickListener(this);
+
+            this.listener = listener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            listener.onProjectsClick(projectSectionAdapter.sectionedPositionToPosition(getAdapterPosition()));
         }
     }
 }

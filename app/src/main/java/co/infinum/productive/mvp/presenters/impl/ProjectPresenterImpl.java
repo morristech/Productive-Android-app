@@ -2,8 +2,6 @@ package co.infinum.productive.mvp.presenters.impl;
 
 import android.content.res.Resources;
 
-import org.joda.time.DateTime;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,7 +10,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import co.infinum.productive.R;
+import co.infinum.productive.helpers.ElapsedTimeFormatter;
 import co.infinum.productive.helpers.TaskByDateComparator;
 import co.infinum.productive.helpers.TileComparator;
 import co.infinum.productive.listeners.TaskActivityListener;
@@ -151,7 +149,7 @@ public class ProjectPresenterImpl implements ProjectPresenter {
                         tile = new ProjectTile(project.getName(),
                                 project.getClient().getAvatarUrl(),
                                 project.getClient().getName(),
-                                getElapsedTime(project.getUpdatedAt()),
+                                ElapsedTimeFormatter.getElapsedTime(project.getUpdatedAt(), resources),
                                 activities.get(0).getPerson().getName());
                         break;
                     }
@@ -175,7 +173,7 @@ public class ProjectPresenterImpl implements ProjectPresenter {
                     tiles.add(new ProjectTile(project.getName(),
                             project.getClient().getAvatarUrl(),
                             project.getClient().getName(),
-                            getElapsedTime(project.getUpdatedAt()),
+                            ElapsedTimeFormatter.getElapsedTime(project.getUpdatedAt(), resources),
                             project.getProjectManager().getName()));
                 }
             }
@@ -237,33 +235,6 @@ public class ProjectPresenterImpl implements ProjectPresenter {
         return ret;
     }
 
-    private String getElapsedTime(DateTime updatedAt) {
-        DateTime currentTime = new DateTime();
-        String ret = "";
-
-        int years = Math.abs(currentTime.getYear() - updatedAt.getYear());
-        int months = Math.abs(currentTime.getMonthOfYear() - updatedAt.getMonthOfYear());
-        int days = Math.abs(currentTime.getDayOfMonth() - updatedAt.getDayOfMonth());
-        int hours = Math.abs(currentTime.getHourOfDay() - updatedAt.getHourOfDay());
-        int minutes = Math.abs(currentTime.getMinuteOfHour() - updatedAt.getMinuteOfHour());
-        int seconds = Math.abs(currentTime.getSecondOfMinute() - updatedAt.getSecondOfMinute());
-
-        if (years != 0) {
-            ret += years + resources.getString(R.string.year_text);
-        } else if (months != 0) {
-            ret += months + resources.getString(R.string.month_text);
-        } else if (days != 0) {
-            ret += days + resources.getString(R.string.day_text);
-        } else if (hours != 0) {
-            ret += hours + resources.getString(R.string.hour_text);
-        } else if (minutes != 0) {
-            ret += minutes + resources.getString(R.string.minute_text);
-        } else if (seconds != 0) {
-            ret += seconds + resources.getString(R.string.second_text);
-        }
-
-        return ret;
-    }
     private void saveProjectsToCache(ArrayList<Project> ret) {
         cacheInteractor.cacheProjects(ret);
     }

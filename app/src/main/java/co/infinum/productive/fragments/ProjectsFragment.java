@@ -119,6 +119,8 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
         mAdapter = new ProjectAdapter(context, getResources(), projectTiles, this);
         mSectionAdapter = new ProjectSectionAdapter(context, R.layout.list_section_separator, mAdapter);
 
+        ((ProjectAdapter) mAdapter).setProjectSectionAdapter(mSectionAdapter);
+
         setSections(projectTiles);
 
         mRecyclerView.setAdapter(mSectionAdapter);
@@ -163,9 +165,9 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
     }
 
     @Override
-    public void onProjectsClick(ProjectTile projectTile) {
+    public void onProjectsClick(int position) {
         Intent intent = new Intent(getActivity(), TasksListActivity.class);
-        intent.putExtra(PROJECT, projectTile);
+        intent.putExtra(PROJECT, ((ProjectAdapter) mAdapter).getItem(position));
         startActivity(intent);
     }
 }
