@@ -52,7 +52,6 @@ public class BaseTest {
             mockWebServer.takeRequest(10, TimeUnit.SECONDS);
             requestCount--;
         }
-
         return mockWebServer.takeRequest(10, TimeUnit.SECONDS);
     }
 }

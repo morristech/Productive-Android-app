@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         initTabs();
         initFragmentList();
 
+
         final PagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentArrayList);
         pager.setAdapter(adapter);
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -90,6 +91,4 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
-
-
 }

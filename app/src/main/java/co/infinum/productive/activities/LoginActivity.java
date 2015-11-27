@@ -21,6 +21,7 @@ import co.infinum.productive.mvp.views.LoginView;
 public class LoginActivity extends BaseActivity implements LoginView {
 
     public static final String EMAIL = "email";
+
     public static final String PASSWORD = "password";
 
     @Bind(R.id.et_email)
@@ -50,7 +51,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 .loginModule(new LoginModule(this))
                 .build()
                 .inject(this);
-
 
         //used for testing purposes, will get removed as soon as the app is done
         etEmail.setText(R.string.valid_username);

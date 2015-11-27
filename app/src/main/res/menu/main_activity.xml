@@ -9,7 +9,7 @@
     <item
             app:showAsAction="always"
             android:title="@string/search_menu_button_title"
-            android:id="@+id/menu_search_button"
+            android:id="@+id/search_menu_button"
             android:icon="@drawable/ic_search">
 
     </item>

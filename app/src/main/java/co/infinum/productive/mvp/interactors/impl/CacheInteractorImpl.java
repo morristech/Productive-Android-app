@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import co.infinum.productive.models.Organization;
+import co.infinum.productive.models.Project;
 import co.infinum.productive.models.User;
 import co.infinum.productive.mvp.interactors.CacheInteractor;
 
@@ -17,8 +18,9 @@ public class CacheInteractorImpl implements CacheInteractor {
 
     public static final String USER = "user";
     public static final String ORGANIZATIONS = "organizations";
+    public static final String PROJECTS = "projects";
 
-    private static final int CACHE_SIZE = 2 * 1024; // in number of items not in bytes
+    private static final int CACHE_SIZE = 3 * 1024; // in number of items not in bytes
     private volatile LruCache<String, Object> lruCache;
 
     @Inject
@@ -52,5 +54,15 @@ public class CacheInteractorImpl implements CacheInteractor {
     @Override
     public User getUser() {
         return (User) getCache(USER);
+    }
+
+    @Override
+    public void cacheProjects(ArrayList<Project> projects) {
+        setCache(PROJECTS, projects);
+    }
+
+    @Override
+    public ArrayList<Project> getProjects() {
+        return (ArrayList<Project>) getCache(PROJECTS);
     }
 }

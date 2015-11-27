@@ -3,6 +3,7 @@ package co.infinum.productive.mvp.interactors;
 import java.util.ArrayList;
 
 import co.infinum.productive.models.Organization;
+import co.infinum.productive.models.Project;
 import co.infinum.productive.models.User;
 
 /**
@@ -17,4 +18,8 @@ public interface CacheInteractor {
     void cacheUser(User user);
 
     User getUser();
+
+    void cacheProjects(ArrayList<Project> projects);
+
+    ArrayList<Project> getProjects();
 }
