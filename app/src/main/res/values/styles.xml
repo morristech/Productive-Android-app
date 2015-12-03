@@ -47,4 +47,9 @@
         <item name="android:textSize">@dimen/title_text_size</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="TaskContentTabFontColor" parent="Widget.Design.TabLayout">
+        <item name="tabTextColor">@android:color/white</item>
+        <item name="tabSelectedTextColor">@android:color/white</item>
+    </style>
 </resources>
