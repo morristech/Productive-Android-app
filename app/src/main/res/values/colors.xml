@@ -9,4 +9,5 @@
     <color name="showHideButtonTextColor">#888888</color>
     <color name="loginCredentialsContainerBackgroundColor">#f7f7f7</color>
     <color name="recyclerViewBackgroundColor">#EDF1F7</color>
+    <color name="separatorBackgroundColor">#e4e3e3</color>
 </resources>

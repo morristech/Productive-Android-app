@@ -1,8 +1,8 @@
 package co.infinum.productive.helpers;
 
-import android.content.res.Resources;
-
 import org.joda.time.DateTime;
+
+import android.content.res.Resources;
 
 import co.infinum.productive.R;
 

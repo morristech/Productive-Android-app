@@ -23,6 +23,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/credentials_hint_text_size</item>
         <item name="android:background">@android:color/transparent</item>
+        <item name="android:padding">@dimen/login_credentials_padding</item>
     </style>
 
     <style name="signInAndRegisterButton">
