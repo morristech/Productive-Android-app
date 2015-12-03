@@ -3,6 +3,7 @@ package co.infinum.productive.fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -112,6 +113,7 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
 
     private void initRecyclerView() {
         mRecyclerView.setHasFixedSize(true);
+
         mRecyclerView.setLayoutManager(layoutManager);
     }
 
