@@ -1,24 +1,21 @@
 package co.infinum.productive.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import co.infinum.productive.R;
-import co.infinum.productive.models.Project;
+import co.infinum.productive.models.ProjectTile;
 
-public class TasksListActivity extends AppCompatActivity {
+public class TasksListActivity extends BaseActivity {
 
     public static final String PROJECT = "project";
+
+    private ProjectTile projectTile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasks_list);
 
-        Intent intent = getIntent();
-        Project pro = (Project) intent.getSerializableExtra(PROJECT);
-
-
+        projectTile = (ProjectTile) getIntent().getSerializableExtra(PROJECT);
     }
 }

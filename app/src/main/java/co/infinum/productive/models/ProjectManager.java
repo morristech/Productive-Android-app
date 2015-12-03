@@ -26,9 +26,6 @@ public class ProjectManager implements Serializable {
     @SerializedName("unseen_notifications_count")
     private int notificationsCount;
 
-    @SerializedName("web_url")
-    private String webUrl;
-
     @SerializedName("account_id")
     private int accountId;
 
@@ -76,14 +73,6 @@ public class ProjectManager implements Serializable {
 
     public void setNotificationsCount(int notificationsCount) {
         this.notificationsCount = notificationsCount;
-    }
-
-    public String getWebUrl() {
-        return webUrl;
-    }
-
-    public void setWebUrl(String webUrl) {
-        this.webUrl = webUrl;
     }
 
     public int getAccountId() {

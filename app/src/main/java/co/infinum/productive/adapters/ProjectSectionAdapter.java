@@ -8,9 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Arrays;
-import java.util.Comparator;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import co.infinum.productive.R;
@@ -21,15 +18,12 @@ import co.infinum.productive.R;
 public class ProjectSectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int SECTION_TYPE = 0;
+    public static final int TILE_TYPE = 1;
 
     private boolean mValid = true;
-
     private int mSectionResourceId;
-
     private Context mContext;
-
     private RecyclerView.Adapter mBaseAdapter;
-
     private SparseArray<Section> mSections = new SparseArray<>();
 
     public ProjectSectionAdapter(Context context, int sectionResourceId, RecyclerView.Adapter baseAdapter) {
@@ -43,7 +37,7 @@ public class ProjectSectionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         if (typeView == SECTION_TYPE) {
             return new SectionViewHolder(LayoutInflater.from(mContext).inflate(mSectionResourceId, parent, false));
         } else {
-            return mBaseAdapter.onCreateViewHolder(parent, typeView - 1);
+            return mBaseAdapter.onCreateViewHolder(parent, typeView);
         }
     }
 
@@ -58,18 +52,11 @@ public class ProjectSectionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public int getItemViewType(int position) {
-        return isSectionHeaderPosition(position) ? SECTION_TYPE : mBaseAdapter.getItemViewType(sectionedPositionToPosition(position)) + 1;
+        return isSectionHeaderPosition(position) ? SECTION_TYPE : TILE_TYPE;
     }
 
     public void setSections(Section[] sections) {
         mSections.clear();
-
-        Arrays.sort(sections, new Comparator<Section>() {
-            @Override
-            public int compare(Section o, Section o1) {
-                return o.firstPosition == o1.firstPosition ? 0 : o.firstPosition < o1.firstPosition ? -1 : 1;
-            }
-        });
 
         int offset = 0; // offset positions for the headers we're adding
 
@@ -116,7 +103,7 @@ public class ProjectSectionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return mValid ? mBaseAdapter.getItemCount() + mSections.size() : 0;
     }
 
-    public static class SectionViewHolder extends RecyclerView.ViewHolder {
+    public class SectionViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.projects_section_title)
         TextView title;
@@ -130,9 +117,7 @@ public class ProjectSectionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public static class Section {
 
         int firstPosition;
-
         int sectionedPosition;
-
         String title;
 
         public Section(int firstPosition, String title) {

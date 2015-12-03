@@ -1,10 +1,12 @@
 package co.infinum.productive.dagger.modules;
 
+import android.content.res.Resources;
+
 import co.infinum.productive.mvp.interactors.ProjectInteractor;
-import co.infinum.productive.mvp.interactors.TaskDetailsInteractor;
+import co.infinum.productive.mvp.interactors.TaskActivitiesInteractor;
 import co.infinum.productive.mvp.interactors.TaskInteractor;
 import co.infinum.productive.mvp.interactors.impl.ProjectInteractorImpl;
-import co.infinum.productive.mvp.interactors.impl.TaskDetailsInteractorImpl;
+import co.infinum.productive.mvp.interactors.impl.TaskActivitiesInteractorImpl;
 import co.infinum.productive.mvp.interactors.impl.TaskInteractorImpl;
 import co.infinum.productive.mvp.presenters.ProjectPresenter;
 import co.infinum.productive.mvp.presenters.impl.ProjectPresenterImpl;
@@ -19,14 +21,25 @@ import dagger.Provides;
 public class ProjectsModule {
 
     private ProjectView projectView;
+    private Resources resources;
 
+<<<<<<< HEAD:app/src/main/java/co/infinum/productive/dagger/modules/ProjectsModule.java
     public ProjectsModule(ProjectView projectView) {
+=======
+    public ProjectsFragmentModule(ProjectView projectView, Resources resources) {
+>>>>>>> 9273c8fdc9f08981396b51c78b01a067357f9086:app/src/main/java/co/infinum/productive/dagger/modules/ProjectsFragmentModule.java
         this.projectView = projectView;
+        this.resources = resources;
     }
 
     @Provides
     public ProjectView provideProjectView() {
         return projectView;
+    }
+
+    @Provides
+    public Resources provideResources() {
+        return resources;
     }
 
     @Provides
@@ -45,7 +58,7 @@ public class ProjectsModule {
     }
 
     @Provides
-    public TaskDetailsInteractor provideTaskDetailsInteractor(TaskDetailsInteractorImpl interactor) {
+    public TaskActivitiesInteractor provideTaskActivitiesInteractor(TaskActivitiesInteractorImpl interactor) {
         return interactor;
     }
 }

@@ -20,8 +20,6 @@ import retrofit.Response;
  */
 public class TaskInteractorImpl implements TaskInteractor {
 
-    // https://productive.io/api/v1/491/tasks
-
     private ApiService apiService;
 
     private Call<BaseResponse<ArrayList<Task>>> call;

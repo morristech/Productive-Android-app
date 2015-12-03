@@ -14,44 +14,46 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import co.infinum.productive.R;
 import co.infinum.productive.listeners.OnProjectClickListener;
-import co.infinum.productive.models.Project;
+import co.infinum.productive.models.ProjectTile;
 
 /**
  * Created by mjurinic on 09.11.15..
  */
-public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectsViewHolder> {
+public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleViewHolder> {
 
     private Context mContext;
-    private ArrayList<Project> projects;
+    private ArrayList<ProjectTile> projectTiles;
     private Resources res;
     private OnProjectClickListener listener;
+    private ProjectSectionAdapter projectSectionAdapter;
 
-    public ProjectAdapter(Context context, Resources res, ArrayList<Project> projects, OnProjectClickListener listener) {
+    public ProjectAdapter(Context context, Resources res, ArrayList<ProjectTile> projectTiles, OnProjectClickListener listener) {
         mContext = context;
         this.res = res;
-        this.projects = projects;
+        this.projectTiles = projectTiles;
         this.listener = listener;
     }
 
-    public ProjectsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ProjectsViewHolder(LayoutInflater.from(mContext).inflate(R.layout.projects_list_item, parent, false));
+    public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new SimpleViewHolder(LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false), listener);
     }
 
     @Override
-    public void onBindViewHolder(ProjectsViewHolder holder, final int position) {
-        holder.title.setText(projects.get(position).getName());
+    public void onBindViewHolder(SimpleViewHolder holder, final int position) {
+        holder.title.setText(projectTiles.get(position).getProjectName());
 
-        String updateInfo = "";
-        String updatedBy = projects.get(position).getProjectManager().getName();
-
-        //TODO add TasksInteractor & TaskDetailsInteractor in order to get the right person
-        String elapsedTime = getElapsedTime(projects.get(position).getUpdatedAt());
+        String updateInfo;
+        String updatedBy = projectTiles.get(position).getUpdatedBy();
+        String elapsedTime = projectTiles.get(position).getElapsedTime();
 
         if (Integer.parseInt(elapsedTime.replaceAll("\\D+", "")) != 1) {
             updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 2, elapsedTime, updatedBy));
@@ -61,58 +63,31 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.Projects
 
         holder.description.setText(updateInfo);
 
-        Glide.with(mContext).load(projects.get(position).getClient().getAvatarUrl())
+        Glide.with(mContext).load(projectTiles.get(position).getAvatarUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.thumbnail);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onProjectsClick(projects.get(position));
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
-        return projects.size();
+        return projectTiles.size();
     }
 
-    public void refresh(ArrayList<Project> projects) {
-        this.projects.clear();
-        this.projects.addAll(projects); //memory efficient, we're always updating the initial List
+    public ProjectTile getItem(int position) {
+        return projectTiles.get(position);
+    }
+
+    public void refresh(ArrayList<ProjectTile> projectTiles) {
+        this.projectTiles.clear();
+        this.projectTiles.addAll(projectTiles); //memory efficient, we're always updating the initial List
         notifyDataSetChanged();
     }
 
-    private String getElapsedTime(DateTime updatedAt) {
-        DateTime currentTime = new DateTime();
-        String ret = "";
-
-        int years = Math.abs(currentTime.getYear() - updatedAt.getYear());
-        int months = Math.abs(currentTime.getMonthOfYear() - updatedAt.getMonthOfYear());
-        int days = Math.abs(currentTime.getDayOfMonth() - updatedAt.getDayOfMonth());
-        int hours = Math.abs(currentTime.getHourOfDay() - updatedAt.getHourOfDay());
-        int minutes = Math.abs(currentTime.getMinuteOfHour() - updatedAt.getMinuteOfHour());
-        int seconds = Math.abs(currentTime.getSecondOfMinute() - updatedAt.getSecondOfMinute());
-
-        if (years != 0) {
-            ret += years + res.getString(R.string.year_text);
-        } else if (months != 0) {
-            ret += months + res.getString(R.string.month_text);
-        } else if (days != 0) {
-            ret += days + res.getString(R.string.day_text);
-        } else if (hours != 0) {
-            ret += hours + res.getString(R.string.hour_text);
-        } else if (minutes != 0) {
-            ret += minutes + res.getString(R.string.minute_text);
-        } else if (seconds != 0) {
-            ret += seconds + res.getString(R.string.second_text);
-        }
-
-        return ret;
+    public void setProjectSectionAdapter(ProjectSectionAdapter projectSectionAdapter) {
+        this.projectSectionAdapter = projectSectionAdapter;
     }
 
-    public static class ProjectsViewHolder extends RecyclerView.ViewHolder {
+    public class SimpleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.projects_item_title)
         TextView title;
@@ -123,9 +98,20 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.Projects
         @Bind(R.id.item_thumbnail)
         ImageView thumbnail;
 
-        public ProjectsViewHolder(View v) {
+        private OnProjectClickListener listener;
+
+        public SimpleViewHolder(View v, OnProjectClickListener listener) {
             super(v);
             ButterKnife.bind(this, v);
+
+            v.setOnClickListener(this);
+
+            this.listener = listener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            listener.onProjectsClick(projectSectionAdapter.sectionedPositionToPosition(getAdapterPosition()));
         }
     }
 }
