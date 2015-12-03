@@ -18,16 +18,12 @@ import dagger.Provides;
  * Created by mjurinic on 11.11.15..
  */
 @Module
-public class ProjectsModule {
+public class ProjectsFragmentModule {
 
     private ProjectView projectView;
     private Resources resources;
 
-<<<<<<< HEAD:app/src/main/java/co/infinum/productive/dagger/modules/ProjectsModule.java
-    public ProjectsModule(ProjectView projectView) {
-=======
     public ProjectsFragmentModule(ProjectView projectView, Resources resources) {
->>>>>>> 9273c8fdc9f08981396b51c78b01a067357f9086:app/src/main/java/co/infinum/productive/dagger/modules/ProjectsFragmentModule.java
         this.projectView = projectView;
         this.resources = resources;
     }

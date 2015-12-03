@@ -7,7 +7,7 @@ import co.infinum.productive.models.ProjectTile;
 /**
  * Created by mjurinic on 18.11.15..
  */
-public class TileComparator implements Comparator<ProjectTile> {
+public class ProjectTileComparator implements Comparator<ProjectTile> {
 
     @Override
     public int compare(ProjectTile lhs, ProjectTile rhs) {

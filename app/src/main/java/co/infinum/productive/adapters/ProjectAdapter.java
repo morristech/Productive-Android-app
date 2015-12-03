@@ -3,8 +3,6 @@ package co.infinum.productive.adapters;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import org.joda.time.DateTime;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
@@ -13,9 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 
@@ -44,7 +39,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
     }
 
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new SimpleViewHolder(LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false), listener);
+        return new SimpleViewHolder(LayoutInflater.from(mContext).inflate(R.layout.projects_list_item, parent, false), listener);
     }
 
     @Override

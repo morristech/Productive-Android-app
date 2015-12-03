@@ -25,7 +25,7 @@
         android:paddingRight="@dimen/default_spacing">
 
         <TextView
-            android:id="@+id/item_title"
+            android:id="@+id/projects_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -35,7 +35,7 @@
             tools:text="This is something we're trying to test"/>
 
         <TextView
-            android:id="@+id/item_description"
+            android:id="@+id/projects_item_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"

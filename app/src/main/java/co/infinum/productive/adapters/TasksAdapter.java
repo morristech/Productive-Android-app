@@ -3,8 +3,6 @@ package co.infinum.productive.adapters;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import org.joda.time.DateTime;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +19,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import co.infinum.productive.R;
-import co.infinum.productive.models.Task;
+import co.infinum.productive.models.TaskTile;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -31,12 +29,12 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
     private Context mContext;
 
-    private ArrayList<Task> tasks;
+    private ArrayList<TaskTile> tasks;
 
     private Resources res;
 
 
-    public TasksAdapter(Context mContext, ArrayList<Task> tasks, Resources res) {
+    public TasksAdapter(Context mContext, ArrayList<TaskTile> tasks, Resources res) {
         this.mContext = mContext;
         this.tasks = tasks;
         this.res = res;
@@ -49,17 +47,17 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
     @Override
     public void onBindViewHolder(TasksViewHolder holder, int position) {
-        holder.tasksItemTitle.setText(tasks.get(position).getTitle());
+        holder.tasksItemTitle.setText(tasks.get(position).getTaskName());
 
-        String updateInfo = "";
+        String updateInfo;
         String updatedBy;
-        if (tasks.get(position).getAssignee() != null) {
-            updatedBy = "" + tasks.get(position).getAssignee().getName();
+        if (tasks.get(position).getUpdatedBy() != null) {
+            updatedBy = "" + tasks.get(position).getUpdatedBy();
         } else {
             updatedBy = "";
         }
 
-        String elapsedTime = getElapsedTime(tasks.get(position).getUpdatedAt());
+        String elapsedTime = tasks.get(position).getElapsedTime();
 
         if (Integer.parseInt(elapsedTime.replaceAll("\\D+", "")) != 1) {
             updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 2, elapsedTime, updatedBy));
@@ -68,8 +66,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         }
 
         holder.tasksItemDescription.setText(updateInfo);
-        if (tasks.get(position).getAssignee().getAvatarUrl() != null) {
-            Glide.with(mContext).load(tasks.get(position).getAssignee().getAvatarUrl())
+        if (tasks.get(position).getUpdatedBy() != null) {
+            Glide.with(mContext).load(tasks.get(position).getAvatarUrl())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.itemThumbnail);
         } else {
@@ -85,44 +83,17 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         return tasks.size();
     }
 
-    public void refresh(ArrayList<Task> tasks) {
+    public void refresh(ArrayList<TaskTile> tasks) {
         this.tasks.clear();
         this.tasks.addAll(tasks); //memory efficient, we're always updating the initial List
 
         for (int i = 0; i < tasks.size(); ++i) {
-            Log.d("DEBUG", tasks.get(i).getProjectName());
+            Log.d("DEBUG", tasks.get(i).getTaskName());
         }
 
         notifyDataSetChanged();
     }
 
-    private String getElapsedTime(DateTime updatedAt) {
-        DateTime currentTime = new DateTime();
-        String ret = "";
-
-        int years = Math.abs(currentTime.getYear() - updatedAt.getYear());
-        int months = Math.abs(currentTime.getMonthOfYear() - updatedAt.getMonthOfYear());
-        int days = Math.abs(currentTime.getDayOfMonth() - updatedAt.getDayOfMonth());
-        int hours = Math.abs(currentTime.getHourOfDay() - updatedAt.getHourOfDay());
-        int minutes = Math.abs(currentTime.getMinuteOfHour() - updatedAt.getMinuteOfHour());
-        int seconds = Math.abs(currentTime.getSecondOfMinute() - updatedAt.getSecondOfMinute());
-
-        if (years != 0) {
-            ret += years + res.getString(R.string.year_text);
-        } else if (months != 0) {
-            ret += months + res.getString(R.string.month_text);
-        } else if (days != 0) {
-            ret += days + res.getString(R.string.day_text);
-        } else if (hours != 0) {
-            ret += hours + res.getString(R.string.hour_text);
-        } else if (minutes != 0) {
-            ret += minutes + res.getString(R.string.minute_text);
-        } else if (seconds != 0) {
-            ret += seconds + res.getString(R.string.second_text);
-        }
-
-        return ret;
-    }
 
     public class TasksViewHolder extends RecyclerView.ViewHolder {
 

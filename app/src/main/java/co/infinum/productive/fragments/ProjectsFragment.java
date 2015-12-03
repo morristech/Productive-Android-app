@@ -23,7 +23,7 @@ import co.infinum.productive.activities.TasksListActivity;
 import co.infinum.productive.adapters.ProjectAdapter;
 import co.infinum.productive.adapters.ProjectSectionAdapter;
 import co.infinum.productive.dagger.components.DaggerProjectsComponent;
-import co.infinum.productive.dagger.modules.ProjectsModule;
+import co.infinum.productive.dagger.modules.ProjectsFragmentModule;
 import co.infinum.productive.listeners.OnProjectClickListener;
 import co.infinum.productive.models.ProjectTile;
 import co.infinum.productive.mvp.presenters.ProjectPresenter;
@@ -49,9 +49,13 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
     TextView emptyProjectsInfo;
 
     private RecyclerView.Adapter mAdapter;
+
     private ProjectSectionAdapter mSectionAdapter;
+
     private Context context;
+
     private boolean isRefreshed = false;
+
     private LinearLayoutManager layoutManager;
 
     @Override
@@ -59,7 +63,7 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
         View view = inflater.inflate(R.layout.fragment_projects, container, false);
         ButterKnife.bind(this, view);
 
-        DaggerProjectsFragmentComponent.builder()
+        DaggerProjectsComponent.builder()
                 .projectsFragmentModule(new ProjectsFragmentModule(this, getResources()))
                 .build()
                 .inject(this);
@@ -117,7 +121,7 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
 
     private void initAdapters(ArrayList<ProjectTile> projectTiles) {
         mAdapter = new ProjectAdapter(context, getResources(), projectTiles, this);
-        mSectionAdapter = new ProjectSectionAdapter(context, R.layout.list_section_separator, mAdapter);
+        mSectionAdapter = new ProjectSectionAdapter(context, R.layout.projects_list_item_separator, mAdapter);
 
         ((ProjectAdapter) mAdapter).setProjectSectionAdapter(mSectionAdapter);
 

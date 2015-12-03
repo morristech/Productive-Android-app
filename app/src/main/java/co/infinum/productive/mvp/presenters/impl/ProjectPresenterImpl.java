@@ -11,14 +11,14 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import co.infinum.productive.helpers.ElapsedTimeFormatter;
+import co.infinum.productive.helpers.ProjectTileComparator;
 import co.infinum.productive.helpers.TaskByDateComparator;
-import co.infinum.productive.helpers.TileComparator;
+import co.infinum.productive.listeners.Listener;
 import co.infinum.productive.listeners.TaskActivityListener;
 import co.infinum.productive.models.Project;
 import co.infinum.productive.models.ProjectTile;
 import co.infinum.productive.models.Task;
 import co.infinum.productive.models.TaskActivityResponse;
-import co.infinum.productive.mvp.Listener;
 import co.infinum.productive.mvp.interactors.CacheInteractor;
 import co.infinum.productive.mvp.interactors.ProjectInteractor;
 import co.infinum.productive.mvp.interactors.TaskActivitiesInteractor;
@@ -178,7 +178,7 @@ public class ProjectPresenterImpl implements ProjectPresenter {
                 }
             }
 
-            Collections.sort(tiles, new TileComparator());
+            Collections.sort(tiles, new ProjectTileComparator());
 
             allActivties.clear();
 
