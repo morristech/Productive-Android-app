@@ -24,7 +24,6 @@ import co.infinum.productive.adapters.TasksSectionAdapter;
 import co.infinum.productive.dagger.components.DaggerTasksComponent;
 import co.infinum.productive.dagger.modules.TasksModule;
 import co.infinum.productive.models.Task;
-import co.infinum.productive.models.TaskTile;
 import co.infinum.productive.mvp.presenters.TasksPresenter;
 import co.infinum.productive.mvp.views.TasksView;
 
@@ -65,7 +64,7 @@ public class TasksFragment extends BaseFragment implements TasksView {
         layoutManager = new LinearLayoutManager(context);
 
         DaggerTasksComponent.builder()
-                .tasksModule(new TasksModule(this, getResources()))
+                .tasksModule(new TasksModule(this))
                 .build()
                 .inject(this);
 
@@ -84,25 +83,6 @@ public class TasksFragment extends BaseFragment implements TasksView {
 
     @Override
     public void onTasksFetched(ArrayList<Task> tasks) {
-        if (tasks.size() == 0) {
-            tasksRecyclerView.setVisibility(View.GONE);
-            emptyTasksInfo.setVisibility(View.VISIBLE);
-        } else {
-            emptyTasksInfo.setVisibility(View.GONE);
-            tasksRecyclerView.setVisibility(View.VISIBLE);
-        }
-
-        if (isRefreshed) {
-            //refreshAdapters(tasks);
-        } else {
-            //initAdapters(tasks);
-        }
-    }
-
-    @Override
-    public void onSuccess(ArrayList<TaskTile> tasks) {
-        this.hideProgress();
-
         if (tasks.size() == 0) {
             tasksRecyclerView.setVisibility(View.GONE);
             emptyTasksInfo.setVisibility(View.VISIBLE);
@@ -142,7 +122,7 @@ public class TasksFragment extends BaseFragment implements TasksView {
         ButterKnife.unbind(this);
     }
 
-    private void initAdapters(ArrayList<TaskTile> tasks) {
+    private void initAdapters(ArrayList<Task> tasks) {
 
         recyclerViewAdapter = new TasksAdapter(context, tasks, getResources());
         sectionAdapter = new TasksSectionAdapter(R.layout.tasks_list_item_separator, context, recyclerViewAdapter);
@@ -153,7 +133,7 @@ public class TasksFragment extends BaseFragment implements TasksView {
     }
 
 
-    private void setSections(ArrayList<TaskTile> tasks) {
+    private void setSections(ArrayList<Task> tasks) {
         ArrayList<TasksSectionAdapter.TaskSection> sections = new ArrayList<>();
 
         // calculates offset for each client and sets sections
@@ -180,7 +160,7 @@ public class TasksFragment extends BaseFragment implements TasksView {
         sectionAdapter.setSections(sections.toArray(sectionsList));
     }
 
-    private void refreshAdapters(ArrayList<TaskTile> tasks) {
+    private void refreshAdapters(ArrayList<Task> tasks) {
         if (recyclerViewAdapter != null && sectionAdapter != null) {
             isRefreshed = false;
 

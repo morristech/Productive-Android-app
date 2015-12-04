@@ -37,13 +37,17 @@
 
     <style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">11sp</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="Separator">
-        <item name="android:padding">@dimen/material_subheader_padding</item>
+        <item name="android:paddingLeft">@dimen/material_subheader_padding</item>
+        <item name="android:paddingBottom">@dimen/material_padding_bottom</item>
+        <item name="android:paddingTop">@dimen/material_padding_top</item>
         <item name="android:textSize">@dimen/title_text_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/separatorTextColor</item>
     </style>
+
 </resources>
