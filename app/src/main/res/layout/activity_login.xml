@@ -30,7 +30,7 @@
         <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/separator_height"
-                android:layout_marginLeft="@dimen/separator_margin_left"
+                android:layout_marginLeft="@dimen/default_spacing"
                 android:layout_marginRight="@dimen/separator_margin_right"
                 android:layout_below="@+id/et_email"
                 android:background="@color/separatorBackgroundColor"/>
@@ -66,10 +66,12 @@
             android:text="@string/login_button_text"
             android:textColor="@android:color/white"/>
 
-    <Button
+    <TextView
             android:id="@+id/register_button"
             style="@style/signInAndRegisterButton"
             android:layout_alignParentBottom="true"
+            android:layout_height="@dimen/register_tv_height"
+            android:gravity="center"
             android:stateListAnimator="@null"
             android:layout_marginTop="@dimen/register_button_margin_top"
             android:background="@drawable/register_selector_button_white"
