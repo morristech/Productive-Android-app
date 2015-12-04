@@ -1,6 +1,7 @@
 package co.infinum.productive.mvp.presenters.impl;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
 import android.widget.Button;
@@ -24,14 +25,19 @@ import co.infinum.productive.mvp.views.LoginView;
 
 public class LoginPresenterImpl implements LoginPresenter {
 
+    public static final String TOKEN = "TOKEN";
+
     private final LoginView loginView;
+
     private final LoginInteractor loginInteractor;
+
     private final OrganizationInteractor organizationInteractor;
+
     private final CacheInteractor cacheInteractor;
 
     @Inject
     public LoginPresenterImpl(LoginView loginView, LoginInteractor loginInteractor,
-                              OrganizationInteractor organizationInteractor, CacheInteractor cacheInteractor) {
+            OrganizationInteractor organizationInteractor, CacheInteractor cacheInteractor) {
         this.loginView = loginView;
         this.loginInteractor = loginInteractor;
         this.organizationInteractor = organizationInteractor;
@@ -40,7 +46,10 @@ public class LoginPresenterImpl implements LoginPresenter {
 
     @Override
     public void onLoginClicked(String username, String password) {
-        if (TextUtils.isEmpty(username)) {
+        if (TextUtils.isEmpty(username) && TextUtils.isEmpty(password)) {
+            ProductiveApp app = ProductiveApp.getInstance();
+            loginView.onBothEmpty(app.getString(R.string.empty_email), app.getString(R.string.empty_password));
+        } else if (TextUtils.isEmpty(username)) {
             loginView.onUsernameEmpty(ProductiveApp.getInstance().getString(R.string.empty_email));
         } else if (TextUtils.isEmpty(password)) {
             loginView.onPasswordEmpty(ProductiveApp.getInstance().getString(R.string.empty_password));
@@ -49,6 +58,7 @@ public class LoginPresenterImpl implements LoginPresenter {
             loginInteractor.authorize(username, password, userListener);
         }
     }
+
     @Override
     public void onToggle(EditText etPassword, Button togglePassword, Context context) {
         if (!togglePassword.getText().equals(context.getString(R.string.alternative_show_hide_text))) {
@@ -72,6 +82,11 @@ public class LoginPresenterImpl implements LoginPresenter {
         public void onSuccess(User user) {
             loginView.hideProgress();
             cacheInteractor.cacheUser(user);
+
+            //placing token into shared preferences cause of splash screen implementation
+            PreferenceManager.getDefaultSharedPreferences(ProductiveApp.getInstance())
+                    .edit().putString(TOKEN, user.getToken()).apply();
+
             getOrganizations();
         }
 
