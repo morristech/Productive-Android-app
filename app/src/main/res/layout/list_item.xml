@@ -4,24 +4,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:minHeight="@dimen/project_list_tile_height"
     android:layout_height="@dimen/project_list_tile_height"
     android:background="@android:color/white"
+    android:minHeight="@dimen/project_list_tile_height"
     android:paddingLeft="@dimen/smaller_spacing">
 
     <LinearLayout
         android:id="@+id/content_layout"
         android:layout_width="match_parent"
-        android:minHeight="@dimen/project_list_tile_height"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/default_spacing"
         android:layout_toRightOf="@+id/item_thumbnail"
-        android:orientation="vertical"
         android:background="@drawable/item_card_border"
+        android:minHeight="@dimen/project_list_tile_height"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/default_spacing"
-        android:paddingTop="@dimen/default_spacing"
-        android:paddingRight="@dimen/default_spacing">
+        android:paddingRight="@dimen/default_spacing"
+        android:paddingTop="@dimen/default_spacing">
 
         <TextView
             android:id="@+id/item_title"

@@ -6,7 +6,6 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.Bind;
@@ -26,6 +25,7 @@ public class ProjectSectionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private Context mContext;
     private RecyclerView.Adapter mBaseAdapter;
     private SparseArray<Section> mSections = new SparseArray<>();
+    private Section[] sections;
 
     public ProjectSectionAdapter(Context context, int sectionResourceId, RecyclerView.Adapter baseAdapter) {
         mSectionResourceId = sectionResourceId;
@@ -56,7 +56,24 @@ public class ProjectSectionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return isSectionHeaderPosition(position) ? SECTION_TYPE : TILE_TYPE;
     }
 
+    // used for removing the last border on an item
+    public int getSectionOffset(int position) {
+        int offset = 0;
+
+        for (Section section : sections) {
+            if (section.firstPosition > position) {
+                break;
+            }
+
+            ++offset;
+        }
+
+        return offset;
+    }
+
     public void setSections(Section[] sections) {
+        this.sections = sections;
+
         mSections.clear();
 
         int offset = 0; // offset positions for the headers we're adding
@@ -128,6 +145,10 @@ public class ProjectSectionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         public String getTitle() {
             return title;
+        }
+
+        public int getFirstPosition() {
+            return firstPosition;
         }
     }
 }

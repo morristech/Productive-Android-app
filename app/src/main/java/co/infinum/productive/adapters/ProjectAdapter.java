@@ -3,7 +3,6 @@ package co.infinum.productive.adapters;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +62,13 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
         Glide.with(mContext).load(projectTiles.get(position).getAvatarUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.thumbnail);
+
+        if (projectSectionAdapter.isSectionHeaderPosition(position + projectSectionAdapter.getSectionOffset(position + 1))
+                || position == projectTiles.size() - 1) {
+            holder.contentLayout.setBackground(null);
+        } else {
+            holder.contentLayout.setBackgroundResource(R.drawable.item_card_border);
+        }
     }
 
     @Override
@@ -95,6 +101,9 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
         @Bind(R.id.item_thumbnail)
         ImageView thumbnail;
 
+        @Bind(R.id.content_layout)
+        LinearLayout contentLayout;
+
         private OnProjectClickListener listener;
 
         public SimpleViewHolder(View v, OnProjectClickListener listener) {
@@ -102,13 +111,17 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
             ButterKnife.bind(this, v);
 
             v.setOnClickListener(this);
-
             this.listener = listener;
+
+            if (projectSectionAdapter.isSectionHeaderPosition(getAdapterPosition() + 1)) {
+                contentLayout.setBackground(null);
+            } else {
+                contentLayout.setBackgroundResource(R.drawable.item_card_border);
+            }
         }
 
         @Override
         public void onClick(View v) {
-            Log.d("DEBUG", "Adapter Position: " + getAdapterPosition());
             listener.onProjectsClick(projectSectionAdapter.sectionedPositionToPosition(getAdapterPosition()));
         }
     }

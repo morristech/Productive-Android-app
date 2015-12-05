@@ -12,4 +12,5 @@
     <color name="projectTitleColor">#333333</color>
     <color name="projectAndSectionDescriptionColor">#999999</color>
     <color name="separatorColor">#DBDBDB</color>
+    <color name="tabLayoutTextColor">#B1B3B1</color>
 </resources>
