@@ -7,4 +7,6 @@ public interface LoginView extends BaseView {
     void onUsernameEmpty(String message);
 
     void onPasswordEmpty(String message);
+
+    void onBothEmpty(String usernameMessage, String passwordMessage);
 }

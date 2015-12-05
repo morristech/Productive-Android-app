@@ -20,13 +20,13 @@
     <string name="hour_text">&#160;hour</string>
     <string name="minute_text">&#160;minute</string>
     <string name="second_text">&#160;second</string>
-    
+
     <plurals name="elapsed_time_text">
         <item quantity="one">Updated %1$s ago by %2$s</item>
         <item quantity="other">Updated %1$ss ago by %2$s</item>
     </plurals>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="valid_username">skliba@foi.hr</string>
     <string name="valid_password">servis</string>
@@ -35,4 +35,5 @@
     <string name="projects_tab">Projects</string>
     <string name="notifications_tab">Notifications</string>
     <string name="more_tab">More</string>
+    <string name="sign_out_button_text">Sign out</string>
 </resources>

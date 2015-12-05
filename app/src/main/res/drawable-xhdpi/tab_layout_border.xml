@@ -10,7 +10,7 @@
         <shape android:shape="rectangle">
             <stroke
                 android:width="@dimen/separator_stroke_width"
-                android:color="@color/separatorColor" />
+                android:color="@color/listSeparatorColor" />
             <gradient
                 android:startColor="@android:color/white"
                 android:endColor="@android:color/white"/>

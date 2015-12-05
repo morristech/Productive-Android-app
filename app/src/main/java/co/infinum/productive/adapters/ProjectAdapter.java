@@ -1,5 +1,8 @@
 package co.infinum.productive.adapters;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 
@@ -112,12 +112,6 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
 
             v.setOnClickListener(this);
             this.listener = listener;
-
-            if (projectSectionAdapter.isSectionHeaderPosition(getAdapterPosition() + 1)) {
-                contentLayout.setBackground(null);
-            } else {
-                contentLayout.setBackgroundResource(R.drawable.item_card_border);
-            }
         }
 
         @Override
