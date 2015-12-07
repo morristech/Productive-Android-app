@@ -4,25 +4,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:minHeight="@dimen/project_list_tile_height"
     android:layout_height="@dimen/project_list_tile_height"
     android:background="@android:color/white"
-    android:paddingLeft="@dimen/default_spacing">
+    android:minHeight="@dimen/project_list_tile_height"
+    android:paddingLeft="@dimen/smaller_spacing">
 
     <LinearLayout
         android:id="@+id/content_layout"
         android:layout_width="match_parent"
-        android:minHeight="@dimen/project_list_tile_height"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/default_spacing"
-        android:layout_toLeftOf="@+id/arrow_right"
         android:layout_toRightOf="@+id/item_thumbnail"
         android:background="@drawable/item_card_border"
+        android:minHeight="@dimen/project_list_tile_height"
         android:orientation="vertical"
         android:paddingBottom="@dimen/default_spacing"
-        android:paddingTop="@dimen/default_spacing"
-        android:paddingRight="@dimen/default_spacing">
+        android:paddingRight="@dimen/default_spacing"
+        android:paddingTop="@dimen/default_spacing">
 
         <TextView
             android:id="@+id/item_title"
@@ -30,7 +29,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/projectTitleColor"
             android:textSize="@dimen/title_text_size"
             tools:text="This is something we're trying to test"/>
 
@@ -38,20 +37,12 @@
             android:id="@+id/item_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:paddingTop="@dimen/nano_spacing"
+            android:textColor="@color/projectAndSectionDescriptionColor"
             android:textSize="@dimen/small_text_size"
             tools:text="Updated 3 hours ago by Mislav J."/>
 
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/arrow_right"
-        android:layout_width="@dimen/project_list_arrow_width_height"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/item_card_border"
-        android:src="@drawable/ic_keyboard_arrow_right"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@id/item_thumbnail"
@@ -60,7 +51,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/project_list_avatar_margin_right"
         android:src="@mipmap/ic_launcher"
-        app:civ_border_color="#FFF"
+        app:civ_border_color="@android:color/white"
         app:civ_border_width="@dimen/project_list_circleview_border_width"/>
 
 </RelativeLayout>
