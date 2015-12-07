@@ -49,9 +49,13 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
     TextView emptyProjectsInfo;
 
     private RecyclerView.Adapter mAdapter;
+
     private ProjectSectionAdapter mSectionAdapter;
+
     private Context context;
+
     private boolean isRefreshed = false;
+
     private LinearLayoutManager layoutManager;
 
     @Override
@@ -72,7 +76,6 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
         initRecyclerView();
 
         this.showProgress();
-
         projectPresenter.getProjects();
 
         return view;
