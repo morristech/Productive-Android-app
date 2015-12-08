@@ -52,4 +52,5 @@
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@color/signinButtonDefaultColor</item>
     </style>
+
 </resources>

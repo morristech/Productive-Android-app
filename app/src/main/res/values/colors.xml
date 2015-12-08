@@ -14,4 +14,6 @@
     <color name="listSeparatorColor">#DBDBDB</color>
     <color name="tabLayoutTextColor">#B1B3B1</color>
     <color name="separatorBackgroundColor">#e4e3e3</color>
+    <color name="separatorTextColor">#999999</color>
+    <color name="listTitleColor">#333333</color>
 </resources>

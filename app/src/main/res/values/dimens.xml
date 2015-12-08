@@ -42,9 +42,10 @@
     <dimen name="recycler_title_text_padding_right">25dp</dimen>
 
     <dimen name="material_subheader_height">48dp</dimen>
-    <dimen name="material_subheader_text_size">14sp</dimen>
+    <dimen name="material_subheader_text_size">12sp</dimen>
     <dimen name="material_subheader_padding">16dp</dimen>
     <dimen name="material_list_tile_height">72dp</dimen>
+    <dimen name="material_padding_bottom">12dp</dimen>
     <dimen name="project_list_thumbnail_pic_width_height">40dp</dimen>
 
     <dimen name="recycler_section_padding_top">24dp</dimen>
@@ -53,4 +54,8 @@
     <dimen name="separator_height">1dp</dimen>
     <dimen name="separator_margin_right">5dp</dimen>
     <dimen name="register_tv_height">40dp</dimen>
+
+    <dimen name="material_padding_top">24dp</dimen>
+    <dimen name="list_item_padding_left">10dp</dimen>
+    <dimen name="list_item_space_between_avatar_and_data">10dp</dimen>
 </resources>

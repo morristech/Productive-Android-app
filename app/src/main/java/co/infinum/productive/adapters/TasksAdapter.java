@@ -18,7 +18,8 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import co.infinum.productive.R;
-import co.infinum.productive.models.TaskTile;
+import co.infinum.productive.helpers.ElapsedTimeFormatter;
+import co.infinum.productive.models.Task;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -28,14 +29,14 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
     private Context mContext;
 
-    private ArrayList<TaskTile> tasks;
+    private ArrayList<Task> tasks;
 
     private Resources res;
 
     private TasksSectionAdapter tasksSectionAdapter;
 
 
-    public TasksAdapter(Context mContext, ArrayList<TaskTile> tasks, Resources res) {
+    public TasksAdapter(Context mContext, ArrayList<Task> tasks, Resources res) {
         this.mContext = mContext;
         this.tasks = tasks;
         this.res = res;
@@ -48,17 +49,14 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
     @Override
     public void onBindViewHolder(TasksViewHolder holder, int position) {
-        holder.tasksItemTitle.setText(tasks.get(position).getTaskName());
+        holder.tasksItemTitle.setText(tasks.get(position).getTitle());
 
         String updateInfo;
         String updatedBy;
-        if (tasks.get(position).getUpdatedBy() != null) {
-            updatedBy = "" + tasks.get(position).getUpdatedBy();
-        } else {
-            updatedBy = "";
-        }
 
-        String elapsedTime = tasks.get(position).getElapsedTime();
+        updatedBy = "" + tasks.get(position).getUpdater().getName();
+
+        String elapsedTime = ElapsedTimeFormatter.getElapsedTime(tasks.get(position).getUpdatedAt(), res);
 
         if (Integer.parseInt(elapsedTime.replaceAll("\\D+", "")) != 1) {
             updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 2, elapsedTime, updatedBy));
@@ -67,8 +65,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         }
 
         holder.tasksItemDescription.setText(updateInfo);
-        if (tasks.get(position).getUpdatedBy() != null) {
-            Glide.with(mContext).load(tasks.get(position).getAvatarUrl())
+        if (tasks.get(position).getUpdater().getName() != null) {
+            Glide.with(mContext).load(tasks.get(position).getUpdater().getAvatarUrl())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.itemThumbnail);
         } else {
@@ -95,12 +93,12 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         this.tasksSectionAdapter = tasksSectionAdapter;
     }
 
-    public void refresh(ArrayList<TaskTile> tasks) {
+    public void refresh(ArrayList<Task> tasks) {
         this.tasks.clear();
         this.tasks.addAll(tasks); //memory efficient, we're always updating the initial List
 
         for (int i = 0; i < tasks.size(); ++i) {
-            Log.d("DEBUG", tasks.get(i).getTaskName());
+            Log.d("DEBUG", tasks.get(i).getTitle());
         }
 
         notifyDataSetChanged();

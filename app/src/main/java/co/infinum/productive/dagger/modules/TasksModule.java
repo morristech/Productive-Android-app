@@ -1,10 +1,6 @@
 package co.infinum.productive.dagger.modules;
 
-import android.content.res.Resources;
-
-import co.infinum.productive.mvp.interactors.TaskActivitiesInteractor;
 import co.infinum.productive.mvp.interactors.TaskInteractor;
-import co.infinum.productive.mvp.interactors.impl.TaskActivitiesInteractorImpl;
 import co.infinum.productive.mvp.interactors.impl.TaskInteractorImpl;
 import co.infinum.productive.mvp.presenters.TasksPresenter;
 import co.infinum.productive.mvp.presenters.impl.TasksPresenterImpl;
@@ -19,16 +15,9 @@ import dagger.Provides;
 public class TasksModule {
 
     private TasksView tasksView;
-    private Resources resources;
 
-    public TasksModule(TasksView tasksView, Resources resources) {
+    public TasksModule(TasksView tasksView) {
         this.tasksView = tasksView;
-        this.resources = resources;
-    }
-
-    @Provides
-    public Resources provideResources() {
-        return resources;
     }
 
     @Provides
@@ -44,10 +33,5 @@ public class TasksModule {
     @Provides
     public TaskInteractor provideTaskInteractor(TaskInteractorImpl interactor) {
         return interactor;
-    }
-
-    @Provides
-    public TaskActivitiesInteractor provideTaskActivitiesInteractor(TaskActivitiesInteractorImpl impl) {
-        return impl;
     }
 }

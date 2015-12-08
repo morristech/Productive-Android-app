@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/material_list_tile_height"
         android:background="@android:color/white"
-        android:paddingLeft="@dimen/default_spacing">
+        android:paddingLeft="@dimen/list_item_padding_left">
 
     <LinearLayout
             android:id="@+id/tasks_content_layout"
@@ -16,7 +16,7 @@
             android:layout_toRightOf="@+id/item_thumbnail"
             android:paddingTop="20dp"
             android:paddingBottom="8dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="@dimen/list_item_space_between_avatar_and_data"
             android:orientation="vertical">
 
         <TextView
@@ -26,6 +26,7 @@
                 android:textSize="@dimen/title_text_size"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:lines="1"
+                android:textColor="@color/listTitleColor"
                 android:ellipsize="end"
                 tools:text="This is something we're trying to test"/>
 
@@ -35,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="@dimen/small_text_size"
+                android:textColor="@color/separatorTextColor"
                 tools:text="Updated 3 hours ago by Mislav J."/>
 
     </LinearLayout>
