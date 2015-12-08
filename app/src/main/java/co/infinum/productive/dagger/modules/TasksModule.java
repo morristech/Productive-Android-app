@@ -47,9 +47,7 @@ public class TasksModule {
     }
 
     @Provides
-    public TaskActivitiesInteractor provideTaskActivitiesInteractor(TaskActivitiesInteractorImpl impl){
+    public TaskActivitiesInteractor provideTaskActivitiesInteractor(TaskActivitiesInteractorImpl impl) {
         return impl;
     }
-
-
 }

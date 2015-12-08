@@ -1,8 +1,5 @@
 package co.infinum.productive.adapters;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
@@ -10,9 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 
@@ -32,6 +31,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
     private ArrayList<TaskTile> tasks;
 
     private Resources res;
+
+    private TasksSectionAdapter tasksSectionAdapter;
 
 
     public TasksAdapter(Context mContext, ArrayList<TaskTile> tasks, Resources res) {
@@ -76,11 +77,22 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.itemThumbnail);
         }
+
+        if (tasksSectionAdapter.isSectionHeaderPosition(position + tasksSectionAdapter.getSectionOffset(position + 1))
+                || position == tasks.size() - 1) {
+            holder.tasksContentLayout.setBackground(null);
+        } else {
+            holder.tasksContentLayout.setBackgroundResource(R.drawable.item_card_border);
+        }
     }
 
     @Override
     public int getItemCount() {
         return tasks.size();
+    }
+
+    public void setTasksSectionAdapter(TasksSectionAdapter tasksSectionAdapter) {
+        this.tasksSectionAdapter = tasksSectionAdapter;
     }
 
     public void refresh(ArrayList<TaskTile> tasks) {
@@ -105,9 +117,6 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
         @Bind(R.id.tasks_content_layout)
         LinearLayout tasksContentLayout;
-
-        @Bind(R.id.tasks_arrow_right)
-        ImageView tasksArrowRight;
 
         @Bind(R.id.item_thumbnail)
         CircleImageView itemThumbnail;

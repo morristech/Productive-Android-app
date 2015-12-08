@@ -4,6 +4,7 @@ package co.infinum.productive.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -12,6 +13,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import co.infinum.productive.R;
 import co.infinum.productive.dagger.components.DaggerLoginComponent;
 import co.infinum.productive.dagger.modules.LoginModule;
@@ -68,10 +70,20 @@ public class LoginActivity extends BaseActivity implements LoginView {
         loginPresenter.onToggle(etPassword, togglePassword, getApplicationContext());
     }
 
+    @OnTextChanged(R.id.et_password)
+    public void textChanged(CharSequence text) {
+        if (text.toString().isEmpty()) {
+            togglePassword.setVisibility(View.GONE);
+        } else {
+            togglePassword.setVisibility(View.VISIBLE);
+        }
+    }
+
     @Override
     public void onLoginSuccess() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -82,6 +94,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void onPasswordEmpty(String message) {
         etPassword.setError(message);
+    }
+
+    @Override
+    public void onBothEmpty(String usernameMessage, String passwordMessage) {
+        etEmail.setError(usernameMessage);
+        etPassword.setError(passwordMessage);
     }
 
     @Override

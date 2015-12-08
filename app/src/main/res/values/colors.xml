@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#174B89</color>
+    <color name="colorPrimaryDark">#0E2E53</color>
     <color name="colorAccent">#FF4081</color>
     <color name="signinButtonDefaultColor">#e36539</color>
     <color name="signinButtonHighlight">#cc6539</color>
@@ -9,4 +9,9 @@
     <color name="showHideButtonTextColor">#888888</color>
     <color name="loginCredentialsContainerBackgroundColor">#f7f7f7</color>
     <color name="recyclerViewBackgroundColor">#EDF1F7</color>
+    <color name="projectTitleColor">#333333</color>
+    <color name="projectAndSectionDescriptionColor">#999999</color>
+    <color name="listSeparatorColor">#DBDBDB</color>
+    <color name="tabLayoutTextColor">#B1B3B1</color>
+    <color name="separatorBackgroundColor">#e4e3e3</color>
 </resources>

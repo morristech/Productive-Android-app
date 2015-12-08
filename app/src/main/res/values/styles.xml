@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -14,7 +14,6 @@
         <item name="android:orientation">vertical</item>
         <item name="android:background">@color/loginCredentialsContainerBackgroundColor</item>
         <item name="android:layout_marginTop">@dimen/logo_to_credentials_spacing</item>
-        <item name="android:padding">@dimen/login_credentials_padding</item>
         <item name="android:layout_below">@+id/logo_image</item>
     </style>
 
@@ -23,6 +22,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/credentials_hint_text_size</item>
         <item name="android:background">@android:color/transparent</item>
+        <item name="android:padding">@dimen/login_credentials_padding</item>
     </style>
 
     <style name="SignInAndRegisterButton">
@@ -35,15 +35,21 @@
 
     </style>
 
-    <style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
+    <style name="TabLayoutTextAppearance" parent="Widget.AppCompat.Light.ActionBar.TabText">
         <item name="android:textSize">11sp</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/tabLayoutTextColor</item>
     </style>
 
     <style name="Separator">
-        <item name="android:padding">@dimen/material_subheader_padding</item>
-        <item name="android:textSize">@dimen/title_text_size</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/section_text_size</item>
+        <item name="android:paddingTop">@dimen/recycler_section_padding_top</item>
+        <item name="android:paddingBottom">@dimen/recycler_section_padding_bottom</item>
+        <item name="android:paddingLeft">@dimen/recycler_section_padding_left</item>
+        <item name="android:textColor">@color/projectAndSectionDescriptionColor</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@color/signinButtonDefaultColor</item>
     </style>
 </resources>

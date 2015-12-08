@@ -6,12 +6,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <TextView
+        <TextView
             android:id="@+id/tasks_section_title"
             style="@style/Separator"
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/material_subheader_height"
-            android:textSize="@dimen/material_subheader_text_size"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/section_text_size"
+            android:paddingTop="@dimen/recycler_section_padding_top"
+            android:paddingBottom="@dimen/recycler_section_padding_bottom"
+            android:paddingLeft="@dimen/recycler_section_padding_left"
+            android:textColor="@color/projectAndSectionDescriptionColor"
             tools:text="Header 1"/>
 
 </LinearLayout>

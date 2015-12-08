@@ -1,5 +1,7 @@
 package co.infinum.productive.network;
 
+import android.preference.PreferenceManager;
+
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.Request;
@@ -18,14 +20,18 @@ public class RequestInterceptor implements Interceptor {
 
     public static final String TOKEN = "token";
 
+    public static final String SHARED_PREFS_TOKEN = "TOKEN";
+
     public Response intercept(Chain chain) throws IOException {
         Request originalRequest = chain.request();
         Request changedRequest;
 
+        String token = PreferenceManager.getDefaultSharedPreferences(ProductiveApp.getInstance()).getString(SHARED_PREFS_TOKEN, "");
+
         if (!originalRequest.uri().getPath().equals(LOGIN_URL)) {
             Request.Builder builder = originalRequest.newBuilder();
             HttpUrl changedUrl = originalRequest.httpUrl().newBuilder()
-                    .addQueryParameter(TOKEN, ProductiveApp.getInstance().getCacheInteractor().getUser().getToken())
+                    .addQueryParameter(TOKEN, token)
                     .build();
 
             builder.url(changedUrl.toString());

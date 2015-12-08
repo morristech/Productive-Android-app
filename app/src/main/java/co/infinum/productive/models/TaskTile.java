@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by noxqs on 03.12.15..
  */
-public class TaskTile implements Serializable{
+public class TaskTile implements Serializable {
     private String taskName;
     private String avatarUrl;
     private String projectName;

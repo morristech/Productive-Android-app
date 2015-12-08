@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
@@ -64,12 +63,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.notifications_tab_selector).setText(R.string.notifications_tab));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.more_tab_selector).setText(R.string.more_tab));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_activity, menu);
-        return true;
     }
 
     @Override

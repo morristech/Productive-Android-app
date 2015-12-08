@@ -13,9 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:background="@drawable/item_card_border"
             android:layout_toRightOf="@+id/item_thumbnail"
-            android:layout_toLeftOf="@+id/tasks_arrow_right"
             android:paddingTop="20dp"
             android:paddingBottom="8dp"
             android:layout_marginLeft="16dp"
@@ -40,16 +38,6 @@
                 tools:text="Updated 3 hours ago by Mislav J."/>
 
     </LinearLayout>
-
-    <ImageView
-            android:id="@+id/tasks_arrow_right"
-            android:layout_width="@dimen/project_list_arrow_width_height"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/item_card_border"
-            android:src="@drawable/ic_keyboard_arrow_right"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
             android:id="@id/item_thumbnail"

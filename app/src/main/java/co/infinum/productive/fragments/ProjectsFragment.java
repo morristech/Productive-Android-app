@@ -76,7 +76,6 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
         initRecyclerView();
 
         this.showProgress();
-
         projectPresenter.getProjects();
 
         return view;

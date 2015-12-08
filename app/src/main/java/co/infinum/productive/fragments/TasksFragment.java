@@ -92,11 +92,11 @@ public class TasksFragment extends BaseFragment implements TasksView {
             tasksRecyclerView.setVisibility(View.VISIBLE);
         }
 
-        if (isRefreshed) {
-            //refreshAdapters(tasks);
-        } else {
-            //initAdapters(tasks);
-        }
+//        if (isRefreshed) {
+//            refreshAdapters(tasks);
+//        } else {
+//            initAdapters(tasks);
+//        }
     }
 
     @Override
@@ -146,6 +146,8 @@ public class TasksFragment extends BaseFragment implements TasksView {
 
         recyclerViewAdapter = new TasksAdapter(context, tasks, getResources());
         sectionAdapter = new TasksSectionAdapter(R.layout.tasks_list_item_separator, context, recyclerViewAdapter);
+
+        ((TasksAdapter) recyclerViewAdapter).setTasksSectionAdapter(sectionAdapter);
 
         setSections(tasks);
 

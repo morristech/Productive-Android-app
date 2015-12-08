@@ -26,6 +26,7 @@ public class TasksSectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Context mContext;
     private RecyclerView.Adapter mBaseAdapter;
     private SparseArray<TaskSection> mSections = new SparseArray<>();
+    private TaskSection[] sections;
 
     public TasksSectionAdapter(int mSectionResourceId, Context mContext, RecyclerView.Adapter mBaseAdapter) {
         this.mSectionResourceId = mSectionResourceId;
@@ -62,7 +63,24 @@ public class TasksSectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return isSectionHeaderPosition(position) ? SECTION_TYPE : mBaseAdapter.getItemViewType(sectionedPositionToPosition(position)) + 1;
     }
 
+    // used for removing the last border on an item
+    public int getSectionOffset(int position) {
+        int offset = 0;
+
+        for (TaskSection section : sections) {
+            if (section.firstPosition > position) {
+                break;
+            }
+
+            ++offset;
+        }
+
+        return offset;
+    }
+
     public void setSections(TaskSection[] sections) {
+        this.sections = sections;
+
         mSections.clear();
 
         Arrays.sort(sections, new Comparator<TaskSection>() {
