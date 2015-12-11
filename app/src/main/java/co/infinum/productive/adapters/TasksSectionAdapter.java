@@ -132,7 +132,7 @@ public class TasksSectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public static class TaskSectionViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.tasks_section_title)
+        @Bind(R.id.section_title)
         TextView title;
 
         public TaskSectionViewHolder(View itemView) {
