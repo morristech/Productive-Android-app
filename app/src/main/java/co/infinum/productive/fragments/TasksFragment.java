@@ -78,7 +78,6 @@ public class TasksFragment extends BaseFragment implements TasksView {
         initRecyclerView();
         initSwipeRefresh();
         tasksPresenter.getTasks();
-
     }
 
     @Override
@@ -96,6 +95,11 @@ public class TasksFragment extends BaseFragment implements TasksView {
         } else {
             initAdapters(tasks);
         }
+    }
+
+    @Override
+    public void onUnsuccessfulTaskFetch(String message) {
+        showError(message);
     }
 
 

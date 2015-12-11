@@ -1,7 +1,5 @@
 package co.infinum.productive.mvp.presenters.impl;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -52,7 +50,7 @@ public class TasksPresenterImpl implements TasksPresenter {
 
         @Override
         public void onFailure(String message) {
-            Log.e("FAILURE", message);
+            view.onUnsuccessfulTaskFetch(message);
         }
 
         @Override

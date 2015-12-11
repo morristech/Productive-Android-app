@@ -10,4 +10,6 @@ import co.infinum.productive.models.Task;
 public interface TasksView extends BaseView {
 
     void onTasksFetched(ArrayList<Task> tasks);
+
+    void onUnsuccessfulTaskFetch(String message);
 }

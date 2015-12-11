@@ -1,17 +1,16 @@
 package co.infinum.productive.adapters;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 
@@ -95,11 +94,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
     public void refresh(ArrayList<Task> tasks) {
         this.tasks.clear();
-        this.tasks.addAll(tasks); //memory efficient, we're always updating the initial List
-
-        for (int i = 0; i < tasks.size(); ++i) {
-            Log.d("DEBUG", tasks.get(i).getTitle());
-        }
+        this.tasks.addAll(tasks);
 
         notifyDataSetChanged();
     }
