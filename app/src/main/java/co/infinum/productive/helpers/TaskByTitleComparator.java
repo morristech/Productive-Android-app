@@ -11,8 +11,10 @@ public class TaskByTitleComparator implements Comparator<Task> {
 
     @Override
     public int compare(Task lhs, Task rhs) {
-        return !lhs.getProject().getName().equals(rhs.getProject().getName())
-                ? lhs.getProject().getName().compareTo(rhs.getProject().getName())
-                : lhs.getTitle().compareTo(rhs.getTitle());
+        if (lhs.getProject().getName() != null && rhs.getProject().getName() != null) {
+            return lhs.getProject().getName().compareTo(rhs.getProject().getName());
+        } else {
+            return 0;
+        }
     }
 }

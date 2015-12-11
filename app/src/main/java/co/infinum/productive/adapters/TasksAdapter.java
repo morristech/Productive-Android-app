@@ -26,6 +26,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHolder> {
 
+    public static final String REPLACE_ALL_REGEX = "\\D+";
+
     private Context mContext;
 
     private ArrayList<Task> tasks;
@@ -53,11 +55,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         String updateInfo;
         String updatedBy;
 
-        updatedBy = "" + tasks.get(position).getUpdater().getName();
+        updatedBy = tasks.get(position).getUpdater().getName();
 
         String elapsedTime = ElapsedTimeFormatter.getElapsedTime(tasks.get(position).getUpdatedAt(), res);
 
-        if (Integer.parseInt(elapsedTime.replaceAll("\\D+", "")) != 1) {
+        if (Integer.parseInt(elapsedTime.replaceAll(REPLACE_ALL_REGEX, "")) != 1) {
             updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 2, elapsedTime, updatedBy));
         } else {
             updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 1, elapsedTime, updatedBy));
@@ -65,13 +67,14 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
         holder.tasksItemDescription.setText(updateInfo);
         if (tasks.get(position).getUpdater().getName() != null) {
-            Glide.with(mContext).load(tasks.get(position).getUpdater().getAvatarUrl())
+            Glide.with(mContext)
+                    .load(tasks.get(position).getUpdater().getAvatarUrl())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.itemThumbnail);
         } else {
             //TODO replace this image with a no avatar image
-            Glide.with(mContext).load(R.drawable.ic_action_android)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+            Glide.with(mContext)
+                    .load(R.drawable.ic_action_android)
                     .into(holder.itemThumbnail);
         }
 

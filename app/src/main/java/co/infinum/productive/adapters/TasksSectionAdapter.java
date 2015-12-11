@@ -8,9 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Arrays;
-import java.util.Comparator;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import co.infinum.productive.R;
@@ -21,11 +18,15 @@ import co.infinum.productive.R;
 public class TasksSectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int SECTION_TYPE = 0;
-    private boolean mValid = true;
+
     private int mSectionResourceId;
+
     private Context mContext;
+
     private RecyclerView.Adapter mBaseAdapter;
+
     private SparseArray<TaskSection> mSections = new SparseArray<>();
+
     private TaskSection[] sections;
 
     public TasksSectionAdapter(int mSectionResourceId, Context mContext, RecyclerView.Adapter mBaseAdapter) {
@@ -54,6 +55,7 @@ public class TasksSectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
+        boolean mValid = true;
         return mValid ? mBaseAdapter.getItemCount() + mSections.size() : 0;
     }
 
@@ -82,13 +84,6 @@ public class TasksSectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.sections = sections;
 
         mSections.clear();
-
-        Arrays.sort(sections, new Comparator<TaskSection>() {
-            @Override
-            public int compare(TaskSection o, TaskSection o1) {
-                return o.firstPosition == o1.firstPosition ? 0 : o.firstPosition < o1.firstPosition ? -1 : 1;
-            }
-        });
 
         int offset = 0; // offset positions for the headers we're adding
 

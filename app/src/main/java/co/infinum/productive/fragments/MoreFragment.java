@@ -7,22 +7,18 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.infinum.productive.ProductiveApp;
 import co.infinum.productive.R;
 import co.infinum.productive.activities.LoginActivity;
+import co.infinum.productive.helpers.SharedPrefsHelper;
 
 public class MoreFragment extends BaseFragment {
-
-    private MaterialDialog dialog;
 
     private Context context;
 
@@ -43,32 +39,15 @@ public class MoreFragment extends BaseFragment {
 
     @OnClick(R.id.btn_sign_out)
     public void signOutClicked() {
-        showDialog();
-    }
-
-    private void showDialog() {
-        if (dialog == null || !dialog.isShowing()) {
-            dialog = new MaterialDialog.Builder(context)
-                    .content(R.string.logout_message)
-                    .positiveText(R.string.sign_out_dialog_button_text)
-                    .positiveColor(ContextCompat.getColor(context, R.color.signinButtonDefaultColor))
-                    .onPositive(callback)
-                    .negativeText(R.string.cancel_dialog_button_text)
-                    .negativeColor(ContextCompat.getColor(context, R.color.signinButtonDefaultColor))
-                    .build();
-            dialog.setCanceledOnTouchOutside(false);
-
-            if (!isRemoving()) {
-                dialog.show();
-            }
-
-        }
+        showBasicDialog(null, getResources().getString(R.string.logout_message), callback, null,
+                getResources().getString(R.string.sign_out_dialog_button_text),
+                getResources().getString(R.string.cancel_dialog_button_text));
     }
 
     private MaterialDialog.SingleButtonCallback callback = new MaterialDialog.SingleButtonCallback() {
         @Override
         public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-            PreferenceManager.getDefaultSharedPreferences(ProductiveApp.getInstance()).edit().clear().apply();
+            SharedPrefsHelper.clearEntireSharedPrefs(context);
             startActivity(new Intent(getActivity(), LoginActivity.class));
             getActivity().finish();
         }

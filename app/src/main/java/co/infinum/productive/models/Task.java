@@ -1,6 +1,5 @@
 package co.infinum.productive.models;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
@@ -15,19 +14,15 @@ import java.util.ArrayList;
 public class Task implements Serializable {
 
     @SerializedName("id")
-    @Expose
     private int id;
 
     @SerializedName("project_id")
-    @Expose
     private int projectId;
 
     @SerializedName("project_name")
-    @Expose
     private String projectName;
 
     @SerializedName("title")
-    @Expose
     private String title;
 
     @SerializedName("due_date")

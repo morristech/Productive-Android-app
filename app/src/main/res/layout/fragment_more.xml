@@ -2,21 +2,15 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="16dp"
-                android:paddingTop="16dp"
+                android:paddingBottom="@dimen/default_spacing"
+                android:paddingTop="@dimen/default_spacing"
                 tools:context="co.infinum.productive.fragments.MoreFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-
     <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/btn_sign_out"
             style="@style/SignInAndRegisterButton"
             android:layout_alignParentBottom="true"
             android:textColor="@android:color/white"
             android:background="@drawable/signin_selector_button_orange"
-            android:text="@string/sign_out_button_text"
-            />
+            android:text="@string/sign_out_button_text"/>
 
 </RelativeLayout>

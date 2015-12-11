@@ -3,6 +3,7 @@ package co.infinum.productive.activities;
 import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 
@@ -12,6 +13,7 @@ import co.infinum.productive.mvp.views.BaseView;
 public class BaseActivity extends AppCompatActivity implements BaseView {
 
     private MaterialDialog progressDialog;
+    private MaterialDialog basicDialog;
 
     @Override
     public void showProgress() {
@@ -48,6 +50,29 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
         matBuilder.setPositiveButton(android.R.string.ok, null);
         if (!isFinishing()) {
             matBuilder.show();
+        }
+    }
+
+    @Override
+    public void showBasicDialog(String title, String message, MaterialDialog.SingleButtonCallback positiveCallback,
+            MaterialDialog.SingleButtonCallback negativeCallback, String positiveButtonText, String negativeButtonText) {
+        if (basicDialog == null || !basicDialog.isShowing()) {
+            basicDialog = new MaterialDialog.Builder(this)
+                    .title(title)
+                    .content(title)
+                    .positiveText(positiveButtonText)
+                    .positiveColor(ContextCompat.getColor(this, R.color.signinButtonDefaultColor))
+                    .onPositive(positiveCallback)
+                    .onNegative(negativeCallback)
+                    .negativeText(negativeButtonText)
+                    .negativeColor(ContextCompat.getColor(this, R.color.signinButtonDefaultColor))
+                    .build();
+            basicDialog.setCanceledOnTouchOutside(false);
+
+            if (!isFinishing()) {
+                basicDialog.show();
+            }
+
         }
     }
 }

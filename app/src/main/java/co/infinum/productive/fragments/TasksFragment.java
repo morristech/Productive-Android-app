@@ -50,8 +50,6 @@ public class TasksFragment extends BaseFragment implements TasksView {
 
     private boolean isRefreshed = false;
 
-    private LinearLayoutManager layoutManager;
-
     private Context context;
 
     @Override
@@ -60,8 +58,6 @@ public class TasksFragment extends BaseFragment implements TasksView {
         ButterKnife.bind(this, view);
 
         context = getActivity();
-
-        layoutManager = new LinearLayoutManager(context);
 
         DaggerTasksComponent.builder()
                 .tasksModule(new TasksModule(this))
@@ -116,7 +112,7 @@ public class TasksFragment extends BaseFragment implements TasksView {
     }
 
     private void initRecyclerView() {
-        tasksRecyclerView.setLayoutManager(layoutManager);
+        tasksRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         tasksRecyclerView.setHasFixedSize(true);
     }
 

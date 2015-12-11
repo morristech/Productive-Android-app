@@ -26,6 +26,8 @@ import co.infinum.productive.models.ProjectTile;
  */
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleViewHolder> {
 
+    public static final String REPLACE_ALL_REGULAR_EXPRESSION = "\\D+";
+
     private Context mContext;
     private ArrayList<ProjectTile> projectTiles;
     private Resources res;
@@ -51,7 +53,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
         String updatedBy = projectTiles.get(position).getUpdatedBy();
         String elapsedTime = projectTiles.get(position).getElapsedTime();
 
-        if (Integer.parseInt(elapsedTime.replaceAll("\\D+", "")) != 1) {
+        if (Integer.parseInt(elapsedTime.replaceAll(REPLACE_ALL_REGULAR_EXPRESSION, "")) != 1) {
             updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 2, elapsedTime, updatedBy));
         } else {
             updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 1, elapsedTime, updatedBy));
