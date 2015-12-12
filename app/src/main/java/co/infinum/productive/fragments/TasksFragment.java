@@ -20,9 +20,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import co.infinum.productive.R;
 import co.infinum.productive.adapters.TasksAdapter;
-import co.infinum.productive.adapters.TasksSectionAdapter;
 import co.infinum.productive.dagger.components.DaggerTasksComponent;
 import co.infinum.productive.dagger.modules.TasksModule;
+import co.infinum.productive.listeners.OnTasksClickListener;
 import co.infinum.productive.models.Task;
 import co.infinum.productive.mvp.presenters.TasksPresenter;
 import co.infinum.productive.mvp.views.TasksView;
@@ -30,7 +30,7 @@ import co.infinum.productive.mvp.views.TasksView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TasksFragment extends BaseFragment implements TasksView {
+public class TasksFragment extends BaseFragment implements TasksView, OnTasksClickListener {
 
     @Bind(R.id.tasks_recycler_view)
     RecyclerView tasksRecyclerView;
@@ -44,9 +44,7 @@ public class TasksFragment extends BaseFragment implements TasksView {
     @Inject
     public TasksPresenter tasksPresenter;
 
-    private RecyclerView.Adapter recyclerViewAdapter;
-
-    private TasksSectionAdapter sectionAdapter;
+    private TasksAdapter sectionAdapter;
 
     private boolean isRefreshed = false;
 
@@ -124,10 +122,7 @@ public class TasksFragment extends BaseFragment implements TasksView {
 
     private void initAdapters(ArrayList<Task> tasks) {
 
-        recyclerViewAdapter = new TasksAdapter(context, tasks, getResources());
-        sectionAdapter = new TasksSectionAdapter(R.layout.tasks_list_item_separator, context, recyclerViewAdapter);
-
-        ((TasksAdapter) recyclerViewAdapter).setTasksSectionAdapter(sectionAdapter);
+        sectionAdapter = new TasksAdapter(context, getResources(), tasks, this);
 
         setSections(tasks);
 
@@ -136,7 +131,7 @@ public class TasksFragment extends BaseFragment implements TasksView {
 
 
     private void setSections(ArrayList<Task> tasks) {
-        ArrayList<TasksSectionAdapter.TaskSection> sections = new ArrayList<>();
+        ArrayList<TasksAdapter.TaskSection> sections = new ArrayList<>();
 
         // calculates offset for each client and sets sections
         String prevClientName = "";
@@ -150,28 +145,31 @@ public class TasksFragment extends BaseFragment implements TasksView {
                 ++currentOffset;
             } else {
                 overallOffset += currentOffset;
-                sections.add(new TasksSectionAdapter.TaskSection(overallOffset, currClientName));
+                sections.add(new TasksAdapter.TaskSection(overallOffset, currClientName));
                 currentOffset = 1;
             }
 
             prevClientName = currClientName;
         }
 
-        TasksSectionAdapter.TaskSection[] sectionsList = new TasksSectionAdapter.TaskSection[sections.size()];
+        TasksAdapter.TaskSection[] sectionsList = new TasksAdapter.TaskSection[sections.size()];
 
         sectionAdapter.setSections(sections.toArray(sectionsList));
     }
 
     private void refreshAdapters(ArrayList<Task> tasks) {
-        if (recyclerViewAdapter != null && sectionAdapter != null) {
+        if (sectionAdapter != null) {
             isRefreshed = false;
 
             setSections(tasks);
-            ((TasksAdapter) recyclerViewAdapter).refresh(tasks);
+            sectionAdapter.refresh(tasks);
 
             tasksSwipeRefreshLayout.setRefreshing(false);
         }
     }
 
 
+    @Override
+    public void onTasksClick(int position) {
+    }
 }
