@@ -1,17 +1,18 @@
 package co.infinum.productive.adapters;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 
@@ -24,29 +25,50 @@ import co.infinum.productive.models.ProjectTile;
 /**
  * Created by mjurinic on 09.11.15..
  */
-public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleViewHolder> {
+public class ProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    public static final int SECTION_TYPE = 0;
+    public static final int TILE_TYPE = 1;
     public static final String REPLACE_ALL_REGULAR_EXPRESSION = "\\D+";
 
-    private Context mContext;
+    private boolean mValid = true;
+    private Context context;
+    private SparseArray<Section> mSections = new SparseArray<>();
+    private Section[] sections;
+    private OnProjectClickListener listener;
     private ArrayList<ProjectTile> projectTiles;
     private Resources res;
-    private OnProjectClickListener listener;
-    private ProjectSectionAdapter projectSectionAdapter;
 
     public ProjectAdapter(Context context, Resources res, ArrayList<ProjectTile> projectTiles, OnProjectClickListener listener) {
-        mContext = context;
+        this.context = context;
         this.res = res;
         this.projectTiles = projectTiles;
         this.listener = listener;
     }
 
-    public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new SimpleViewHolder(LayoutInflater.from(mContext).inflate(R.layout.projects_list_item, parent, false), listener);
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int typeView) {
+        if (typeView == SECTION_TYPE) {
+            return new SectionViewHolder(LayoutInflater.from(context).inflate(R.layout.projects_list_item_separator, parent, false));
+        } else {
+            return new ProjectViewHolder(LayoutInflater.from(context).inflate(R.layout.projects_list_item, parent, false), listener);
+        }
     }
 
     @Override
-    public void onBindViewHolder(SimpleViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (isSectionHeaderPosition(position)) {
+            bindSectionViewHolder((SectionViewHolder) holder, position);
+        } else {
+            bindProjectViewHolder((ProjectViewHolder) holder, sectionedPositionToPosition(position));
+        }
+    }
+
+    private void bindSectionViewHolder(SectionViewHolder holder, int position) {
+        holder.title.setText(mSections.get(position).title);
+    }
+
+    private void bindProjectViewHolder(ProjectViewHolder holder, int position) {
         holder.title.setText(projectTiles.get(position).getProjectName());
 
         String updateInfo;
@@ -61,11 +83,11 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
 
         holder.description.setText(updateInfo);
 
-        Glide.with(mContext).load(projectTiles.get(position).getAvatarUrl())
+        Glide.with(context).load(projectTiles.get(position).getAvatarUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.thumbnail);
 
-        if (projectSectionAdapter.isSectionHeaderPosition(position + projectSectionAdapter.getSectionOffset(position + 1))
+        if (isSectionHeaderPosition(position + getSectionOffset(position + 1))
                 || position == projectTiles.size() - 1) {
             holder.contentLayout.setBackground(null);
         } else {
@@ -74,12 +96,66 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
     }
 
     @Override
-    public int getItemCount() {
-        return projectTiles.size();
+    public int getItemViewType(int position) {
+        return isSectionHeaderPosition(position) ? SECTION_TYPE : TILE_TYPE;
     }
 
-    public ProjectTile getItem(int position) {
-        return projectTiles.get(position);
+    // used for removing the last border on an item
+    public int getSectionOffset(int position) {
+        int offset = 0;
+
+        for (Section section : sections) {
+            if (section.firstPosition > position) {
+                break;
+            }
+
+            ++offset;
+        }
+
+        return offset;
+    }
+
+    public void setSections(Section[] sections) {
+        this.sections = sections;
+
+        mSections.clear();
+
+        int offset = 0; // offset positions for the headers we're adding
+
+        for (Section section : sections) {
+            section.sectionedPosition = section.firstPosition + offset;
+            mSections.append(section.sectionedPosition, section);
+            ++offset;
+        }
+
+        notifyDataSetChanged();
+    }
+
+    public int sectionedPositionToPosition(int sectionedPosition) {
+        if (isSectionHeaderPosition(sectionedPosition)) {
+            return RecyclerView.NO_POSITION;
+        }
+
+        int offset = 0;
+
+        for (int i = 0; i < mSections.size(); ++i) {
+            if (mSections.valueAt(i).sectionedPosition > sectionedPosition) {
+                break;
+            }
+
+            --offset;
+        }
+
+        return sectionedPosition + offset;
+    }
+
+    public boolean isSectionHeaderPosition(int position) {
+        return mSections.get(position) != null;
+    }
+
+    @Override
+    public int getItemCount() {
+        return mValid ? projectTiles.size() + mSections.size() : 0;
     }
 
     public void refresh(ArrayList<ProjectTile> projectTiles) {
@@ -88,11 +164,22 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
         notifyDataSetChanged();
     }
 
-    public void setProjectSectionAdapter(ProjectSectionAdapter projectSectionAdapter) {
-        this.projectSectionAdapter = projectSectionAdapter;
+    public ProjectTile getItem(int position) {
+        return projectTiles.get(position);
     }
 
-    public class SimpleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class SectionViewHolder extends RecyclerView.ViewHolder {
+
+        @Bind(R.id.projects_section_title)
+        TextView title;
+
+        public SectionViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    public class ProjectViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.projects_item_title)
         TextView title;
@@ -108,7 +195,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
 
         private OnProjectClickListener listener;
 
-        public SimpleViewHolder(View v, OnProjectClickListener listener) {
+        public ProjectViewHolder(View v, OnProjectClickListener listener) {
             super(v);
             ButterKnife.bind(this, v);
 
@@ -118,7 +205,27 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.SimpleVi
 
         @Override
         public void onClick(View v) {
-            listener.onProjectsClick(projectSectionAdapter.sectionedPositionToPosition(getAdapterPosition()));
+            listener.onProjectsClick(sectionedPositionToPosition(getAdapterPosition()));
+        }
+    }
+
+    public static class Section {
+
+        int firstPosition;
+        int sectionedPosition;
+        String title;
+
+        public Section(int firstPosition, String title) {
+            this.firstPosition = firstPosition;
+            this.title = title;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public int getFirstPosition() {
+            return firstPosition;
         }
     }
 }
