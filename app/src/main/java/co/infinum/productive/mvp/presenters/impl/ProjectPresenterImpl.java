@@ -11,7 +11,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import co.infinum.productive.helpers.ElapsedTimeFormatter;
-import co.infinum.productive.helpers.ProjectTileComparator;
+import co.infinum.productive.helpers.ProjectTitleComparator;
 import co.infinum.productive.helpers.TaskByDateComparator;
 import co.infinum.productive.listeners.Listener;
 import co.infinum.productive.listeners.TaskActivityListener;
@@ -178,7 +178,7 @@ public class ProjectPresenterImpl implements ProjectPresenter {
                 }
             }
 
-            Collections.sort(tiles, new ProjectTileComparator());
+            Collections.sort(tiles, new ProjectTitleComparator());
 
             allActivties.clear();
 

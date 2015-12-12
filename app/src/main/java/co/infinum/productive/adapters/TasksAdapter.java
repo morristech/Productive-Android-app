@@ -6,6 +6,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,38 +19,57 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import co.infinum.productive.R;
 import co.infinum.productive.helpers.ElapsedTimeFormatter;
+import co.infinum.productive.listeners.OnTasksClickListener;
 import co.infinum.productive.models.Task;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by noxqs on 15.11.15..
  */
-public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHolder> {
+public class TasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    public static final int SECTION_TYPE = 0;
+    public static final int TILE_TYPE = 1;
     public static final String REPLACE_ALL_REGEX = "\\D+";
 
     private Context mContext;
-
+    private SparseArray<TaskSection> mSections = new SparseArray<>();
+    private TaskSection[] sections;
+    private OnTasksClickListener listener;
+    private Resources res;
     private ArrayList<Task> tasks;
 
-    private Resources res;
-
-    private TasksSectionAdapter tasksSectionAdapter;
-
-
-    public TasksAdapter(Context mContext, ArrayList<Task> tasks, Resources res) {
+    public TasksAdapter(Context mContext, Resources res, ArrayList<Task> taskList, OnTasksClickListener listener) {
         this.mContext = mContext;
-        this.tasks = tasks;
         this.res = res;
+        this.tasks = taskList;
+        this.listener = listener;
     }
 
     @Override
-    public TasksViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new TasksViewHolder(LayoutInflater.from(mContext).inflate(R.layout.tasks_list_item, parent, false));
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == SECTION_TYPE) {
+            return new TaskSectionViewHolder(LayoutInflater.from(mContext).inflate(R.layout.tasks_list_item_separator, parent, false));
+        } else {
+            return new TaskViewHolder(LayoutInflater.from(mContext).inflate(R.layout.tasks_list_item, parent, false), listener);
+        }
     }
 
     @Override
-    public void onBindViewHolder(TasksViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (isSectionHeaderPosition(position)) {
+            bindSectionViewHolder((TaskSectionViewHolder) holder, position);
+        } else {
+            bindTaskViewHolder((TaskViewHolder) holder, sectionedPositionToPosition(position));
+        }
+    }
+
+    private void bindSectionViewHolder(TaskSectionViewHolder holder, int position) {
+        holder.title.setText(mSections.get(position).title);
+    }
+
+
+    private void bindTaskViewHolder(TaskViewHolder holder, int position) {
         holder.tasksItemTitle.setText(tasks.get(position).getTitle());
 
         String updateInfo;
@@ -60,12 +80,13 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         String elapsedTime = ElapsedTimeFormatter.getElapsedTime(tasks.get(position).getUpdatedAt(), res);
 
         if (Integer.parseInt(elapsedTime.replaceAll(REPLACE_ALL_REGEX, "")) != 1) {
-            updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 2, elapsedTime, updatedBy));
+            updateInfo = res.getQuantityString(R.plurals.elapsed_time_text, 2, elapsedTime, updatedBy);
         } else {
-            updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 1, elapsedTime, updatedBy));
+            updateInfo = res.getQuantityString(R.plurals.elapsed_time_text, 1, elapsedTime, updatedBy);
         }
 
         holder.tasksItemDescription.setText(updateInfo);
+
         if (tasks.get(position).getUpdater().getName() != null) {
             Glide.with(mContext)
                     .load(tasks.get(position).getUpdater().getAvatarUrl())
@@ -78,8 +99,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
                     .into(holder.itemThumbnail);
         }
 
-        if (tasksSectionAdapter.isSectionHeaderPosition(position + tasksSectionAdapter.getSectionOffset(position + 1))
-                || position == tasks.size() - 1) {
+        if (isSectionHeaderPosition(position + getSectionOffset(position + 1)) || position == tasks.size() - 1) {
             holder.tasksContentLayout.setBackground(null);
         } else {
             holder.tasksContentLayout.setBackgroundResource(R.drawable.item_card_border);
@@ -88,22 +108,89 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
     @Override
     public int getItemCount() {
-        return tasks.size();
+        return tasks.size() + mSections.size();
     }
 
-    public void setTasksSectionAdapter(TasksSectionAdapter tasksSectionAdapter) {
-        this.tasksSectionAdapter = tasksSectionAdapter;
+    @Override
+    public int getItemViewType(int position) {
+        return isSectionHeaderPosition(position) ? SECTION_TYPE : TILE_TYPE;
     }
 
-    public void refresh(ArrayList<Task> tasks) {
-        this.tasks.clear();
-        this.tasks.addAll(tasks);
+    // used for removing the last border on an item
+    public int getSectionOffset(int position) {
+        int offset = 0;
+
+        for (TaskSection section : sections) {
+            if (section.firstPosition > position) {
+                break;
+            }
+
+            ++offset;
+        }
+
+        return offset;
+    }
+
+    public void setSections(TaskSection[] sections) {
+        this.sections = sections;
+
+        mSections.clear();
+
+        int offset = 0; // offset positions for the headers we're adding
+
+        for (TaskSection section : sections) {
+            section.sectionedPosition = section.firstPosition + offset;
+            mSections.append(section.sectionedPosition, section);
+            ++offset;
+        }
 
         notifyDataSetChanged();
     }
 
+    public int sectionedPositionToPosition(int sectionedPosition) {
+        if (isSectionHeaderPosition(sectionedPosition)) {
+            return RecyclerView.NO_POSITION;
+        }
 
-    public class TasksViewHolder extends RecyclerView.ViewHolder {
+        int offset = 0;
+
+        for (int i = 0; i < mSections.size(); ++i) {
+            if (mSections.valueAt(i).sectionedPosition > sectionedPosition) {
+                break;
+            }
+
+            --offset;
+        }
+
+        return sectionedPosition + offset;
+    }
+
+    public boolean isSectionHeaderPosition(int position) {
+        return mSections.get(position) != null;
+    }
+
+    public void refresh(ArrayList<Task> tasks) {
+        this.tasks.clear();
+        this.tasks.addAll(tasks); //memory efficient, we're always updating the initial List
+        notifyDataSetChanged();
+    }
+
+    public Task getItem(int position) {
+        return tasks.get(position);
+    }
+
+    public static class TaskSectionViewHolder extends RecyclerView.ViewHolder {
+
+        @Bind(R.id.section_title)
+        TextView title;
+
+        public TaskSectionViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+    public class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.tasks_item_title)
         TextView tasksItemTitle;
@@ -117,9 +204,41 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         @Bind(R.id.item_thumbnail)
         CircleImageView itemThumbnail;
 
-        public TasksViewHolder(View itemView) {
+        private OnTasksClickListener listener;
+
+        public TaskViewHolder(View itemView, OnTasksClickListener listener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+            itemView.setOnClickListener(this);
+            this.listener = listener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            listener.onTasksClick(sectionedPositionToPosition(getAdapterPosition()));
+        }
+    }
+
+    public static class TaskSection {
+
+        int firstPosition;
+
+        int sectionedPosition;
+
+        String title;
+
+        public TaskSection(int firstPosition, String title) {
+            this.firstPosition = firstPosition;
+            this.title = title;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public int getFirstPosition() {
+            return firstPosition;
         }
     }
 }
