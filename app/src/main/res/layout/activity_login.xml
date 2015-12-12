@@ -11,68 +11,53 @@
 
     <ImageView
             android:id="@+id/logo_image"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/productive_logo"/>
+            style="@style/ImageViewLogo"/>
 
     <RelativeLayout
             android:id="@+id/login_credentials_container"
-            style="@style/loginCredentialsContainer">
+            style="@style/LoginCredentialsContainer">
 
         <EditText
                 android:id="@+id/et_email"
-                style="@style/loginCredentials"
+                style="@style/LoginCredentials"
                 android:hint="@string/login_hint_email"
                 android:inputType="textEmailAddress"/>
 
         <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/separator_height"
-                android:layout_marginLeft="@dimen/default_spacing"
-                android:layout_marginRight="@dimen/separator_margin_right"
+                style="@style/LoginCredentialsSeparator"
                 android:layout_below="@+id/et_email"
                 android:background="@color/separatorBackgroundColor"/>
 
         <EditText
                 android:id="@+id/et_password"
-                style="@style/loginCredentials"
+                style="@style/LoginCredentials"
                 android:layout_below="@+id/et_email"
                 android:hint="@string/login_hint_password"
                 android:inputType="textPassword"/>
 
         <Button
                 android:id="@+id/toggle_password"
-                android:layout_width="@dimen/show_hide_button_width"
-                android:layout_height="@dimen/show_hide_button_height"
-                android:layout_marginTop="@dimen/show_hide_button_margin_top"
-                android:textStyle="bold"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/et_email"
-                android:background="@android:color/transparent"
                 android:text="@string/show_button_text"
-                android:textAllCaps="true"
-                android:textColor="@color/showHideButtonTextColor"/>
+                style="@style/ShowHidePasswordButton"
+                android:layout_below="@id/et_email"
+                />
 
     </RelativeLayout>
 
     <Button
             android:id="@+id/login_button"
-            style="@style/signInAndRegisterButton"
+            style="@style/SignInAndRegisterButton"
             android:layout_above="@+id/register_button"
             android:background="@drawable/signin_selector_button_orange"
-            android:stateListAnimator="@null"
             android:text="@string/login_button_text"
             android:textColor="@android:color/white"/>
 
     <TextView
             android:id="@+id/register_button"
-            style="@style/signInAndRegisterButton"
+            style="@style/SignInAndRegisterButton"
             android:layout_alignParentBottom="true"
             android:layout_height="@dimen/register_tv_height"
             android:gravity="center"
-            android:stateListAnimator="@null"
             android:layout_marginTop="@dimen/register_button_margin_top"
             android:background="@drawable/register_selector_button_white"
             android:text="@string/create_account_button_text"/>

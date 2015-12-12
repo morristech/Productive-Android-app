@@ -1,4 +1,4 @@
-package co.infinum.productive.mvp;
+package co.infinum.productive.listeners;
 
 public interface Listener<Type> {
 

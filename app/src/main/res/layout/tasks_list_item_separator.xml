@@ -8,9 +8,7 @@
 
     <TextView
         android:id="@+id/section_title"
-        style="@style/ProjectSeparator"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        style="@style/Separator"
         tools:text="Header 1"/>
 
 </LinearLayout>

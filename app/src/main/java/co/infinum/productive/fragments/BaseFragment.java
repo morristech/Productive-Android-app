@@ -4,6 +4,7 @@ import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 
 import co.infinum.productive.R;
@@ -15,7 +16,10 @@ import co.infinum.productive.mvp.views.BaseView;
 public class BaseFragment extends android.support.v4.app.Fragment implements BaseView {
 
     private MaterialDialog progressDialog;
+
     private Context context;
+
+    private MaterialDialog basicDialog;
 
     @Override
     public void onAttach(Context context) {
@@ -60,4 +64,28 @@ public class BaseFragment extends android.support.v4.app.Fragment implements Bas
             matBuilder.show();
         }
     }
+
+    @Override
+    public void showBasicDialog(String title, String message, MaterialDialog.SingleButtonCallback positiveCallback,
+            MaterialDialog.SingleButtonCallback negativeCallback, String positiveButtonText, String negativeButtonText) {
+        if (basicDialog == null || !basicDialog.isShowing()) {
+            basicDialog = new MaterialDialog.Builder(context)
+                    .title(title)
+                    .content(message)
+                    .positiveText(positiveButtonText)
+                    .positiveColor(ContextCompat.getColor(context, R.color.signinButtonDefaultColor))
+                    .onPositive(positiveCallback)
+                    .onNegative(negativeCallback)
+                    .negativeText(negativeButtonText)
+                    .negativeColor(ContextCompat.getColor(context, R.color.signinButtonDefaultColor))
+                    .build();
+            basicDialog.setCanceledOnTouchOutside(false);
+
+            if (!isRemoving()) {
+                basicDialog.show();
+            }
+
+        }
+    }
+
 }

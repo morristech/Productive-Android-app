@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import co.infinum.productive.listeners.Listener;
 import co.infinum.productive.models.BaseResponse;
 import co.infinum.productive.models.Task;
-import co.infinum.productive.mvp.Listener;
 import co.infinum.productive.mvp.interactors.TaskInteractor;
 import co.infinum.productive.network.ApiService;
 import co.infinum.productive.network.BaseCallback;
@@ -21,7 +21,9 @@ import retrofit.Response;
 public class TaskInteractorImpl implements TaskInteractor {
 
     private ApiService apiService;
+
     private Call<BaseResponse<ArrayList<Task>>> call;
+
     private BaseCallback<BaseResponse<ArrayList<Task>>> callback;
 
     @Inject
