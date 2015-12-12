@@ -29,21 +29,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int SECTION_TYPE = 0;
-
     public static final int TILE_TYPE = 1;
-
     public static final String REPLACE_ALL_REGEX = "\\D+";
 
     private Context mContext;
-
     private SparseArray<TaskSection> mSections = new SparseArray<>();
-
     private TaskSection[] sections;
-
     private OnTasksClickListener listener;
-
     private Resources res;
-
     private ArrayList<Task> tasks;
 
     public TasksAdapter(Context mContext, Resources res, ArrayList<Task> taskList, OnTasksClickListener listener) {
@@ -87,9 +80,9 @@ public class TasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         String elapsedTime = ElapsedTimeFormatter.getElapsedTime(tasks.get(position).getUpdatedAt(), res);
 
         if (Integer.parseInt(elapsedTime.replaceAll(REPLACE_ALL_REGEX, "")) != 1) {
-            updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 2, elapsedTime, updatedBy));
+            updateInfo = res.getQuantityString(R.plurals.elapsed_time_text, 2, elapsedTime, updatedBy);
         } else {
-            updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 1, elapsedTime, updatedBy));
+            updateInfo = res.getQuantityString(R.plurals.elapsed_time_text, 1, elapsedTime, updatedBy);
         }
 
         holder.tasksItemDescription.setText(updateInfo);

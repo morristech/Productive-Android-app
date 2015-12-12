@@ -31,10 +31,9 @@ public class ProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public static final int TILE_TYPE = 1;
     public static final String REPLACE_ALL_REGULAR_EXPRESSION = "\\D+";
 
-    private boolean mValid = true;
     private Context context;
-    private SparseArray<Section> mSections = new SparseArray<>();
-    private Section[] sections;
+    private SparseArray<ProjectSection> mSections = new SparseArray<>();
+    private ProjectSection[] projectSections;
     private OnProjectClickListener listener;
     private ArrayList<ProjectTile> projectTiles;
     private Resources res;
@@ -49,7 +48,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int typeView) {
         if (typeView == SECTION_TYPE) {
-            return new SectionViewHolder(LayoutInflater.from(context).inflate(R.layout.projects_list_item_separator, parent, false));
+            return new ProjectSectionViewHolder(LayoutInflater.from(context).inflate(R.layout.projects_list_item_separator, parent, false));
         } else {
             return new ProjectViewHolder(LayoutInflater.from(context).inflate(R.layout.projects_list_item, parent, false), listener);
         }
@@ -58,13 +57,13 @@ public class ProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (isSectionHeaderPosition(position)) {
-            bindSectionViewHolder((SectionViewHolder) holder, position);
+            bindSectionViewHolder((ProjectSectionViewHolder) holder, position);
         } else {
             bindProjectViewHolder((ProjectViewHolder) holder, sectionedPositionToPosition(position));
         }
     }
 
-    private void bindSectionViewHolder(SectionViewHolder holder, int position) {
+    private void bindSectionViewHolder(ProjectSectionViewHolder holder, int position) {
         holder.title.setText(mSections.get(position).title);
     }
 
@@ -76,9 +75,9 @@ public class ProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         String elapsedTime = projectTiles.get(position).getElapsedTime();
 
         if (Integer.parseInt(elapsedTime.replaceAll(REPLACE_ALL_REGULAR_EXPRESSION, "")) != 1) {
-            updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 2, elapsedTime, updatedBy));
+            updateInfo = res.getQuantityString(R.plurals.elapsed_time_text, 2, elapsedTime, updatedBy);
         } else {
-            updateInfo = String.format(res.getQuantityString(R.plurals.elapsed_time_text, 1, elapsedTime, updatedBy));
+            updateInfo = res.getQuantityString(R.plurals.elapsed_time_text, 1, elapsedTime, updatedBy);
         }
 
         holder.description.setText(updateInfo);
@@ -104,8 +103,8 @@ public class ProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public int getSectionOffset(int position) {
         int offset = 0;
 
-        for (Section section : sections) {
-            if (section.firstPosition > position) {
+        for (ProjectSection projectSection : projectSections) {
+            if (projectSection.firstPosition > position) {
                 break;
             }
 
@@ -115,16 +114,16 @@ public class ProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return offset;
     }
 
-    public void setSections(Section[] sections) {
-        this.sections = sections;
+    public void setProjectSections(ProjectSection[] projectSections) {
+        this.projectSections = projectSections;
 
         mSections.clear();
 
         int offset = 0; // offset positions for the headers we're adding
 
-        for (Section section : sections) {
-            section.sectionedPosition = section.firstPosition + offset;
-            mSections.append(section.sectionedPosition, section);
+        for (ProjectSection projectSection : projectSections) {
+            projectSection.sectionedPosition = projectSection.firstPosition + offset;
+            mSections.append(projectSection.sectionedPosition, projectSection);
             ++offset;
         }
 
@@ -155,7 +154,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public int getItemCount() {
-        return mValid ? projectTiles.size() + mSections.size() : 0;
+        return projectTiles.size() + mSections.size();
     }
 
     public void refresh(ArrayList<ProjectTile> projectTiles) {
@@ -168,12 +167,12 @@ public class ProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return projectTiles.get(position);
     }
 
-    public class SectionViewHolder extends RecyclerView.ViewHolder {
+    public class ProjectSectionViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.projects_section_title)
         TextView title;
 
-        public SectionViewHolder(View view) {
+        public ProjectSectionViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
@@ -209,13 +208,13 @@ public class ProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public static class Section {
+    public static class ProjectSection {
 
         int firstPosition;
         int sectionedPosition;
         String title;
 
-        public Section(int firstPosition, String title) {
+        public ProjectSection(int firstPosition, String title) {
             this.firstPosition = firstPosition;
             this.title = title;
         }

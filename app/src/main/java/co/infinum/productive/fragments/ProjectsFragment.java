@@ -124,9 +124,9 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
     }
 
     private void setSections(ArrayList<ProjectTile> projectTiles) {
-        ArrayList<ProjectAdapter.Section> sections = new ArrayList<>();
+        ArrayList<ProjectAdapter.ProjectSection> projectSections = new ArrayList<>();
 
-        // calculates offset for each client and sets sections
+        // calculates offset for each client and sets projectSections
         String prevClientName = "";
         int overallOffset = 0;
         int currentOffset = 0;
@@ -138,16 +138,16 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
                 ++currentOffset;
             } else {
                 overallOffset += currentOffset;
-                sections.add(new ProjectAdapter.Section(overallOffset, currClientName));
+                projectSections.add(new ProjectAdapter.ProjectSection(overallOffset, currClientName));
                 currentOffset = 1;
             }
 
             prevClientName = currClientName;
         }
 
-        ProjectAdapter.Section[] sectionsList = new ProjectAdapter.Section[sections.size()];
+        ProjectAdapter.ProjectSection[] sectionsList = new ProjectAdapter.ProjectSection[projectSections.size()];
 
-        mSectionAdapter.setSections(sections.toArray(sectionsList));
+        mSectionAdapter.setProjectSections(projectSections.toArray(sectionsList));
     }
 
     private void refreshAdapter(ArrayList<ProjectTile> projectTiles) {
