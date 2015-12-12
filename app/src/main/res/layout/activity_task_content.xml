@@ -11,14 +11,15 @@
         android:layout_width="match_parent"
         android:background="@color/colorPrimary"
         android:layout_height="wrap_content"
-        style="@style/TaskContentTabFontColor"
+        style="@style/TaskContentTabLayout"
+        app:tabTextAppearance="@style/TaskContentTabLayoutFont"
+        app:tabIndicatorColor="@color/tabItemSelectedColor"
         android:elevation="@dimen/default_action_bar_elevation" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/task_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:tabSelectedTextColor="@color/signinButtonDefaultColor" />
+        android:layout_height="@dimen/no_spacing"
+        android:layout_weight="1"/>
 
 </LinearLayout>

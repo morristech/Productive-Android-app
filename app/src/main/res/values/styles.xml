@@ -122,10 +122,15 @@
         <item name="android:textColor">@color/projectAndSectionDescriptionColor</item>
     </style>
 
-    <style name="TaskContentTabFontColor" parent="Widget.AppCompat.Light.ActionBar.TabText">
+    <!-- parent="Theme.AppCompat.Light.DarkActionBar" -->
+    <style name="TaskContentTabLayoutFont">
+        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="TaskContentTabLayout" parent="Widget.AppCompat.Light.ActionBar.TabText">
         <item name="tabTextColor">@android:color/white</item>
         <item name="tabSelectedTextColor">@android:color/white</item>
-        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">

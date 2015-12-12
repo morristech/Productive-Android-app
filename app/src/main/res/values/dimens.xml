@@ -7,6 +7,7 @@
     <dimen name="default_action_bar_elevation">8dp</dimen>
 
     <!-- spacings -->
+    <dimen name="no_spacing">0dp</dimen>
     <dimen name="nano_spacing">4dp</dimen>
     <dimen name="micro_spacing">8dp</dimen>
     <dimen name="small_spacing">10dp</dimen>

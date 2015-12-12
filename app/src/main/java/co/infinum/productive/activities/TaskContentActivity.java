@@ -15,11 +15,14 @@ import co.infinum.productive.R;
 import co.infinum.productive.adapters.ViewPagerAdapter;
 import co.infinum.productive.fragments.TaskActivityFragment;
 import co.infinum.productive.fragments.TaskDetailsFragment;
+import co.infinum.productive.models.Task;
 
 /**
  * Created by mjurinic on 28.11.15..
  */
 public class TaskContentActivity extends BaseActivity implements TabLayout.OnTabSelectedListener {
+
+    public static final String TASK = "task";
 
     @Bind(R.id.task_view_pager)
     ViewPager viewPager;
@@ -28,6 +31,7 @@ public class TaskContentActivity extends BaseActivity implements TabLayout.OnTab
     TabLayout tabLayout;
 
     private ArrayList<Fragment> fragmentList;
+    private Task task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,10 @@ public class TaskContentActivity extends BaseActivity implements TabLayout.OnTab
         ButterKnife.bind(this);
 
         getSupportActionBar().setElevation(0);
+
+        task = (Task) getIntent().getSerializableExtra(TASK);
+
+        setTitle(task.getTitle());
 
         initTabs();
         initFragments();
@@ -47,8 +55,8 @@ public class TaskContentActivity extends BaseActivity implements TabLayout.OnTab
     }
 
     private void initTabs() {
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.task_tab_activity));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.task_tab_details));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.task_content_tab_activity));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.task_content_tab_details));
     }
 
     private void initFragments() {
@@ -59,7 +67,6 @@ public class TaskContentActivity extends BaseActivity implements TabLayout.OnTab
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_activity, menu);
         return true;
     }
 
