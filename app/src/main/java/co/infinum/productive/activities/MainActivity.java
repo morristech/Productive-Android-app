@@ -6,7 +6,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -58,11 +63,25 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     }
 
     private void initTabs() {
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tasks_tab_selector).setText(R.string.my_tasks_tab));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.projects_tab_selector).setText(R.string.projects_tab));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.notifications_tab_selector).setText(R.string.notifications_tab));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.more_tab_selector).setText(R.string.more_tab));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(inflateTabItem(R.drawable.tasks_tab_selector, R.string.my_tasks_tab)));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(inflateTabItem(R.drawable.projects_tab_selector, R.string.projects_tab)));
+        tabLayout.addTab(tabLayout.newTab()
+                                  .setCustomView(inflateTabItem(R.drawable.notifications_tab_selector, R.string.notifications_tab)));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(inflateTabItem(R.drawable.more_tab_selector, R.string.more_tab)));
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+    }
+
+    private View inflateTabItem(int iconResourceId, int textResourceId) {
+        LinearLayout tabItemLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.main_activity_tab_item, null);
+
+        ImageView tabIcon = (ImageView) tabItemLayout.findViewById(R.id.main_activity_tab_icon);
+        tabIcon.setImageResource(iconResourceId);
+
+        TextView tabText = (TextView) tabItemLayout.findViewById(R.id.main_activity_tab_text);
+        tabText.setText(textResourceId);
+
+        return tabItemLayout;
     }
 
     @Override
