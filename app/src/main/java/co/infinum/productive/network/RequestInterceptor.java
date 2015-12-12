@@ -1,11 +1,11 @@
 package co.infinum.productive.network;
 
+import android.preference.PreferenceManager;
+
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-
-import android.preference.PreferenceManager;
 
 import java.io.IOException;
 
