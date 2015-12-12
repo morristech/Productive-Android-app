@@ -43,4 +43,5 @@
     <string name="logout_message">Are you sure you wish to log out?</string>
     <string name="sign_out_dialog_button_text">Sign out</string>
     <string name="cancel_dialog_button_text">Cancel</string>
+    <string name="action_settings">Settings</string>
 </resources>

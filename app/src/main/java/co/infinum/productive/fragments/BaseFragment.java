@@ -1,11 +1,11 @@
 package co.infinum.productive.fragments;
 
+import com.afollestad.materialdialogs.AlertDialogWrapper;
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
-
-import com.afollestad.materialdialogs.AlertDialogWrapper;
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import co.infinum.productive.R;
 import co.infinum.productive.mvp.views.BaseView;

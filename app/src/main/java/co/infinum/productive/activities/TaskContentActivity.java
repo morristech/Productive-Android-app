@@ -31,6 +31,7 @@ public class TaskContentActivity extends BaseActivity implements TabLayout.OnTab
     TabLayout tabLayout;
 
     private ArrayList<Fragment> fragmentList;
+
     private Task task;
 
     @Override
@@ -39,7 +40,7 @@ public class TaskContentActivity extends BaseActivity implements TabLayout.OnTab
         setContentView(R.layout.activity_task_content);
         ButterKnife.bind(this);
 
-        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         task = (Task) getIntent().getSerializableExtra(TASK);
 
@@ -67,11 +68,23 @@ public class TaskContentActivity extends BaseActivity implements TabLayout.OnTab
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.task_details_activity, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_settings:
+                //TODO handle menu clicks
+                break;
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:
+                super.onOptionsItemSelected(item);
+        }
         return true;
     }
 
