@@ -5,7 +5,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +23,7 @@ import co.infinum.productive.fragments.NotificationsFragment;
 import co.infinum.productive.fragments.ProjectsFragment;
 import co.infinum.productive.fragments.TasksFragment;
 
-public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+public class MainActivity extends BaseActivity implements TabLayout.OnTabSelectedListener {
 
     @Bind(R.id.tab_layout)
     TabLayout tabLayout;

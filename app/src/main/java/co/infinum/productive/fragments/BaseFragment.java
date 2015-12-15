@@ -3,11 +3,10 @@ package co.infinum.productive.fragments;
 import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.afollestad.materialdialogs.MaterialDialog;
 
-import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.text.Html;
 
 import co.infinum.productive.R;
+import co.infinum.productive.activities.BaseActivity;
 import co.infinum.productive.mvp.views.BaseView;
 
 /**
@@ -17,20 +16,10 @@ public class BaseFragment extends android.support.v4.app.Fragment implements Bas
 
     private MaterialDialog progressDialog;
 
-    private Context context;
-
-    private MaterialDialog basicDialog;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
-
     @Override
     public void showProgress() {
         if (progressDialog == null || !progressDialog.isShowing()) {
-            progressDialog = new MaterialDialog.Builder(context)
+            progressDialog = new MaterialDialog.Builder(getActivity())
                     .title(R.string.app_name)
                     .content(R.string.please_wait)
                     .progress(true, 0)
@@ -51,7 +40,7 @@ public class BaseFragment extends android.support.v4.app.Fragment implements Bas
 
     @Override
     public void showError(String message) {
-        final AlertDialogWrapper.Builder matBuilder = new AlertDialogWrapper.Builder(context);
+        final AlertDialogWrapper.Builder matBuilder = new AlertDialogWrapper.Builder(getActivity());
         matBuilder.setTitle(R.string.app_name);
 
         if (message != null) {
@@ -66,26 +55,13 @@ public class BaseFragment extends android.support.v4.app.Fragment implements Bas
     }
 
     @Override
-    public void showBasicDialog(String title, String message, MaterialDialog.SingleButtonCallback positiveCallback,
+    public void showDialog(String title, String message, MaterialDialog.SingleButtonCallback positiveCallback,
             MaterialDialog.SingleButtonCallback negativeCallback, String positiveButtonText, String negativeButtonText) {
-        if (basicDialog == null || !basicDialog.isShowing()) {
-            basicDialog = new MaterialDialog.Builder(context)
-                    .title(title)
-                    .content(message)
-                    .positiveText(positiveButtonText)
-                    .positiveColor(ContextCompat.getColor(context, R.color.signinButtonDefaultColor))
-                    .onPositive(positiveCallback)
-                    .onNegative(negativeCallback)
-                    .negativeText(negativeButtonText)
-                    .negativeColor(ContextCompat.getColor(context, R.color.signinButtonDefaultColor))
-                    .build();
-            basicDialog.setCanceledOnTouchOutside(false);
+        getBaseActivity().showDialog(title, message, positiveCallback, negativeCallback, positiveButtonText, negativeButtonText);
+    }
 
-            if (!isRemoving()) {
-                basicDialog.show();
-            }
-
-        }
+    protected BaseActivity getBaseActivity() {
+        return (BaseActivity) getActivity();
     }
 
 }

@@ -13,7 +13,6 @@ import co.infinum.productive.mvp.views.BaseView;
 public class BaseActivity extends AppCompatActivity implements BaseView {
 
     private MaterialDialog progressDialog;
-    private MaterialDialog basicDialog;
 
     @Override
     public void showProgress() {
@@ -54,25 +53,23 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
     }
 
     @Override
-    public void showBasicDialog(String title, String message, MaterialDialog.SingleButtonCallback positiveCallback,
+    public void showDialog(String title, String message, MaterialDialog.SingleButtonCallback positiveCallback,
             MaterialDialog.SingleButtonCallback negativeCallback, String positiveButtonText, String negativeButtonText) {
-        if (basicDialog == null || !basicDialog.isShowing()) {
-            basicDialog = new MaterialDialog.Builder(this)
-                    .title(title)
-                    .content(title)
-                    .positiveText(positiveButtonText)
-                    .positiveColor(ContextCompat.getColor(this, R.color.signinButtonDefaultColor))
-                    .onPositive(positiveCallback)
-                    .onNegative(negativeCallback)
-                    .negativeText(negativeButtonText)
-                    .negativeColor(ContextCompat.getColor(this, R.color.signinButtonDefaultColor))
-                    .build();
-            basicDialog.setCanceledOnTouchOutside(false);
+        MaterialDialog basicDialog = new MaterialDialog.Builder(this)
+                .title(title)
+                .content(message)
+                .positiveText(positiveButtonText)
+                .positiveColor(ContextCompat.getColor(this, R.color.signinButtonDefaultColor))
+                .onPositive(positiveCallback)
+                .onNegative(negativeCallback)
+                .negativeText(negativeButtonText)
+                .negativeColor(ContextCompat.getColor(this, R.color.signinButtonDefaultColor))
+                .build();
+        basicDialog.setCanceledOnTouchOutside(false);
 
-            if (!isFinishing()) {
-                basicDialog.show();
-            }
-
+        if (!isFinishing()) {
+            basicDialog.show();
         }
+
     }
 }

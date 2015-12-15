@@ -2,7 +2,6 @@ package co.infinum.productive.fragments;
 
 
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -48,14 +47,10 @@ public class TasksFragment extends BaseFragment implements TasksView, OnTasksCli
 
     private boolean isRefreshed = false;
 
-    private Context context;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tasks, container, false);
         ButterKnife.bind(this, view);
-
-        context = getActivity();
 
         DaggerTasksComponent.builder()
                 .tasksModule(new TasksModule(this))
@@ -110,7 +105,7 @@ public class TasksFragment extends BaseFragment implements TasksView, OnTasksCli
     }
 
     private void initRecyclerView() {
-        tasksRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        tasksRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         tasksRecyclerView.setHasFixedSize(true);
     }
 
@@ -122,7 +117,7 @@ public class TasksFragment extends BaseFragment implements TasksView, OnTasksCli
 
     private void initAdapters(ArrayList<Task> tasks) {
 
-        sectionAdapter = new TasksAdapter(context, getResources(), tasks, this);
+        sectionAdapter = new TasksAdapter(getActivity(), getResources(), tasks, this);
 
         setSections(tasks);
 
