@@ -28,14 +28,21 @@ import co.infinum.productive.models.ProjectTile;
 public class ProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int SECTION_TYPE = 0;
+
     public static final int TILE_TYPE = 1;
+
     public static final String REPLACE_ALL_REGULAR_EXPRESSION = "\\D+";
 
     private Context context;
+
     private SparseArray<ProjectSection> mSections = new SparseArray<>();
+
     private ProjectSection[] projectSections;
+
     private OnProjectClickListener listener;
+
     private ArrayList<ProjectTile> projectTiles;
+
     private Resources res;
 
     public ProjectAdapter(Context context, Resources res, ArrayList<ProjectTile> projectTiles, OnProjectClickListener listener) {
@@ -211,7 +218,9 @@ public class ProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public static class ProjectSection {
 
         int firstPosition;
+
         int sectionedPosition;
+
         String title;
 
         public ProjectSection(int firstPosition, String title) {

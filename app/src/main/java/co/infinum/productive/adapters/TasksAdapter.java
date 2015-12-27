@@ -29,14 +29,21 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int SECTION_TYPE = 0;
+
     public static final int TILE_TYPE = 1;
+
     public static final String REPLACE_ALL_REGEX = "\\D+";
 
     private Context mContext;
+
     private SparseArray<TaskSection> mSections = new SparseArray<>();
+
     private TaskSection[] sections;
+
     private OnTasksClickListener listener;
+
     private Resources res;
+
     private ArrayList<Task> tasks;
 
     public TasksAdapter(Context mContext, Resources res, ArrayList<Task> taskList, OnTasksClickListener listener) {

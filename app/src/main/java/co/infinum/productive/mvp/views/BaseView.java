@@ -10,6 +10,6 @@ public interface BaseView {
 
     void showError(String message);
 
-    void showBasicDialog(String title, String message, MaterialDialog.SingleButtonCallback positiveCallback,
+    void showDialog(String title, String message, MaterialDialog.SingleButtonCallback positiveCallback,
             MaterialDialog.SingleButtonCallback negativeCallback, String positiveButtonText, String negativeButtonText);
 }

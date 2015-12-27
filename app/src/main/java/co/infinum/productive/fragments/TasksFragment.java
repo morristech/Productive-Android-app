@@ -2,7 +2,6 @@ package co.infinum.productive.fragments;
 
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -48,18 +47,14 @@ public class TasksFragment extends BaseFragment implements TasksView, OnTasksCli
     @Inject
     public TasksPresenter tasksPresenter;
 
-    private TasksAdapter tasksAdapter;
+    private TasksAdapter sectionAdapter;
 
     private boolean isRefreshed = false;
-
-    private Context context;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tasks, container, false);
         ButterKnife.bind(this, view);
-
-        context = getActivity();
 
         DaggerTasksComponent.builder()
                 .tasksModule(new TasksModule(this))
@@ -114,7 +109,7 @@ public class TasksFragment extends BaseFragment implements TasksView, OnTasksCli
     }
 
     private void initRecyclerView() {
-        tasksRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        tasksRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         tasksRecyclerView.setHasFixedSize(true);
     }
 
@@ -125,11 +120,11 @@ public class TasksFragment extends BaseFragment implements TasksView, OnTasksCli
     }
 
     private void initAdapters(ArrayList<Task> tasks) {
-        tasksAdapter = new TasksAdapter(context, getResources(), tasks, this);
+        sectionAdapter = new TasksAdapter(getActivity(), getResources(), tasks, this);
 
         setSections(tasks);
 
-        tasksRecyclerView.setAdapter(tasksAdapter);
+        tasksRecyclerView.setAdapter(sectionAdapter);
     }
 
 
@@ -157,15 +152,15 @@ public class TasksFragment extends BaseFragment implements TasksView, OnTasksCli
 
         TasksAdapter.TaskSection[] sectionsList = new TasksAdapter.TaskSection[sections.size()];
 
-        tasksAdapter.setSections(sections.toArray(sectionsList));
+        sectionAdapter.setSections(sections.toArray(sectionsList));
     }
 
     private void refreshAdapters(ArrayList<Task> tasks) {
-        if (tasksAdapter != null) {
+        if (sectionAdapter != null) {
             isRefreshed = false;
 
             setSections(tasks);
-            tasksAdapter.refresh(tasks);
+            sectionAdapter.refresh(tasks);
 
             tasksSwipeRefreshLayout.setRefreshing(false);
         }
@@ -175,7 +170,7 @@ public class TasksFragment extends BaseFragment implements TasksView, OnTasksCli
     @Override
     public void onTasksClick(int position) {
         Intent intent = new Intent(getActivity(), TaskContentActivity.class);
-        intent.putExtra(TASK, tasksAdapter.getItem(position));
+        intent.putExtra(TASK, sectionAdapter.getItem(position));
         startActivity(intent);
     }
 }

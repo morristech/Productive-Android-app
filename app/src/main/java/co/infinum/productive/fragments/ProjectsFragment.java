@@ -1,7 +1,6 @@
 package co.infinum.productive.fragments;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -49,8 +48,6 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
 
     private ProjectAdapter mSectionAdapter;
 
-    private Context context;
-
     private boolean isRefreshed = false;
 
     private LinearLayoutManager layoutManager;
@@ -65,9 +62,7 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
                 .build()
                 .inject(this);
 
-        context = getActivity();
-
-        layoutManager = new LinearLayoutManager(context);
+        layoutManager = new LinearLayoutManager(getActivity());
 
         initSwipeRefresh();
         initRecyclerView();
@@ -116,7 +111,7 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
     }
 
     private void initAdapter(ArrayList<ProjectTile> projectTiles) {
-        mSectionAdapter = new ProjectAdapter(context, getResources(), projectTiles, this);
+        mSectionAdapter = new ProjectAdapter(getActivity(), getResources(), projectTiles, this);
 
         setSections(projectTiles);
 
