@@ -13,7 +13,8 @@
     <string name="projects_text">Projects</string>
     <string name="notifications_text">Notifications</string>
     <string name="more_text">More</string>
-    <string name="empty_projects">You are not assigned to any project yet</string>
+    <string name="empty_projects_list">You are not assigned to any project yet</string>
+    <string name="empty_tasks_list">You have no tasks on any project</string>
     <string name="year_text">&#160;year</string>
     <string name="month_text">&#160;month</string>
     <string name="day_text">&#160;day</string>
@@ -36,4 +37,7 @@
     <string name="notifications_tab">Notifications</string>
     <string name="more_tab">More</string>
     <string name="sign_out_button_text">Sign out</string>
+    <string name="logout_message">Are you sure you wish to log out?</string>
+    <string name="sign_out_dialog_button_text">Sign out</string>
+    <string name="cancel_dialog_button_text">Cancel</string>
 </resources>

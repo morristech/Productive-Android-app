@@ -67,6 +67,17 @@ public class Task implements Serializable {
     @SerializedName("assignee")
     private Assignee assignee;
 
+    @SerializedName("updater")
+    private Assignee updater;
+
+    public Assignee getUpdater() {
+        return updater;
+    }
+
+    public void setUpdater(Assignee updater) {
+        this.updater = updater;
+    }
+
     public int getId() {
         return id;
     }

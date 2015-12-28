@@ -1,5 +1,7 @@
 package co.infinum.productive.mvp.views;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 public interface BaseView {
 
     void showProgress();
@@ -7,4 +9,7 @@ public interface BaseView {
     void hideProgress();
 
     void showError(String message);
+
+    void showDialog(String title, String message, MaterialDialog.SingleButtonCallback positiveCallback,
+            MaterialDialog.SingleButtonCallback negativeCallback, String positiveButtonText, String negativeButtonText);
 }

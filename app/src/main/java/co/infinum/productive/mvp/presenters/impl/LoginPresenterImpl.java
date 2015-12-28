@@ -13,9 +13,9 @@ import javax.inject.Inject;
 
 import co.infinum.productive.ProductiveApp;
 import co.infinum.productive.R;
+import co.infinum.productive.listeners.Listener;
 import co.infinum.productive.models.Organization;
 import co.infinum.productive.models.User;
-import co.infinum.productive.mvp.Listener;
 import co.infinum.productive.mvp.interactors.CacheInteractor;
 import co.infinum.productive.mvp.interactors.LoginInteractor;
 import co.infinum.productive.mvp.interactors.OrganizationInteractor;

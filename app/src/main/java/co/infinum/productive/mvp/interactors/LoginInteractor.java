@@ -1,7 +1,7 @@
 package co.infinum.productive.mvp.interactors;
 
+import co.infinum.productive.listeners.Listener;
 import co.infinum.productive.models.User;
-import co.infinum.productive.mvp.Listener;
 
 /**
  * Created by dino on 12/10/15.
