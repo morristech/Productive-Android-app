@@ -41,6 +41,7 @@ public class TaskContentActivity extends BaseActivity implements TabLayout.OnTab
         ButterKnife.bind(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setElevation(0);
 
         task = (Task) getIntent().getSerializableExtra(TASK);
 
