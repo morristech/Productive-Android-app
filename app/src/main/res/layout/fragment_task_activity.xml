@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/task_activities_recycler_view"
-        style="@style/ViewPagerStyle"
-        android:background="@color/recyclerViewBackgroundColor" />
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/task_activities_swipe_refresh"
+        style="@style/ViewPagerStyle">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/task_activities_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/recyclerViewBackgroundColor" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/empty_task_activities_info"
+        style="@style/NoAssignedItemsFoundTextView"
+        android:text="@string/empty_task_activities" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,6 +29,7 @@
         android:padding="@dimen/smaller_spacing">
 
         <EditText
+            android:id="@+id/et_task_activities_comment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
@@ -25,6 +39,7 @@
             android:textColorHint="@color/taskActivitiesDefaultFont" />
 
         <Button
+            android:id="@+id/btn_task_activities_comment"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

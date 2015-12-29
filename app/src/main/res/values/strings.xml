@@ -26,6 +26,7 @@
     <string name="menu_back_arrow">Back arrow</string>
     <string name="task_activities_comment_hint">Leave your comment</string>
     <string name="task_activities_comment_button">Post</string>
+    <string name="empty_task_activities">There are no activities for this task</string>
 
     <plurals name="elapsed_time_text">
         <item quantity="one">Updated %1$s ago by %2$s</item>
