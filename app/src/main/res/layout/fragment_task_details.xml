@@ -36,6 +36,7 @@
                     android:layout_height="25dp"
                     android:src="@mipmap/ic_launcher"
                     android:id="@+id/assignee_avatar_icon"
+                    android:layout_marginRight="@dimen/default_spacing"
                     />
 
             <TextView
@@ -45,7 +46,6 @@
                     android:id="@+id/assignee_name"
                     android:layout_toRightOf="@+id/assignee_avatar_icon"
                     android:layout_marginTop="4dp"
-                    android:layout_marginLeft="@dimen/default_spacing"
                     />
 
         </RelativeLayout>
