@@ -97,12 +97,9 @@ public class TaskDetailsFragment extends BaseFragment implements TasksView {
         if (task.getDueDate() != null) {
             String time = presenter.modifyTime(task.getDueDate());
             dueDate.setText(time);
-        }
-        else {
+        } else {
             dueDate.setText(R.string.no_due_date_message);
         }
-
-
     }
 
     @Override

@@ -2,6 +2,7 @@ package co.infinum.productive.mvp.presenters.impl;
 
 import org.joda.time.LocalDate;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -51,45 +52,13 @@ public class TasksPresenterImpl implements TasksPresenter {
     public String modifyTime(LocalDate time) {
         String formattedTime = "";
 
-        switch (time.getMonthOfYear()){
-            case 1:
-                formattedTime = "Jan";
-                break;
-            case 2:
-                formattedTime = "Feb";
-                break;
-            case 3:
-                formattedTime = "Mar";
-                break;
-            case 4:
-                formattedTime = "Apr";
-                break;
-            case 5:
-                formattedTime = "May";
-                break;
-            case 6:
-                formattedTime = "Jun";
-                break;
-            case 7:
-                formattedTime = "Jul";
-                break;
-            case 8:
-                formattedTime = "Aug";
-                break;
-            case 9:
-                formattedTime = "Sep";
-                break;
-            case 10:
-                formattedTime = "Oct";
-                break;
-            case 11:
-                formattedTime = "Nov";
-                break;
-            case 12:
-                formattedTime = "Dec";
-                break;
-            default:
-                formattedTime = "";
+        DateFormatSymbols dfs = new DateFormatSymbols();
+        String[] months = dfs.getShortMonths();
+
+        for (int i = 0; i < months.length; i++) {
+            if (i == time.getMonthOfYear() - 1) {
+                formattedTime = months[i];
+            }
         }
 
         formattedTime += " " + time.getDayOfMonth() + ", ";
