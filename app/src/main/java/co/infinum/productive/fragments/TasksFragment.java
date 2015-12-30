@@ -24,6 +24,7 @@ import co.infinum.productive.adapters.TasksAdapter;
 import co.infinum.productive.dagger.components.DaggerTasksComponent;
 import co.infinum.productive.dagger.modules.TasksModule;
 import co.infinum.productive.listeners.OnTasksClickListener;
+import co.infinum.productive.models.Assignee;
 import co.infinum.productive.models.Task;
 import co.infinum.productive.mvp.presenters.TasksPresenter;
 import co.infinum.productive.mvp.views.TasksView;
@@ -93,6 +94,16 @@ public class TasksFragment extends BaseFragment implements TasksView, OnTasksCli
     @Override
     public void onUnsuccessfulTaskFetch(String message) {
         showError(message);
+    }
+
+    @Override
+    public void onTaskSubscribersFetched(ArrayList<Assignee> subscriber) {
+
+    }
+
+    @Override
+    public void onTaskSubscriberError(String error) {
+
     }
 
 

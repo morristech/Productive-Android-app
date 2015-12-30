@@ -1,12 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:background="#e9edf2"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"/>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:background="#e9edf2"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:id="@+id/assigned_to_tv"
+                android:text="Assigned to"/>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/assignee_container"
+                android:background="@android:color/white"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:paddingLeft="@dimen/default_spacing"
+                android:paddingTop="@dimen/default_spacing"
+                android:paddingBottom="@dimen/default_spacing"
+                android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:id="@+id/assignee_avatar_icon"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Margie Wolf"
+                    android:id="@+id/assignee_name"
+                    android:layout_toRightOf="@+id/assignee_avatar_icon"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="@dimen/default_spacing"
+                    />
+
+        </RelativeLayout>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:id="@+id/subscribers_tv"
+                android:text="Subscribers"/>
+
+        <co.infinum.productive.helpers.SubscribersViewGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/subscriber"
+                android:background="@android:color/white"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:padding="@dimen/default_spacing"
+                android:orientation="horizontal">
+
+
+        </co.infinum.productive.helpers.SubscribersViewGroup>
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Task list"
+                android:id="@+id/task_list_tv"
+                android:layout_marginLeft="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"/>
+
+        <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/task_list_spinner"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_below="@+id/task_list_tv"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Additional info"
+                android:id="@+id/additional_info_tv"
+                android:layout_marginLeft="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"/>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:background="@android:color/white">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Due date"
+                    android:id="@+id/due_date_tv"
+                    android:layout_marginTop="@dimen/default_spacing"
+                    android:layout_marginLeft="@dimen/default_spacing"
+                    android:layout_marginBottom="@dimen/default_spacing"
+                    />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Feb 2, 2015 13:43"
+                    android:id="@+id/due_date"
+                    android:layout_marginRight="@dimen/default_spacing"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/default_spacing"
+                    android:layout_marginLeft="@dimen/default_spacing"
+                    />
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e9edf2"
+                    android:layout_below="@+id/due_date_tv"
+                    android:layout_marginLeft="@dimen/default_spacing"
+                    android:id="@+id/task_details_divider"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Visible only to subscribers"
+                    android:layout_marginLeft="@dimen/default_spacing"
+                    android:layout_marginTop="@dimen/default_spacing"
+                    android:layout_marginBottom="@dimen/default_spacing"
+                    android:layout_below="@+id/task_details_divider"
+                    />
+
+            <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/task_details_divider"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/default_spacing"
+                    android:layout_marginTop="@dimen/micro_spacing"
+                    />
+
+        </RelativeLayout>
+
+        <Button
+                style="@style/SignInAndRegisterButton"
+                android:text="Update"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:background="@drawable/signin_selector_button_orange"
+                android:layout_marginLeft="@dimen/default_spacing"
+                android:layout_marginRight="@dimen/default_spacing"
+                android:layout_gravity="bottom"
+                android:textColor="@android:color/white"
+                />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -3,6 +3,7 @@ package co.infinum.productive.network;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.infinum.productive.models.Assignee;
 import co.infinum.productive.models.BaseResponse;
 import co.infinum.productive.models.Organization;
 import co.infinum.productive.models.Project;
@@ -34,13 +35,20 @@ public interface ApiService {
 
     @GET("/api/v1/{organizationId}/projects/{projectId}/tasks/{taskId}")
     Call<BaseResponse<ArrayList<TaskDetails>>> getTaskDetails(@Path("organizationId") int organizationId,
-                                                              @Path("projectId") int projectId,
-                                                              @Path("taskId") int taskId);
+            @Path("projectId") int projectId,
+            @Path("taskId") int taskId);
 
     @GET("/api/v1/{organizationId}/projects/{projectId}/tasks/{taskId}/activities")
     Call<BaseResponse<List<TaskActivityResponse>>> getTaskActivities(@Path("organizationId") int organizationId,
-                                                                     @Path("projectId") int projectId,
-                                                                     @Path("taskId") int taskId);
+            @Path("projectId") int projectId,
+            @Path("taskId") int taskId);
 
-    // TODO specify REST API
+    @GET("/api/v1/{organizationId}/projects/{projectId}/tasks/{taskId}/subscribers")
+    Call<BaseResponse<ArrayList<Assignee>>> getSubscribersOnTask(@Path("organizationId") int organizationId,
+            @Path("projectId") int projectId,
+            @Path("taskId") int taskId);
+
 }
+
+
+

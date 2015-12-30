@@ -3,6 +3,7 @@ package co.infinum.productive.dagger.components;
 import co.infinum.productive.dagger.modules.CacheModule;
 import co.infinum.productive.dagger.modules.NetworkModule;
 import co.infinum.productive.dagger.modules.TasksModule;
+import co.infinum.productive.fragments.TaskDetailsFragment;
 import co.infinum.productive.fragments.TasksFragment;
 import dagger.Component;
 
@@ -17,4 +18,5 @@ import dagger.Component;
 public interface TasksComponent {
 
     void inject(TasksFragment fragment);
+    void inject(TaskDetailsFragment fragment);
 }

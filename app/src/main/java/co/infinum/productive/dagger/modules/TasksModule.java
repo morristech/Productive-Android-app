@@ -1,6 +1,8 @@
 package co.infinum.productive.dagger.modules;
 
+import co.infinum.productive.mvp.interactors.TaskDetailsInteractor;
 import co.infinum.productive.mvp.interactors.TaskInteractor;
+import co.infinum.productive.mvp.interactors.impl.TaskDetailsInteractorImpl;
 import co.infinum.productive.mvp.interactors.impl.TaskInteractorImpl;
 import co.infinum.productive.mvp.presenters.TasksPresenter;
 import co.infinum.productive.mvp.presenters.impl.TasksPresenterImpl;
@@ -34,4 +36,10 @@ public class TasksModule {
     public TaskInteractor provideTaskInteractor(TaskInteractorImpl interactor) {
         return interactor;
     }
+
+    @Provides
+    public TaskDetailsInteractor provideTaskDetailsInteractor(TaskDetailsInteractorImpl interactor) {
+        return interactor;
+    }
+
 }

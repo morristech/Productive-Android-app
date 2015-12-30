@@ -2,6 +2,7 @@ package co.infinum.productive.mvp.views;
 
 import java.util.ArrayList;
 
+import co.infinum.productive.models.Assignee;
 import co.infinum.productive.models.Task;
 
 /**
@@ -12,4 +13,8 @@ public interface TasksView extends BaseView {
     void onTasksFetched(ArrayList<Task> tasks);
 
     void onUnsuccessfulTaskFetch(String message);
+
+    void onTaskSubscribersFetched(ArrayList<Assignee> subscriber);
+
+    void onTaskSubscriberError(String error);
 }
