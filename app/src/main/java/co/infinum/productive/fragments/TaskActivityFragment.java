@@ -82,6 +82,7 @@ public class TaskActivityFragment extends BaseFragment implements TaskActivities
         }
     }
 
+    //TODO update button i update logika
     private void init() {
         layoutManager = new LinearLayoutManager(getActivity());
 

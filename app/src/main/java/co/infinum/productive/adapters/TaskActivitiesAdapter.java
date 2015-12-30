@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -51,6 +52,12 @@ public class TaskActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         Glide.with(context).load(taskActivities.get(position).getPerson().getAvatarUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.thumbnail);
+
+        if (position != taskActivities.size() - 1) {
+            holder.contentLayout.setBackgroundResource(R.drawable.item_card_border);
+        } else {
+            holder.contentLayout.setBackground(null);
+        }
     }
 
     @Override
@@ -74,6 +81,9 @@ public class TaskActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         @Bind(R.id.tv_task_activities_description)
         TextView description;
+
+        @Bind(R.id.task_activities_content_layout)
+        LinearLayout contentLayout;
 
         public TaskActivitiesViewHolder(View itemView) {
             super(itemView);
