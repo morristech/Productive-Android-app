@@ -7,7 +7,7 @@ import co.infinum.productive.models.TaskActivityResponse;
 /**
  * Created by mjurinic on 18.11.15..
  */
-public interface TaskActivityListener {
+public interface TaskActivitiesListener {
 
     void onSuccess(List<TaskActivityResponse> taskActivityResponse, int projectId);
 
