@@ -4,11 +4,12 @@
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/white"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/small_spacing"
     android:paddingLeft="@dimen/smaller_spacing"
     android:paddingRight="@dimen/smaller_spacing"
-    android:paddingTop="@dimen/small_spacing">
+    android:paddingTop="@dimen/default_spacing">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_task_activities_thumbnail"
@@ -17,10 +18,11 @@
         app:civ_border_width="@dimen/separator_margin_right" />
 
     <LinearLayout
+        android:id="@+id/task_activities_content_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/default_spacing">
+        android:layout_marginLeft="@dimen/default_spacing"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_task_activities_title"
@@ -34,6 +36,7 @@
             android:id="@+id/tv_task_activities_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/default_spacing"
             tool:text="sample description 123 sample description 123 sample description 123" />
 
     </LinearLayout>
