@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import co.infinum.productive.listeners.TaskActivityListener;
+import co.infinum.productive.listeners.TaskActivitiesListener;
 import co.infinum.productive.models.BaseResponse;
 import co.infinum.productive.models.TaskActivityResponse;
 import co.infinum.productive.mvp.interactors.TaskActivitiesInteractor;
@@ -33,7 +33,7 @@ public class TaskActivitiesInteractorImpl implements TaskActivitiesInteractor {
     }
 
     @Override
-    public void fetchTaskActivities(final TaskActivityListener listener, final int projectId, int taskId) {
+    public void fetchTaskActivities(final TaskActivitiesListener listener, final int projectId, int taskId) {
         //int organizationID = ProductiveApp.getInstance().getCacheInteractor().getOrganizations().get(0);
 
         call = apiService.getTaskActivities(ORGANIZATION_ID, projectId, taskId);
