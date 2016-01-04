@@ -46,6 +46,12 @@
     <string name="action_settings">Settings</string>
     <string name="no_assignee_message">Noone is assigned to this task</string>
     <string name="no_due_date_message">No due date set</string>
+    <string name="visible_only_to_subscribers_tv">Visible only to subscribers</string>
+    <string name="due_date_tv">Due date</string>
+    <string name="additional_info_tv">Additional info</string>
+    <string name="task_list_tv">Task list</string>
+    <string name="subscribers_tv">Subscribers</string>
+    <string name="assigned_to_tv">Assigned to</string>
 
     <string-array name="task_list">
         <item>General</item>

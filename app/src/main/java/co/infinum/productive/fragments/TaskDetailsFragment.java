@@ -2,11 +2,14 @@ package co.infinum.productive.fragments;
 
 import com.bumptech.glide.Glide;
 
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -19,7 +22,6 @@ import butterknife.ButterKnife;
 import co.infinum.productive.R;
 import co.infinum.productive.dagger.components.DaggerTasksComponent;
 import co.infinum.productive.dagger.modules.TasksModule;
-import co.infinum.productive.helpers.SubscribersViewGroup;
 import co.infinum.productive.models.Assignee;
 import co.infinum.productive.models.Task;
 import co.infinum.productive.mvp.presenters.TasksPresenter;
@@ -32,9 +34,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TaskDetailsFragment extends BaseFragment implements TasksView {
 
     public static final String TASK = "task";
-
-    @Bind(R.id.subscriber)
-    SubscribersViewGroup subscriber;
 
     @Bind(R.id.task_list_spinner)
     Spinner taskListSpinner;
@@ -54,6 +53,9 @@ public class TaskDetailsFragment extends BaseFragment implements TasksView {
     @Bind(R.id.due_date)
     TextView dueDate;
 
+    @Bind(R.id.view_group_container)
+    LinearLayout viewGroupContainer;
+
     private Task task;
 
     @Override
@@ -71,8 +73,6 @@ public class TaskDetailsFragment extends BaseFragment implements TasksView {
         populateScreenWithData();
 
         presenter.getSubscribersOnTask(task);
-
-        subscriber.measure(0, 0);
 
         return view;
     }
@@ -97,8 +97,7 @@ public class TaskDetailsFragment extends BaseFragment implements TasksView {
         if (task.getDueDate() != null) {
             String time = presenter.modifyTime(task.getDueDate());
             dueDate.setText(time);
-        }
-        else {
+        } else {
             dueDate.setText(R.string.no_due_date_message);
         }
 
@@ -124,9 +123,9 @@ public class TaskDetailsFragment extends BaseFragment implements TasksView {
 
     @Override
     public void onTaskSubscribersFetched(ArrayList<Assignee> fetchedSubscribers) {
-        for (int i = 0; i < fetchedSubscribers.size(); i++) {
-            subscriber.addSubscriber(fetchedSubscribers.get(i).getName());
-        }
+        Resources r = getResources();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, r.getDimension(R.dimen.default_spacing), r.getDisplayMetrics());
+        presenter.setupSubscribers(viewGroupContainer, getActivity(), fetchedSubscribers, px);
 
     }
 

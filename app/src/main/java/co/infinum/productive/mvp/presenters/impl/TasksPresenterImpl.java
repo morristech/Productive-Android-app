@@ -2,11 +2,17 @@ package co.infinum.productive.mvp.presenters.impl;
 
 import org.joda.time.LocalDate;
 
+import android.content.Context;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.inject.Inject;
 
+import co.infinum.productive.helpers.SubscribersViewGroup;
 import co.infinum.productive.helpers.TaskByTitleComparator;
 import co.infinum.productive.listeners.Listener;
 import co.infinum.productive.models.Assignee;
@@ -51,51 +57,47 @@ public class TasksPresenterImpl implements TasksPresenter {
     public String modifyTime(LocalDate time) {
         String formattedTime = "";
 
-        switch (time.getMonthOfYear()){
-            case 1:
-                formattedTime = "Jan";
-                break;
-            case 2:
-                formattedTime = "Feb";
-                break;
-            case 3:
-                formattedTime = "Mar";
-                break;
-            case 4:
-                formattedTime = "Apr";
-                break;
-            case 5:
-                formattedTime = "May";
-                break;
-            case 6:
-                formattedTime = "Jun";
-                break;
-            case 7:
-                formattedTime = "Jul";
-                break;
-            case 8:
-                formattedTime = "Aug";
-                break;
-            case 9:
-                formattedTime = "Sep";
-                break;
-            case 10:
-                formattedTime = "Oct";
-                break;
-            case 11:
-                formattedTime = "Nov";
-                break;
-            case 12:
-                formattedTime = "Dec";
-                break;
-            default:
-                formattedTime = "";
+        DateFormatSymbols dfs = new DateFormatSymbols();
+        String[] months = dfs.getShortMonths();
+
+        for (int i = 0; i < months.length; i++) {
+            if (i == time.getMonthOfYear()) {
+                formattedTime = months[i];
+            }
         }
 
         formattedTime += " " + time.getDayOfMonth() + ", ";
         formattedTime += "" + time.getYear();
 
         return formattedTime;
+    }
+
+    @Override
+    public void setupSubscribers(LinearLayout container, Context context, ArrayList<Assignee> fetchedSubscribers, float px) {
+
+        SubscribersViewGroup v = new SubscribersViewGroup(context);
+
+        int totalWidth = 0;
+
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        v.setLayoutParams(params);
+
+        container.addView(v);
+
+        for (int i = 0; i < fetchedSubscribers.size(); i++) {
+
+            totalWidth = totalWidth + v.addSubscriber(fetchedSubscribers.get(i).getName());
+
+            if (totalWidth > container.getWidth() - px) {
+                totalWidth = 0;
+                v.removeViewAt(v.getChildCount() - 1);
+                i--;
+                v = new SubscribersViewGroup(context);
+                container.addView(v);
+            }
+        }
     }
 
     @Override

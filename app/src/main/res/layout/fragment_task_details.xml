@@ -3,37 +3,27 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:background="#e9edf2"
         android:layout_height="match_parent">
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:background="#e9edf2"
-            android:layout_height="match_parent"
+            android:background="@color/taskDetailsBackgroundColor"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_spacing"
-                android:layout_marginTop="@dimen/default_spacing"
+                style="@style/TaskDetailsTvTexts"
                 android:id="@+id/assigned_to_tv"
-                android:text="Assigned to"/>
+                android:text="@string/assigned_to_tv"/>
 
         <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/TaskDetailsAssigneeOnTaskContainer"
                 android:id="@+id/assignee_container"
-                android:background="@android:color/white"
-                android:layout_marginTop="@dimen/default_spacing"
-                android:paddingLeft="@dimen/default_spacing"
-                android:paddingTop="@dimen/default_spacing"
-                android:paddingBottom="@dimen/default_spacing"
                 android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="@dimen/large_spacing"
+                    android:layout_height="@dimen/large_spacing"
                     android:src="@mipmap/ic_launcher"
                     android:id="@+id/assignee_avatar_icon"
                     android:layout_marginRight="@dimen/default_spacing"
@@ -45,54 +35,38 @@
                     tools:text="Margie Wolf"
                     android:id="@+id/assignee_name"
                     android:layout_toRightOf="@+id/assignee_avatar_icon"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/nano_spacing"
                     />
 
         </RelativeLayout>
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_spacing"
-                android:layout_marginTop="@dimen/default_spacing"
+                style="@style/TaskDetailsTvTexts"
                 android:id="@+id/subscribers_tv"
-                android:text="Subscribers"/>
+                android:text="@string/subscribers_tv"/>
 
-        <co.infinum.productive.helpers.SubscribersViewGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/subscriber"
-                android:background="@android:color/white"
-                android:layout_marginTop="@dimen/default_spacing"
-                android:padding="@dimen/default_spacing"
-                android:orientation="horizontal">
+        <LinearLayout
+                style="@style/TaskDetailsAssigneeOnTaskContainer"
+                android:orientation="vertical"
+                android:id="@+id/view_group_container">
 
-
-        </co.infinum.productive.helpers.SubscribersViewGroup>
-
+        </LinearLayout>
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Task list"
-                android:id="@+id/task_list_tv"
-                android:layout_marginLeft="@dimen/default_spacing"
-                android:layout_marginTop="@dimen/default_spacing"/>
+                style="@style/TaskDetailsTvTexts"
+                android:text="@string/task_list_tv"
+                android:id="@+id/task_list_tv"/>
 
         <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+                style="@style/TaskDetailsSpinner"
                 android:id="@+id/task_list_spinner"
-                android:layout_marginTop="@dimen/default_spacing"
-                android:layout_below="@+id/task_list_tv"/>
+                />
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Additional info"
+                style="@style/TaskDetailsTvTexts"
+                android:text="@string/additional_info_tv"
                 android:id="@+id/additional_info_tv"
-                android:layout_marginLeft="@dimen/default_spacing"
-                android:layout_marginTop="@dimen/default_spacing"/>
+                />
 
         <RelativeLayout
                 android:layout_width="match_parent"
@@ -101,39 +75,30 @@
                 android:background="@android:color/white">
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Due date"
+                    style="@style/TaskDetailsTextView"
+                    android:text="@string/due_date_tv"
                     android:id="@+id/due_date_tv"
-                    android:layout_marginTop="@dimen/default_spacing"
-                    android:layout_marginLeft="@dimen/default_spacing"
-                    android:layout_marginBottom="@dimen/default_spacing"
+
                     />
+
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TaskDetailsTextView"
                     tools:text="Feb 2, 2015 13:43"
                     android:id="@+id/due_date"
                     android:layout_marginRight="@dimen/default_spacing"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="@dimen/default_spacing"
-                    android:layout_marginLeft="@dimen/default_spacing"
                     />
             <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#e9edf2"
+                    android:background="@color/taskDetailsBackgroundColor"
                     android:layout_below="@+id/due_date_tv"
                     android:layout_marginLeft="@dimen/default_spacing"
                     android:id="@+id/task_details_divider"/>
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Visible only to subscribers"
-                    android:layout_marginLeft="@dimen/default_spacing"
-                    android:layout_marginTop="@dimen/default_spacing"
-                    android:layout_marginBottom="@dimen/default_spacing"
+                    style="@style/TaskDetailsTextView"
+                    android:text="@string/visible_only_to_subscribers_tv"
                     android:layout_below="@+id/task_details_divider"
                     />
 
@@ -147,17 +112,6 @@
                     />
 
         </RelativeLayout>
-
-        <Button
-                style="@style/SignInAndRegisterButton"
-                android:text="Update"
-                android:layout_marginTop="@dimen/default_spacing"
-                android:background="@drawable/signin_selector_button_orange"
-                android:layout_marginLeft="@dimen/default_spacing"
-                android:layout_marginRight="@dimen/default_spacing"
-                android:layout_gravity="bottom"
-                android:textColor="@android:color/white"
-                />
 
     </LinearLayout>
 
