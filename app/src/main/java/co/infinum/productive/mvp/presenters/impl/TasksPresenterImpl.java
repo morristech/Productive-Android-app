@@ -3,8 +3,6 @@ package co.infinum.productive.mvp.presenters.impl;
 import org.joda.time.LocalDate;
 
 import android.content.Context;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -12,7 +10,7 @@ import java.util.Collections;
 
 import javax.inject.Inject;
 
-import co.infinum.productive.helpers.SubscribersViewGroup;
+import co.infinum.productive.helpers.SubscribersViewGroupWrapper;
 import co.infinum.productive.helpers.TaskByTitleComparator;
 import co.infinum.productive.listeners.Listener;
 import co.infinum.productive.models.Assignee;
@@ -73,31 +71,8 @@ public class TasksPresenterImpl implements TasksPresenter {
     }
 
     @Override
-    public void setupSubscribers(LinearLayout container, Context context, ArrayList<Assignee> fetchedSubscribers, float px) {
-
-        SubscribersViewGroup v = new SubscribersViewGroup(context);
-
-        int totalWidth = 0;
-
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        v.setLayoutParams(params);
-
-        container.addView(v);
-
-        for (int i = 0; i < fetchedSubscribers.size(); i++) {
-
-            totalWidth = totalWidth + v.addSubscriber(fetchedSubscribers.get(i).getName());
-
-            if (totalWidth > container.getWidth() - px) {
-                totalWidth = 0;
-                v.removeViewAt(v.getChildCount() - 1);
-                i--;
-                v = new SubscribersViewGroup(context);
-                container.addView(v);
-            }
-        }
+    public void setupSubscribers(SubscribersViewGroupWrapper container, Context context, ArrayList<Assignee> fetchedSubscribers, float px) {
+        container.addElementsToContainer(container, fetchedSubscribers, px);
     }
 
     @Override

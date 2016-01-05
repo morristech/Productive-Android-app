@@ -2,14 +2,12 @@ package co.infinum.productive.fragments;
 
 import com.bumptech.glide.Glide;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -22,6 +20,7 @@ import butterknife.ButterKnife;
 import co.infinum.productive.R;
 import co.infinum.productive.dagger.components.DaggerTasksComponent;
 import co.infinum.productive.dagger.modules.TasksModule;
+import co.infinum.productive.helpers.SubscribersViewGroupWrapper;
 import co.infinum.productive.models.Assignee;
 import co.infinum.productive.models.Task;
 import co.infinum.productive.mvp.presenters.TasksPresenter;
@@ -54,7 +53,7 @@ public class TaskDetailsFragment extends BaseFragment implements TasksView {
     TextView dueDate;
 
     @Bind(R.id.view_group_container)
-    LinearLayout viewGroupContainer;
+    SubscribersViewGroupWrapper viewGroupContainer;
 
     private Task task;
 
@@ -100,8 +99,6 @@ public class TaskDetailsFragment extends BaseFragment implements TasksView {
         } else {
             dueDate.setText(R.string.no_due_date_message);
         }
-
-
     }
 
     @Override
@@ -123,15 +120,17 @@ public class TaskDetailsFragment extends BaseFragment implements TasksView {
 
     @Override
     public void onTaskSubscribersFetched(ArrayList<Assignee> fetchedSubscribers) {
-        Resources r = getResources();
-        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, r.getDimension(R.dimen.default_spacing), r.getDisplayMetrics());
+
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, getResources().getDimension(R.dimen.default_spacing),
+                getResources().getDisplayMetrics());
+
         presenter.setupSubscribers(viewGroupContainer, getActivity(), fetchedSubscribers, px);
 
     }
 
     @Override
     public void onTaskSubscriberError(String error) {
-
+        showError(error);
     }
 
 }

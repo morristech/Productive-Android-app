@@ -3,10 +3,10 @@ package co.infinum.productive.mvp.presenters;
 import org.joda.time.LocalDate;
 
 import android.content.Context;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
+import co.infinum.productive.helpers.SubscribersViewGroupWrapper;
 import co.infinum.productive.models.Assignee;
 import co.infinum.productive.models.Task;
 
@@ -21,5 +21,5 @@ public interface TasksPresenter extends BasePresenter {
 
     String modifyTime(LocalDate time);
 
-    void setupSubscribers(LinearLayout container, Context context, ArrayList<Assignee> fetchedSubscribers, float px);
+    void setupSubscribers(SubscribersViewGroupWrapper container, Context context, ArrayList<Assignee> fetchedSubscribers, float px);
 }

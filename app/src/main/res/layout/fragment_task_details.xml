@@ -45,12 +45,12 @@
                 android:id="@+id/subscribers_tv"
                 android:text="@string/subscribers_tv"/>
 
-        <LinearLayout
+        <co.infinum.productive.helpers.SubscribersViewGroupWrapper
                 style="@style/TaskDetailsAssigneeOnTaskContainer"
                 android:orientation="vertical"
                 android:id="@+id/view_group_container">
 
-        </LinearLayout>
+        </co.infinum.productive.helpers.SubscribersViewGroupWrapper>
 
         <TextView
                 style="@style/TaskDetailsTvTexts"
