@@ -17,4 +17,6 @@
     <color name="separatorBackgroundColor">#e4e3e3</color>
     <color name="separatorTextColor">#999999</color>
     <color name="listTitleColor">#333333</color>
+    <color name="subscriberBackgroundColor">#345a87</color>
+    <color name="taskDetailsBackgroundColor">#e9edf2</color>
 </resources>

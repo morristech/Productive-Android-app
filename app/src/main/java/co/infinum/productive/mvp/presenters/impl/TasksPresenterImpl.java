@@ -1,13 +1,21 @@
 package co.infinum.productive.mvp.presenters.impl;
 
+import org.joda.time.LocalDate;
+
+import android.content.Context;
+
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.inject.Inject;
 
+import co.infinum.productive.helpers.SubscribersViewGroupWrapper;
 import co.infinum.productive.helpers.TaskByTitleComparator;
 import co.infinum.productive.listeners.Listener;
+import co.infinum.productive.models.Assignee;
 import co.infinum.productive.models.Task;
+import co.infinum.productive.mvp.interactors.TaskDetailsInteractor;
 import co.infinum.productive.mvp.interactors.TaskInteractor;
 import co.infinum.productive.mvp.presenters.TasksPresenter;
 import co.infinum.productive.mvp.views.TasksView;
@@ -18,13 +26,19 @@ import co.infinum.productive.mvp.views.TasksView;
 public class TasksPresenterImpl implements TasksPresenter {
 
     public static final int ORGANIZATIONS = 491;
+
     private TaskInteractor taskInteractor;
+
+    private TaskDetailsInteractor taskDetailsInteractor;
+
     private TasksView view;
 
+
     @Inject
-    public TasksPresenterImpl(TaskInteractor taskInteractor, TasksView view) {
+    public TasksPresenterImpl(TaskInteractor taskInteractor, TasksView view, TaskDetailsInteractor taskDetailsInteractor) {
         this.taskInteractor = taskInteractor;
         this.view = view;
+        this.taskDetailsInteractor = taskDetailsInteractor;
     }
 
     @Override
@@ -35,6 +49,35 @@ public class TasksPresenterImpl implements TasksPresenter {
         taskInteractor.fetchTasks(tasksListener, cacheInteractor.getOrganizations().get(0).getId());
         */
         taskInteractor.fetchTasks(tasksListener, ORGANIZATIONS);
+    }
+
+    @Override
+    public String modifyTime(LocalDate time) {
+        String formattedTime = "";
+
+        DateFormatSymbols dfs = new DateFormatSymbols();
+        String[] months = dfs.getShortMonths();
+
+        for (int i = 0; i < months.length; i++) {
+            if (i == time.getMonthOfYear()) {
+                formattedTime = months[i];
+            }
+        }
+
+        formattedTime += " " + time.getDayOfMonth() + ", ";
+        formattedTime += "" + time.getYear();
+
+        return formattedTime;
+    }
+
+    @Override
+    public void setupSubscribers(SubscribersViewGroupWrapper container, Context context, ArrayList<Assignee> fetchedSubscribers, float px) {
+        container.addElementsToContainer(container, fetchedSubscribers, px);
+    }
+
+    @Override
+    public void getSubscribersOnTask(Task task) {
+        taskDetailsInteractor.fetchTaskSubscribers(taskSubscribersListener, task);
     }
 
     @Override
@@ -51,6 +94,23 @@ public class TasksPresenterImpl implements TasksPresenter {
         @Override
         public void onFailure(String message) {
             view.onUnsuccessfulTaskFetch(message);
+        }
+
+        @Override
+        public void onConnectionFailure(String message) {
+
+        }
+    };
+
+    private Listener<ArrayList<Assignee>> taskSubscribersListener = new Listener<ArrayList<Assignee>>() {
+        @Override
+        public void onSuccess(ArrayList<Assignee> assignees) {
+            view.onTaskSubscribersFetched(assignees);
+        }
+
+        @Override
+        public void onFailure(String message) {
+            view.onTaskSubscriberError(message);
         }
 
         @Override

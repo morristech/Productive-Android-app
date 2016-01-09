@@ -3,6 +3,8 @@ package co.infinum.productive.mvp.interactors;
 import java.util.ArrayList;
 
 import co.infinum.productive.listeners.Listener;
+import co.infinum.productive.models.Assignee;
+import co.infinum.productive.models.Task;
 import co.infinum.productive.models.TaskDetails;
 
 /**
@@ -11,4 +13,5 @@ import co.infinum.productive.models.TaskDetails;
 public interface TaskDetailsInteractor extends BaseInteractor {
 
     void fetchTaskDetails(Listener<ArrayList<TaskDetails>> listener, int projectId, int taskId);
+    void fetchTaskSubscribers(Listener<ArrayList<Assignee>> listener, Task task);
 }

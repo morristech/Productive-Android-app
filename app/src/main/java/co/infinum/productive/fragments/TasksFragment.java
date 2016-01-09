@@ -2,6 +2,7 @@ package co.infinum.productive.fragments;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,10 +19,12 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import co.infinum.productive.R;
+import co.infinum.productive.activities.TaskContentActivity;
 import co.infinum.productive.adapters.TasksAdapter;
 import co.infinum.productive.dagger.components.DaggerTasksComponent;
 import co.infinum.productive.dagger.modules.TasksModule;
 import co.infinum.productive.listeners.OnTasksClickListener;
+import co.infinum.productive.models.Assignee;
 import co.infinum.productive.models.Task;
 import co.infinum.productive.mvp.presenters.TasksPresenter;
 import co.infinum.productive.mvp.views.TasksView;
@@ -30,6 +33,8 @@ import co.infinum.productive.mvp.views.TasksView;
  * A simple {@link Fragment} subclass.
  */
 public class TasksFragment extends BaseFragment implements TasksView, OnTasksClickListener {
+
+    public static final String TASK = "task";
 
     @Bind(R.id.tasks_recycler_view)
     RecyclerView tasksRecyclerView;
@@ -91,6 +96,16 @@ public class TasksFragment extends BaseFragment implements TasksView, OnTasksCli
         showError(message);
     }
 
+    @Override
+    public void onTaskSubscribersFetched(ArrayList<Assignee> subscriber) {
+
+    }
+
+    @Override
+    public void onTaskSubscriberError(String error) {
+
+    }
+
 
     private void initSwipeRefresh() {
         tasksSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
@@ -116,7 +131,6 @@ public class TasksFragment extends BaseFragment implements TasksView, OnTasksCli
     }
 
     private void initAdapters(ArrayList<Task> tasks) {
-
         sectionAdapter = new TasksAdapter(getActivity(), getResources(), tasks, this);
 
         setSections(tasks);
@@ -166,5 +180,8 @@ public class TasksFragment extends BaseFragment implements TasksView, OnTasksCli
 
     @Override
     public void onTasksClick(int position) {
+        Intent intent = new Intent(getActivity(), TaskContentActivity.class);
+        intent.putExtra(TASK, sectionAdapter.getItem(position));
+        startActivity(intent);
     }
 }
