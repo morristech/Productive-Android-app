@@ -171,3 +171,6 @@ android.testOptions.unitTests.all {
         println "Executed test ${simpleClassName}.${descriptor.name}: ${result.resultType}"
     }
 }
+dependencies {
+    compile 'org.apache.ant:ant:1.8.0'
+}

@@ -1,12 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"/>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/taskDetailsBackgroundColor"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+                style="@style/TaskDetailsTvTexts"
+                android:id="@+id/assigned_to_tv"
+                android:text="@string/assigned_to_tv"/>
+
+        <RelativeLayout
+                style="@style/TaskDetailsAssigneeOnTaskContainer"
+                android:id="@+id/assignee_container"
+                android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="@dimen/large_spacing"
+                    android:layout_height="@dimen/large_spacing"
+                    android:src="@mipmap/ic_launcher"
+                    android:id="@+id/assignee_avatar_icon"
+                    android:layout_marginRight="@dimen/default_spacing"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Margie Wolf"
+                    android:id="@+id/assignee_name"
+                    android:layout_toRightOf="@+id/assignee_avatar_icon"
+                    android:layout_marginTop="@dimen/nano_spacing"
+                    />
+
+        </RelativeLayout>
+
+        <TextView
+                style="@style/TaskDetailsTvTexts"
+                android:id="@+id/subscribers_tv"
+                android:text="@string/subscribers_tv"/>
+
+        <co.infinum.productive.helpers.SubscribersViewGroupWrapper
+                style="@style/TaskDetailsAssigneeOnTaskContainer"
+                android:orientation="vertical"
+                android:id="@+id/view_group_container">
+
+        </co.infinum.productive.helpers.SubscribersViewGroupWrapper>
+
+        <TextView
+                style="@style/TaskDetailsTvTexts"
+                android:text="@string/task_list_tv"
+                android:id="@+id/task_list_tv"/>
+
+        <Spinner
+                style="@style/TaskDetailsSpinner"
+                android:id="@+id/task_list_spinner"
+                />
+
+        <TextView
+                style="@style/TaskDetailsTvTexts"
+                android:text="@string/additional_info_tv"
+                android:id="@+id/additional_info_tv"
+                />
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:background="@android:color/white">
+
+            <TextView
+                    style="@style/TaskDetailsTextView"
+                    android:text="@string/due_date_tv"
+                    android:id="@+id/due_date_tv"
+
+                    />
+
+            <TextView
+                    style="@style/TaskDetailsTextView"
+                    tools:text="Feb 2, 2015 13:43"
+                    android:id="@+id/due_date"
+                    android:layout_marginRight="@dimen/default_spacing"
+                    android:layout_alignParentRight="true"
+                    />
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/taskDetailsBackgroundColor"
+                    android:layout_below="@+id/due_date_tv"
+                    android:layout_marginLeft="@dimen/default_spacing"
+                    android:id="@+id/task_details_divider"/>
+
+            <TextView
+                    style="@style/TaskDetailsTextView"
+                    android:text="@string/visible_only_to_subscribers_tv"
+                    android:layout_below="@+id/task_details_divider"
+                    />
+
+            <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/task_details_divider"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/default_spacing"
+                    android:layout_marginTop="@dimen/micro_spacing"
+                    />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

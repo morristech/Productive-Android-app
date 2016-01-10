@@ -173,4 +173,41 @@
         <item name="android:layout_centerVertical">true</item>
         <item name="android:src">@mipmap/ic_launcher</item>
     </style>
+
+    <!-- Task details -->
+
+    <style name="TaskDetailsTvTexts">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/default_spacing</item>
+        <item name="android:layout_marginTop">@dimen/default_spacing</item>
+        <item name="android:textSize">@dimen/title_text_size</item>
+    </style>
+
+    <style name="TaskDetailsAssigneeOnTaskContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:layout_marginTop">@dimen/default_spacing</item>
+        <item name="android:paddingLeft">@dimen/default_spacing</item>
+        <item name="android:paddingTop">@dimen/default_spacing</item>
+        <item name="android:paddingBottom">@dimen/default_spacing</item>
+    </style>
+
+    <style name="TaskDetailsSpinner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/default_spacing</item>
+        <item name="android:layout_marginTop">@dimen/default_spacing</item>
+        <item name="android:layout_marginRight">@dimen/default_spacing</item>
+    </style>
+
+    <style name="TaskDetailsTextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/default_spacing</item>
+        <item name="android:layout_marginLeft">@dimen/default_spacing</item>
+        <item name="android:layout_marginBottom">@dimen/default_spacing</item>
+    </style>
+
 </resources>

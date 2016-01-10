@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import co.infinum.productive.listeners.Listener;
+import co.infinum.productive.models.Assignee;
 import co.infinum.productive.models.BaseResponse;
+import co.infinum.productive.models.Task;
 import co.infinum.productive.models.TaskDetails;
 import co.infinum.productive.mvp.interactors.TaskDetailsInteractor;
 import co.infinum.productive.network.ApiService;
@@ -24,8 +26,6 @@ public class TaskDetailsInteractorImpl implements TaskDetailsInteractor {
     public static final int ORGANIZATION_ID = 491;
 
     private ApiService apiService;
-    private Call<BaseResponse<ArrayList<TaskDetails>>> call;
-    private BaseCallback<BaseResponse<ArrayList<TaskDetails>>> callback;
 
     @Inject
     public TaskDetailsInteractorImpl(ApiService apiService) {
@@ -36,9 +36,9 @@ public class TaskDetailsInteractorImpl implements TaskDetailsInteractor {
     public void fetchTaskDetails(final Listener<ArrayList<TaskDetails>> listener, int projectId, int taskId) {
         //int organizationID = ProductiveApp.getInstance().getCacheInteractor().getOrganizations().get(0);
 
-        call = apiService.getTaskDetails(ORGANIZATION_ID, projectId, taskId);
+        Call<BaseResponse<ArrayList<TaskDetails>>> tasksCall = apiService.getTaskDetails(ORGANIZATION_ID, projectId, taskId);
 
-        callback = new BaseCallback<BaseResponse<ArrayList<TaskDetails>>>() {
+        BaseCallback<BaseResponse<ArrayList<TaskDetails>>> tasksCallback = new BaseCallback<BaseResponse<ArrayList<TaskDetails>>>() {
             @Override
             public void onUnknownError(@Nullable String error) {
                 listener.onFailure(error);
@@ -50,7 +50,27 @@ public class TaskDetailsInteractorImpl implements TaskDetailsInteractor {
             }
         };
 
-        call.enqueue(callback);
+        tasksCall.enqueue(tasksCallback);
+    }
+
+
+    @Override
+    public void fetchTaskSubscribers(final Listener<ArrayList<Assignee>> listener, Task task) {
+        Call<BaseResponse<ArrayList<Assignee>>> subscribersCall = apiService
+                .getSubscribersOnTask(ORGANIZATION_ID, task.getProjectId(), task.getId());
+
+        BaseCallback<BaseResponse<ArrayList<Assignee>>> subscribersCallback = new BaseCallback<BaseResponse<ArrayList<Assignee>>>() {
+            @Override
+            public void onUnknownError(@Nullable String error) {
+                listener.onFailure(error);
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<ArrayList<Assignee>> body, Response<BaseResponse<ArrayList<Assignee>>> response) {
+                listener.onSuccess(body.getResponse());
+            }
+        };
+        subscribersCall.enqueue(subscribersCallback);
     }
 
     @Override

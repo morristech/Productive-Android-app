@@ -64,7 +64,11 @@ public class TaskContentActivity extends BaseActivity implements TabLayout.OnTab
     private void initFragments() {
         fragmentList = new ArrayList<>();
         fragmentList.add(new TaskActivityFragment());
-        fragmentList.add(new TaskDetailsFragment());
+        TaskDetailsFragment tdf = new TaskDetailsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(TASK, task);
+        tdf.setArguments(bundle);
+        fragmentList.add(tdf);
     }
 
     @Override
