@@ -6,30 +6,18 @@
         tools:context="co.infinum.productive.fragments.ProjectsFragment">
 
     <android.support.v4.widget.SwipeRefreshLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/swipe_refresh_layout"
+            android:id="@+id/projects_swipe_refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context="co.infinum.productive.fragments.ProjectsFragment">
+            android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/recyclerViewBackgroundColor"
-                android:scrollbars="vertical"/>
+                android:id="@+id/projects_recycler_view"
+                style="@style/RecyclerViewStyle"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <TextView
             android:id="@+id/empty_projects_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/empty_projects"
-            android:textSize="@dimen/empty_list_message_text_size"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            android:textStyle="bold"/>
+            style="@style/NoAssignedItemsFoundTextView"/>
 
 </RelativeLayout>

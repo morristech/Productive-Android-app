@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/material_list_tile_height" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@android:color/white"
+        android:paddingLeft="@dimen/list_item_padding_left">
+
+    <LinearLayout
+            android:id="@+id/tasks_content_layout"
+            style="@style/ListTextContainer"
+            android:layout_toRightOf="@+id/item_thumbnail">
+
+        <TextView
+                android:id="@+id/tasks_item_title"
+                style="@style/ListItemTitle"
+                tools:text="This is something we're trying to test"/>
+
+        <TextView
+                android:id="@+id/tasks_item_description"
+                style="@style/ListItemSubtitle"
+                tools:text="Updated 3 hours ago by Mislav J."/>
+
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@id/item_thumbnail"
+            style="@style/ListItemAvatarPicture"
+            app:civ_border_width="@dimen/separator_margin_right"
+            app:civ_border_color="@android:color/white"
+            />
+
+</RelativeLayout>
+
+

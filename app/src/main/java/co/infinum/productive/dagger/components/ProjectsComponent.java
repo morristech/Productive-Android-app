@@ -14,7 +14,6 @@ import dagger.Component;
         NetworkModule.class,
         ProjectsFragmentModule.class,
 })
-public interface ProjectsFragmentComponent {
-
+public interface ProjectsComponent {
     void inject(ProjectsFragment fragment);
 }

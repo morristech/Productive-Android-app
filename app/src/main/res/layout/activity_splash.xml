@@ -8,9 +8,7 @@
         tools:context="co.infinum.productive.activities.SplashActivity">
 
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/productive_logo"/>
+            style="@style/ImageViewLogo"
+            android:layout_centerInParent="true"/>
 
 </RelativeLayout>

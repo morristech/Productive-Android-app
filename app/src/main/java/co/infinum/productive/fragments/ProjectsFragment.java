@@ -1,7 +1,6 @@
 package co.infinum.productive.fragments;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -21,8 +20,7 @@ import butterknife.ButterKnife;
 import co.infinum.productive.R;
 import co.infinum.productive.activities.TasksListActivity;
 import co.infinum.productive.adapters.ProjectAdapter;
-import co.infinum.productive.adapters.ProjectSectionAdapter;
-import co.infinum.productive.dagger.components.DaggerProjectsFragmentComponent;
+import co.infinum.productive.dagger.components.DaggerProjectsComponent;
 import co.infinum.productive.dagger.modules.ProjectsFragmentModule;
 import co.infinum.productive.listeners.OnProjectClickListener;
 import co.infinum.productive.models.ProjectTile;
@@ -39,20 +37,16 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
     @Inject
     ProjectPresenter projectPresenter;
 
-    @Bind(R.id.recycler_view)
+    @Bind(R.id.projects_recycler_view)
     RecyclerView mRecyclerView;
 
-    @Bind(R.id.swipe_refresh_layout)
+    @Bind(R.id.projects_swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
 
     @Bind(R.id.empty_projects_info)
     TextView emptyProjectsInfo;
 
-    private RecyclerView.Adapter mAdapter;
-
-    private ProjectSectionAdapter mSectionAdapter;
-
-    private Context context;
+    private ProjectAdapter mSectionAdapter;
 
     private boolean isRefreshed = false;
 
@@ -63,14 +57,12 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
         View view = inflater.inflate(R.layout.fragment_projects, container, false);
         ButterKnife.bind(this, view);
 
-        DaggerProjectsFragmentComponent.builder()
+        DaggerProjectsComponent.builder()
                 .projectsFragmentModule(new ProjectsFragmentModule(this, getResources()))
                 .build()
                 .inject(this);
 
-        context = getActivity();
-
-        layoutManager = new LinearLayoutManager(context);
+        layoutManager = new LinearLayoutManager(getActivity());
 
         initSwipeRefresh();
         initRecyclerView();
@@ -95,9 +87,9 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
         }
 
         if (isRefreshed) {
-            refreshAdapters(projectTiles);
+            refreshAdapter(projectTiles);
         } else {
-            initAdapters(projectTiles);
+            initAdapter(projectTiles);
         }
     }
 
@@ -118,11 +110,8 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
         mRecyclerView.setLayoutManager(layoutManager);
     }
 
-    private void initAdapters(ArrayList<ProjectTile> projectTiles) {
-        mAdapter = new ProjectAdapter(context, getResources(), projectTiles, this);
-        mSectionAdapter = new ProjectSectionAdapter(context, R.layout.list_section_separator, mAdapter);
-
-        ((ProjectAdapter) mAdapter).setProjectSectionAdapter(mSectionAdapter);
+    private void initAdapter(ArrayList<ProjectTile> projectTiles) {
+        mSectionAdapter = new ProjectAdapter(getActivity(), getResources(), projectTiles, this);
 
         setSections(projectTiles);
 
@@ -130,9 +119,9 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
     }
 
     private void setSections(ArrayList<ProjectTile> projectTiles) {
-        ArrayList<ProjectSectionAdapter.Section> sections = new ArrayList<>();
+        ArrayList<ProjectAdapter.ProjectSection> projectSections = new ArrayList<>();
 
-        // calculates offset for each client and sets sections
+        // calculates offset for each client and sets projectSections
         String prevClientName = "";
         int overallOffset = 0;
         int currentOffset = 0;
@@ -144,24 +133,24 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
                 ++currentOffset;
             } else {
                 overallOffset += currentOffset;
-                sections.add(new ProjectSectionAdapter.Section(overallOffset, currClientName));
+                projectSections.add(new ProjectAdapter.ProjectSection(overallOffset, currClientName));
                 currentOffset = 1;
             }
 
             prevClientName = currClientName;
         }
 
-        ProjectSectionAdapter.Section[] sectionsList = new ProjectSectionAdapter.Section[sections.size()];
+        ProjectAdapter.ProjectSection[] sectionsList = new ProjectAdapter.ProjectSection[projectSections.size()];
 
-        mSectionAdapter.setSections(sections.toArray(sectionsList));
+        mSectionAdapter.setProjectSections(projectSections.toArray(sectionsList));
     }
 
-    private void refreshAdapters(ArrayList<ProjectTile> projectTiles) {
-        if (mAdapter != null && mSectionAdapter != null) {
+    private void refreshAdapter(ArrayList<ProjectTile> projectTiles) {
+        if (mSectionAdapter != null) {
             isRefreshed = false;
 
             setSections(projectTiles);
-            ((ProjectAdapter) mAdapter).refresh(projectTiles);
+            mSectionAdapter.refresh(projectTiles);
 
             swipeRefreshLayout.setRefreshing(false);
         }
@@ -170,7 +159,7 @@ public class ProjectsFragment extends BaseFragment implements ProjectView, OnPro
     @Override
     public void onProjectsClick(int position) {
         Intent intent = new Intent(getActivity(), TasksListActivity.class);
-        intent.putExtra(PROJECT, ((ProjectAdapter) mAdapter).getItem(position));
+        intent.putExtra(PROJECT, mSectionAdapter.getItem(position));
         startActivity(intent);
     }
 }

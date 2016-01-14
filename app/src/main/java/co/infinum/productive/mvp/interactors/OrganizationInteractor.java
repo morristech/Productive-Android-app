@@ -2,8 +2,8 @@ package co.infinum.productive.mvp.interactors;
 
 import java.util.ArrayList;
 
+import co.infinum.productive.listeners.Listener;
 import co.infinum.productive.models.Organization;
-import co.infinum.productive.mvp.Listener;
 
 /**
  * Created by mjurinic on 22.10.15..
