@@ -6,6 +6,7 @@ import android.widget.EditText;
 
 import com.squareup.okhttp.mockwebserver.RecordedRequest;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -32,6 +33,18 @@ public class LoginTest extends BaseTest {
 
     OrganizationInteractor organizationInteractor;
     Listener<ArrayList<Organization>> organizationListener;
+    /*
+    private LoginActivity activity;
+
+    @Before
+    public void setup() {
+        activity = Robolectric.buildActivity(LoginActivity.class).get();
+    }
+
+    @Test
+    public void shouldNotBeNull(){
+        assertThat(activity).isNotNull();
+    }*/
 
     @Test
     public void successfulLogin() {
@@ -61,7 +74,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-    public void wrongEmailFormatLogin(){
+    public void wrongEmailFormatLogin() {
         ActivityController<LoginActivity> loginActivityActivityController = Robolectric.buildActivity(LoginActivity.class);
 
         LoginActivity loginActivity = loginActivityActivityController.create()
@@ -88,7 +101,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-    public void wrongPasswordFormatLogin(){
+    public void wrongPasswordFormatLogin() {
         ActivityController<LoginActivity> loginActivityActivityController = Robolectric.buildActivity(LoginActivity.class);
 
         LoginActivity loginActivity = loginActivityActivityController.create()
@@ -115,7 +128,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-    public void togglePasswordVisability(){
+    public void togglePasswordVisability() {
         ActivityController<LoginActivity> loginActivityActivityController = Robolectric.buildActivity(LoginActivity.class);
 
         LoginActivity loginActivity = loginActivityActivityController.create()
@@ -126,7 +139,7 @@ public class LoginTest extends BaseTest {
 
         EditText emailEditText = (EditText) loginActivity.findViewById(R.id.et_email);
         EditText passwordEditText = (EditText) loginActivity.findViewById(R.id.et_password);
-        Button togglePassword = (Button)loginActivity.findViewById(R.id.toggle_password);
+        Button togglePassword = (Button) loginActivity.findViewById(R.id.toggle_password);
         Button loginButton = (Button) loginActivity.findViewById(R.id.login_button);
 
         emailEditText.setText("skliba@foi.hr");
@@ -145,7 +158,7 @@ public class LoginTest extends BaseTest {
 
 
     @Test
-    public void fetchOrganizationsList(){
+    public void fetchOrganizationsList() {
         ActivityController<LoginActivity> loginActivityActivityController = Robolectric.buildActivity(LoginActivity.class);
 
         LoginActivity loginActivity = loginActivityActivityController.create()
@@ -178,6 +191,5 @@ public class LoginTest extends BaseTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 }
