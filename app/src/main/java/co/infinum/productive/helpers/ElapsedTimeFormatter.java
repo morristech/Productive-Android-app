@@ -1,8 +1,11 @@
 package co.infinum.productive.helpers;
 
-import org.joda.time.DateTime;
-
 import android.content.res.Resources;
+
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 
 import co.infinum.productive.R;
 
@@ -16,30 +19,18 @@ public class ElapsedTimeFormatter {
     }
 
     public static String getElapsedTime(DateTime updatedAt, Resources resources) {
-        DateTime currentTime = new DateTime();
-        String ret = "";
+        PeriodFormatter formatter = new PeriodFormatterBuilder()
+                .appendSeconds().appendSuffix(resources.getString(R.string.second_text) + '\n')
+                .appendMinutes().appendSuffix(resources.getString(R.string.minute_text) + '\n')
+                .appendHours().appendSuffix(resources.getString(R.string.hour_text) + '\n')
+                .appendDays().appendSuffix(resources.getString(R.string.day_text) + '\n')
+                .appendMonths().appendSuffix(resources.getString(R.string.month_text) + '\n')
+                .appendYears().appendSuffix(resources.getString(R.string.year_text) + '\n')
+                .printZeroNever()
+                .toFormatter();
 
-        int years = Math.abs(currentTime.getYear() - updatedAt.getYear());
-        int months = Math.abs(currentTime.getMonthOfYear() - updatedAt.getMonthOfYear());
-        int days = Math.abs(currentTime.getDayOfMonth() - updatedAt.getDayOfMonth());
-        int hours = Math.abs(currentTime.getHourOfDay() - updatedAt.getHourOfDay());
-        int minutes = Math.abs(currentTime.getMinuteOfHour() - updatedAt.getMinuteOfHour());
-        int seconds = Math.abs(currentTime.getSecondOfMinute() - updatedAt.getSecondOfMinute());
+        String[] elapsed = formatter.print(new Period(updatedAt, new DateTime())).split("\n");
 
-        if (years != 0) {
-            ret += years + resources.getString(R.string.year_text);
-        } else if (months != 0) {
-            ret += months + resources.getString(R.string.month_text);
-        } else if (days != 0) {
-            ret += days + resources.getString(R.string.day_text);
-        } else if (hours != 0) {
-            ret += hours + resources.getString(R.string.hour_text);
-        } else if (minutes != 0) {
-            ret += minutes + resources.getString(R.string.minute_text);
-        } else if (seconds != 0) {
-            ret += seconds + resources.getString(R.string.second_text);
-        }
-
-        return ret;
+        return elapsed[elapsed.length - 1];
     }
 }
