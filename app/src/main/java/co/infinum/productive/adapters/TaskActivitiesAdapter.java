@@ -17,12 +17,15 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import co.infinum.productive.R;
+import co.infinum.productive.helpers.ElapsedTimeFormatter;
 import co.infinum.productive.models.TaskActivityResponse;
 
 /**
  * Created by mjurinic on 29.12.15..
  */
 public class TaskActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    public static final String REPLACE_ALL_REGULAR_EXPRESSION = "\\D+";
 
     private List<TaskActivityResponse> taskActivities;
     private Context context;
@@ -47,6 +50,17 @@ public class TaskActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private void bindTaskActivitiesViewHolder(TaskActivitiesViewHolder holder, int position) {
         holder.title.setText(taskActivities.get(position).getTitle());
         holder.description.setText(Html.fromHtml(taskActivities.get(position).getBody()));
+
+        String updateInfo;
+        String elapsedTime = ElapsedTimeFormatter.getElapsedTime(taskActivities.get(position).getCreatedAt(), context.getResources());
+
+        if (Integer.parseInt(elapsedTime.replaceAll(REPLACE_ALL_REGULAR_EXPRESSION, "")) != 1) {
+            updateInfo = context.getResources().getQuantityString(R.plurals.elapsed_time_text_activities, 2, elapsedTime);
+        } else {
+            updateInfo = context.getResources().getQuantityString(R.plurals.elapsed_time_text_activities, 1, elapsedTime);
+        }
+
+        holder.elapsedTime.setText(updateInfo);
 
         Glide.with(context).load(taskActivities.get(position).getPerson().getAvatarUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -74,6 +88,9 @@ public class TaskActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         @Bind(R.id.tv_task_activities_description)
         TextView description;
+
+        @Bind(R.id.tv_task_activities_elapsed_time)
+        TextView elapsedTime;
 
         public TaskActivitiesViewHolder(View itemView) {
             super(itemView);

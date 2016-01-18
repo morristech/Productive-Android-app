@@ -24,6 +24,7 @@ public class ElapsedTimeFormatter {
                 .appendMinutes().appendSuffix(resources.getString(R.string.minute_text) + '\n')
                 .appendHours().appendSuffix(resources.getString(R.string.hour_text) + '\n')
                 .appendDays().appendSuffix(resources.getString(R.string.day_text) + '\n')
+                .appendWeeks().appendSuffix(resources.getString(R.string.week_text) + '\n')
                 .appendMonths().appendSuffix(resources.getString(R.string.month_text) + '\n')
                 .appendYears().appendSuffix(resources.getString(R.string.year_text) + '\n')
                 .printZeroNever()

@@ -17,6 +17,7 @@
     <string name="empty_tasks_list">You have no tasks on any project</string>
     <string name="year_text">&#160;year</string>
     <string name="month_text">&#160;month</string>
+    <string name="week_text">&#160;week</string>
     <string name="day_text">&#160;day</string>
     <string name="hour_text">&#160;hour</string>
     <string name="minute_text">&#160;minute</string>
@@ -31,6 +32,11 @@
     <plurals name="elapsed_time_text">
         <item quantity="one">Updated %1$s ago by %2$s</item>
         <item quantity="other">Updated %1$ss ago by %2$s</item>
+    </plurals>
+
+    <plurals name="elapsed_time_text_activities">
+        <item quantity="one">%1$s</item>
+        <item quantity="other">%1$ss</item>
     </plurals>
 
     <!-- TODO: Remove or change this placeholder text -->
