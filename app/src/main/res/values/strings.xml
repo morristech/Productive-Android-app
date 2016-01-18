@@ -69,4 +69,6 @@
         <item>Shortlist</item>
         <item>Backlog</item>
     </string-array>
+
+    <string name="commented_regex">commented</string>
 </resources>
