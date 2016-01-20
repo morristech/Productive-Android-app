@@ -14,12 +14,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import co.infinum.productive.R;
 import co.infinum.productive.helpers.ElapsedTimeFormatter;
+import co.infinum.productive.helpers.TrimHtml;
 import co.infinum.productive.models.Attachment;
 import co.infinum.productive.models.TaskActivityResponse;
 
@@ -29,7 +29,7 @@ import co.infinum.productive.models.TaskActivityResponse;
 public class TaskActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final String REGEX_EXTRACT_NUMBER = "\\D+";
-    public static final String REGEX_CHECK_COMMENTED = "commented";
+    public static final String COMMENTED = "commented";
 
     private List<TaskActivityResponse> taskActivities;
     private Context context;
@@ -52,11 +52,19 @@ public class TaskActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private void bindTaskActivitiesViewHolder(TaskActivitiesViewHolder holder, int position) {
         holder.title.setText(taskActivities.get(position).getTitle());
 
-        if (Pattern.compile(REGEX_CHECK_COMMENTED).matcher(taskActivities.get(position).getTitle()).find()) {
-            holder.description.setBackgroundResource(R.color.taskActivitiesComment);
+        int leftPadding = holder.description.getPaddingLeft();
+        int topPadding = holder.description.getPaddingTop();
+        int rightPadding = holder.description.getPaddingRight();
+        int bottomPadding = holder.description.getPaddingBottom();
+
+        if (taskActivities.get(position).getTitle().contains(COMMENTED)) {
+            holder.description.setBackgroundResource(R.drawable.ic_comment_background);
+        } else {
+            holder.description.setBackground(null);
         }
 
-        holder.description.setText(Html.fromHtml(taskActivities.get(position).getBody()));
+        holder.description.setText(TrimHtml.Trim(Html.fromHtml(taskActivities.get(position).getBody())));
+        holder.description.setPadding(leftPadding, topPadding, rightPadding, bottomPadding);
 
         String updateInfo;
         String elapsedTime = ElapsedTimeFormatter.getElapsedTime(taskActivities.get(position).getCreatedAt(), context.getResources());
