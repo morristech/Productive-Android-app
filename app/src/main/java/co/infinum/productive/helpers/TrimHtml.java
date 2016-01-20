@@ -5,8 +5,14 @@ package co.infinum.productive.helpers;
  */
 public final class TrimHtml {
 
-    public static CharSequence Trim(CharSequence s) {
-        if (s.length() == 0) return s;  // sometimes the body is empty
+    private TrimHtml() {
+        // checkstyle
+    }
+
+    public static CharSequence trim(CharSequence s) {
+        if (s.length() == 0) {  // sometimes the body is empty
+            return s;
+        }
 
         while (s.charAt(s.length() - 1) == '\n') {
             s = s.subSequence(0, s.length() - 1);

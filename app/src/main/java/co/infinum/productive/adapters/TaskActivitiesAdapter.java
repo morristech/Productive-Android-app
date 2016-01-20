@@ -63,7 +63,7 @@ public class TaskActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             holder.description.setBackground(null);
         }
 
-        holder.description.setText(TrimHtml.Trim(Html.fromHtml(taskActivities.get(position).getBody())));
+        holder.description.setText(TrimHtml.trim(Html.fromHtml(taskActivities.get(position).getBody())));
         holder.description.setPadding(leftPadding, topPadding, rightPadding, bottomPadding);
 
         String updateInfo;
