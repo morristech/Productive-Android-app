@@ -1,7 +1,5 @@
 package co.infinum.productive.mvp.interactors;
 
-import android.view.inputmethod.BaseInputConnection;
-
 /**
  * Created by noxqs on 20.01.16..
  */

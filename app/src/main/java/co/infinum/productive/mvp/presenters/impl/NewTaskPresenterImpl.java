@@ -12,6 +12,7 @@ import co.infinum.productive.mvp.views.NewTaskView;
 public class NewTaskPresenterImpl implements NewTaskPresenter {
 
     private NewTaskInteractor interactor;
+
     private NewTaskView view;
 
     @Inject
