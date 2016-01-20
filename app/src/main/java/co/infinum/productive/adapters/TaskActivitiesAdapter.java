@@ -96,6 +96,11 @@ public class TaskActivitiesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         notifyDataSetChanged();
     }
 
+    public void appendComment(TaskActivityResponse comment) {
+        taskActivities.add(0, comment);
+        notifyDataSetChanged();
+    }
+
     public class TaskActivitiesViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.iv_task_activities_thumbnail)

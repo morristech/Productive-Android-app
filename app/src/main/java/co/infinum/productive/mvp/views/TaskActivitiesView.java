@@ -9,5 +9,7 @@ import co.infinum.productive.models.TaskActivityResponse;
  */
 public interface TaskActivitiesView extends BaseView {
 
-    void onSuccess(List<TaskActivityResponse> taskActivities);
+    void onActivityFetchSuccess(List<TaskActivityResponse> taskActivities);
+
+    void onPostCommentSuccess(TaskActivityResponse comment);
 }

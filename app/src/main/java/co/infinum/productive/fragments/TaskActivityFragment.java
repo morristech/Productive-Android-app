@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import co.infinum.productive.R;
 import co.infinum.productive.adapters.TaskActivitiesAdapter;
 import co.infinum.productive.dagger.components.DaggerTaskActivitiesComponent;
@@ -29,8 +31,6 @@ import co.infinum.productive.mvp.views.TaskActivitiesView;
  */
 public class TaskActivityFragment extends BaseFragment implements TaskActivitiesView {
 
-    //TODO dodati event listenera na "post" btn i dodati logiku za addanje komentara
-
     public static final String TASK = "task";
 
     @Inject
@@ -44,6 +44,9 @@ public class TaskActivityFragment extends BaseFragment implements TaskActivities
 
     @Bind(R.id.task_activities_swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
+
+    @Bind(R.id.et_task_activities_comment)
+    EditText etComment;
 
     private LinearLayoutManager layoutManager;
     private Task task;
@@ -66,7 +69,7 @@ public class TaskActivityFragment extends BaseFragment implements TaskActivities
     }
 
     @Override
-    public void onSuccess(List<TaskActivityResponse> taskActivities) {
+    public void onActivityFetchSuccess(List<TaskActivityResponse> taskActivities) {
         if (taskActivities.size() == 0) {
             recyclerView.setVisibility(View.GONE);
             emptyActivitiesInfo.setVisibility(View.VISIBLE);
@@ -79,6 +82,24 @@ public class TaskActivityFragment extends BaseFragment implements TaskActivities
             refreshAdapter(taskActivities);
         } else {
             initAdapter(taskActivities);
+        }
+    }
+
+    @Override
+    public void onPostCommentSuccess(TaskActivityResponse comment) {
+        taskActivitiesAdapter.appendComment(comment);
+    }
+
+    @OnClick(R.id.btn_task_activities_comment)
+    public void btnSendPressed() {
+        if (!etComment.getText().toString().equals("")) {
+            this.showProgress();
+
+            taskActivitiesPresenter.postComment(etComment.getText().toString());
+
+            etComment.setText("");
+        } else {
+            etComment.setError(getResources().getString(R.string.empty_comment));
         }
     }
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import co.infinum.productive.models.Assignee;
 import co.infinum.productive.models.BaseResponse;
+import co.infinum.productive.models.Comment;
 import co.infinum.productive.models.Organization;
 import co.infinum.productive.models.Project;
 import co.infinum.productive.models.Task;
@@ -12,9 +13,11 @@ import co.infinum.productive.models.TaskActivityResponse;
 import co.infinum.productive.models.TaskDetails;
 import co.infinum.productive.models.User;
 import retrofit.Call;
+import retrofit.http.Body;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
+import retrofit.http.PATCH;
 import retrofit.http.POST;
 import retrofit.http.Path;
 
@@ -48,6 +51,14 @@ public interface ApiService {
             @Path("projectId") int projectId,
             @Path("taskId") int taskId);
 
+    @POST("/api/v1/{organizationId}/comments")
+    Call<BaseResponse<TaskActivityResponse>> postComment(@Path("organizationId") int organizationId);
+
+    @PATCH("/api/v1/{organizationId}/projects/{projectId}/tasks/{taskId}")
+    Call<BaseResponse<Task>> updateTaskActivity(@Path("organizationId") int organizationId,
+                                                @Path("projectId") int projectId,
+                                                @Path("taskId") int taskId,
+                                                @Body Comment comment);
 }
 
 

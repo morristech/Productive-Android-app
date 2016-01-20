@@ -71,4 +71,5 @@
     </string-array>
 
     <string name="commented_regex">commented</string>
+    <string name="empty_comment">Comment is empty.</string>
 </resources>
