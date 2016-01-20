@@ -57,9 +57,10 @@
                 android:text="@string/task_list_tv"
                 android:id="@+id/task_list_tv"/>
 
-        <Spinner
-                style="@style/TaskDetailsSpinner"
-                android:id="@+id/task_list_spinner"
+        <TextView
+                style="@style/TaskDetailsTaskListTextView"
+                android:id="@+id/task_list"
+                tools:text="Something"
                 />
 
         <TextView
@@ -78,7 +79,6 @@
                     style="@style/TaskDetailsTextView"
                     android:text="@string/due_date_tv"
                     android:id="@+id/due_date_tv"
-
                     />
 
             <TextView
