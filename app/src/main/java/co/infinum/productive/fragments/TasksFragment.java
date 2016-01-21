@@ -106,6 +106,16 @@ public class TasksFragment extends BaseFragment implements TasksView, OnTasksCli
 
     }
 
+    @Override
+    public void onTaskPerProjectFetched(ArrayList<Task> tasks) {
+
+    }
+
+    @Override
+    public void onTaskPerProjectFailed(String error) {
+
+    }
+
 
     private void initSwipeRefresh() {
         tasksSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);

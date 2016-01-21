@@ -126,4 +126,14 @@ public class TaskDetailsFragment extends BaseFragment implements TasksView {
         showError(error);
     }
 
+    @Override
+    public void onTaskPerProjectFetched(ArrayList<Task> tasks) {
+        //nothing
+    }
+
+    @Override
+    public void onTaskPerProjectFailed(String error) {
+        //nothing
+    }
+
 }

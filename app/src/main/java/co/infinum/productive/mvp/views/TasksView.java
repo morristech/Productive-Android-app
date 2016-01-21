@@ -17,4 +17,8 @@ public interface TasksView extends BaseView {
     void onTaskSubscribersFetched(ArrayList<Assignee> subscriber);
 
     void onTaskSubscriberError(String error);
+
+    void onTaskPerProjectFetched(ArrayList<Task> tasks);
+
+    void onTaskPerProjectFailed(String error);
 }

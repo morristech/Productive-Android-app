@@ -48,6 +48,9 @@ public interface ApiService {
             @Path("projectId") int projectId,
             @Path("taskId") int taskId);
 
+    @GET("/api/v1/{organizationId}/projects/{projectId}/tasks")
+    Call<BaseResponse<ArrayList<Task>>> getTaskPerProject(@Path("organizationId") int organizationId, @Path("projectId") int projectId);
+
 }
 
 

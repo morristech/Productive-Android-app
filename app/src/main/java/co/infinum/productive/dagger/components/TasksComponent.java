@@ -1,5 +1,6 @@
 package co.infinum.productive.dagger.components;
 
+import co.infinum.productive.activities.TasksListActivity;
 import co.infinum.productive.dagger.modules.CacheModule;
 import co.infinum.productive.dagger.modules.NetworkModule;
 import co.infinum.productive.dagger.modules.TasksModule;
@@ -19,4 +20,5 @@ public interface TasksComponent {
 
     void inject(TasksFragment fragment);
     void inject(TaskDetailsFragment fragment);
+    void inject(TasksListActivity activity);
 }

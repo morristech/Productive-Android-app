@@ -51,6 +51,25 @@ public class TaskInteractorImpl implements TaskInteractor {
     }
 
     @Override
+    public void fetchTaskPerProject(final Listener<ArrayList<Task>> listener, int organizationId, int projectId) {
+        call = apiService.getTaskPerProject(organizationId, projectId);
+
+        callback = new BaseCallback<BaseResponse<ArrayList<Task>>>() {
+            @Override
+            public void onUnknownError(@Nullable String error) {
+                listener.onFailure(error);
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<ArrayList<Task>> body, Response<BaseResponse<ArrayList<Task>>> response) {
+                listener.onSuccess(body.getResponse());
+            }
+        };
+
+        call.enqueue(callback);
+    }
+
+    @Override
     public void cancel() {
         if (call != null && callback != null) {
             call.cancel();
