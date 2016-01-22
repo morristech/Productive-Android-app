@@ -27,6 +27,8 @@ public class LoginPresenterImpl implements LoginPresenter {
 
     public static final String TOKEN = "TOKEN";
 
+    public static final String USER_ID = "userId";
+
     private final LoginView loginView;
 
     private final LoginInteractor loginInteractor;
@@ -86,6 +88,10 @@ public class LoginPresenterImpl implements LoginPresenter {
             //placing token into shared preferences cause of splash screen implementation
             PreferenceManager.getDefaultSharedPreferences(ProductiveApp.getInstance())
                     .edit().putString(TOKEN, user.getToken()).apply();
+
+            //TODO remove this
+            PreferenceManager.getDefaultSharedPreferences(ProductiveApp.getInstance())
+                    .edit().putLong(USER_ID, user.getUserId()).apply();
 
             getOrganizations();
         }

@@ -136,4 +136,9 @@ public class TaskDetailsFragment extends BaseFragment implements TasksView {
         //nothing
     }
 
+    @Override
+    public void removeOtherTasks(ArrayList<Task> onlyMyTasks) {
+
+    }
+
 }

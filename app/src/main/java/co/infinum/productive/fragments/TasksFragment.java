@@ -116,6 +116,11 @@ public class TasksFragment extends BaseFragment implements TasksView, OnTasksCli
 
     }
 
+    @Override
+    public void removeOtherTasks(ArrayList<Task> onlyMyTasks) {
+
+    }
+
 
     private void initSwipeRefresh() {
         tasksSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);

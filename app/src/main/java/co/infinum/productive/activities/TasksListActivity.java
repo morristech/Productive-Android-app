@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import java.util.ArrayList;
 
@@ -26,7 +28,7 @@ import co.infinum.productive.models.Task;
 import co.infinum.productive.mvp.presenters.TasksPresenter;
 import co.infinum.productive.mvp.views.TasksView;
 
-public class TasksListActivity extends BaseActivity implements TasksView, OnTasksClickListener {
+public class TasksListActivity extends BaseActivity implements TasksView, OnTasksClickListener, CompoundButton.OnCheckedChangeListener {
 
     public static final String PROJECT = "project";
 
@@ -43,6 +45,8 @@ public class TasksListActivity extends BaseActivity implements TasksView, OnTask
     private boolean isRefreshed = false;
 
     private ArrayList<Task> tasks;
+
+    private Switch mySwitch;
 
     @Inject
     TasksPresenter presenter;
@@ -62,11 +66,11 @@ public class TasksListActivity extends BaseActivity implements TasksView, OnTask
         initSwipeRefresh();
 
         project = (ProjectTile) getIntent().getSerializableExtra(PROJECT);
+
         if (project.getId() != 0) {
             showProgress();
             presenter.getAllTasksOnProject(project.getId());
         }
-
     }
 
     private void init() {
@@ -90,13 +94,17 @@ public class TasksListActivity extends BaseActivity implements TasksView, OnTask
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.task_list_activity, menu);
+
+        mySwitch = (Switch) menu.findItem(R.id.toggle_my_projects_menu).getActionView().findViewById(R.id.toggle_my_projects);
+        mySwitch.setOnCheckedChangeListener(this);
+
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         switch (id) {
             case android.R.id.home:
                 onBackPressed();
@@ -106,6 +114,42 @@ public class TasksListActivity extends BaseActivity implements TasksView, OnTask
         }
         return true;
     }
+
+    @Override
+    public void onTaskPerProjectFetched(ArrayList<Task> tasks) {
+        hideProgress();
+        this.tasks = tasks;
+        tasksListRecycler.setAdapter(new TaskPerProjectAdapter(tasks, getApplicationContext(), this, getResources()));
+    }
+
+    @Override
+    public void onTaskPerProjectFailed(String error) {
+        showError(error);
+    }
+
+    @Override
+    public void removeOtherTasks(ArrayList<Task> onlyMyTasks) {
+        tasks = onlyMyTasks;
+        tasksListRecycler.setAdapter(new TaskPerProjectAdapter(onlyMyTasks, getApplicationContext(), this, getResources()));
+    }
+
+    @Override
+    public void onTasksClick(int position) {
+        Intent intent = new Intent(this, TaskContentActivity.class);
+        intent.putExtra(TASK, tasks.get(position));
+        startActivity(intent);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            presenter.showMyTasksOnly(tasks);
+        } else {
+            presenter.getAllTasksOnProject(project.getId());
+        }
+
+    }
+
 
     @Override
     public void onTasksFetched(ArrayList<Task> tasks) {
@@ -125,24 +169,5 @@ public class TasksListActivity extends BaseActivity implements TasksView, OnTask
     @Override
     public void onTaskSubscriberError(String error) {
         //nothing
-    }
-
-    @Override
-    public void onTaskPerProjectFetched(ArrayList<Task> tasks) {
-        hideProgress();
-        this.tasks = tasks;
-        tasksListRecycler.setAdapter(new TaskPerProjectAdapter(tasks, getApplicationContext(), this, getResources()));
-    }
-
-    @Override
-    public void onTaskPerProjectFailed(String error) {
-        showError(error);
-    }
-
-    @Override
-    public void onTasksClick(int position) {
-        Intent intent = new Intent(this, TaskContentActivity.class);
-        intent.putExtra(TASK, tasks.get(position));
-        startActivity(intent);
     }
 }

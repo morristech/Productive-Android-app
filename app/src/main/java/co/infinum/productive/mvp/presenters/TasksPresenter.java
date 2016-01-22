@@ -24,4 +24,6 @@ public interface TasksPresenter extends BasePresenter {
     void setupSubscribers(SubscribersViewGroupWrapper container, Context context, ArrayList<Assignee> fetchedSubscribers, float px);
 
     void getAllTasksOnProject(int projectId);
+
+    void showMyTasksOnly(ArrayList<Task> tasks);
 }

@@ -21,4 +21,6 @@ public interface TasksView extends BaseView {
     void onTaskPerProjectFetched(ArrayList<Task> tasks);
 
     void onTaskPerProjectFailed(String error);
+
+    void removeOtherTasks(ArrayList<Task> onlyMyTasks);
 }
