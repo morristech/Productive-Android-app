@@ -14,7 +14,7 @@ import co.infinum.productive.helpers.ElapsedTimeFormatter;
 import co.infinum.productive.helpers.ProjectTitleComparator;
 import co.infinum.productive.helpers.TaskByDateComparator;
 import co.infinum.productive.listeners.Listener;
-import co.infinum.productive.listeners.TaskActivityListener;
+import co.infinum.productive.listeners.TaskActivitiesListener;
 import co.infinum.productive.models.Project;
 import co.infinum.productive.models.ProjectTile;
 import co.infinum.productive.models.Task;
@@ -120,7 +120,7 @@ public class ProjectPresenterImpl implements ProjectPresenter {
         }
     };
 
-    private TaskActivityListener taskActivitiesListener = new TaskActivityListener() {
+    private TaskActivitiesListener taskActivitiesListener = new TaskActivitiesListener() {
         @Override
         public void onSuccess(List<TaskActivityResponse> taskActivityResponse, int projectId) {
             --tasksCnt;
