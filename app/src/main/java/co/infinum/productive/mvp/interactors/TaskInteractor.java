@@ -14,4 +14,5 @@ public interface TaskInteractor extends BaseInteractor {
 
     void fetchTaskPerProject(Listener<ArrayList<Task>> listener, int organizationId, int projectId);
 
+    void fetchMyTasks(Listener<ArrayList<Task>> taskPerProjectListener, int organizations, int projectId);
 }

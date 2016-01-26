@@ -17,6 +17,7 @@ import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 public interface ApiService {
 
@@ -50,6 +51,10 @@ public interface ApiService {
 
     @GET("/api/v1/{organizationId}/projects/{projectId}/tasks")
     Call<BaseResponse<ArrayList<Task>>> getTaskPerProject(@Path("organizationId") int organizationId, @Path("projectId") int projectId);
+
+    @GET("/api/v1/{organizationId}/projects/{projectId}/tasks")
+    Call<BaseResponse<ArrayList<Task>>> getMyTasks(@Path("organizationId") int organizationId,
+            @Path("projectId") int projectId, @Query("filter_id") int id);
 
 }
 

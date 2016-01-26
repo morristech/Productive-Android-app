@@ -25,5 +25,5 @@ public interface TasksPresenter extends BasePresenter {
 
     void getAllTasksOnProject(int projectId);
 
-    void showMyTasksOnly(ArrayList<Task> tasks);
+    void showMyTasksOnly(int projectId);
 }

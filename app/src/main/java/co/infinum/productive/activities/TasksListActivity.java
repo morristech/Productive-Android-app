@@ -143,7 +143,7 @@ public class TasksListActivity extends BaseActivity implements TasksView, OnTask
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
-            presenter.showMyTasksOnly(tasks);
+            presenter.showMyTasksOnly(project.getId());
         } else {
             presenter.getAllTasksOnProject(project.getId());
         }

@@ -3,8 +3,6 @@ package co.infinum.productive.mvp.presenters.impl;
 import org.joda.time.LocalDate;
 
 import android.content.Context;
-import android.preference.PreferenceManager;
-import android.util.Log;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -97,23 +95,8 @@ public class TasksPresenterImpl implements TasksPresenter {
     }
 
     @Override
-    public void showMyTasksOnly(ArrayList<Task> tasks) {
-
-        long userId = PreferenceManager.getDefaultSharedPreferences(context).getLong(USER_ID, 0);
-
-        ArrayList<Task> onlyMyTasks = new ArrayList<>();
-
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).getAssignee() != null) {
-                if (tasks.get(i).getAssignee().getId() == userId) {
-                    Log.e("ASSIGNEE", tasks.get(i).getAssignee().getId() + "");
-                    Log.e("USERID", userId + "");
-                    onlyMyTasks.add(tasks.get(i));
-                }
-            }
-        }
-
-        view.removeOtherTasks(onlyMyTasks);
+    public void showMyTasksOnly(int projectId) {
+        taskInteractor.fetchMyTasks(taskPerProjectListener, ORGANIZATIONS, projectId);
     }
 
     @Override
