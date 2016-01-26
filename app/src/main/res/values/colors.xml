@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#174B89</color>
     <color name="colorPrimaryDark">#0E2E53</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#e36539</color>
     <color name="signinButtonDefaultColor">#e36539</color>
     <color name="signinButtonHighlight">#cc6539</color>
     <color name="registerButtonHighlight">#e7e7e8</color>

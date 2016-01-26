@@ -15,6 +15,7 @@ import co.infinum.productive.helpers.TaskByTitleComparator;
 import co.infinum.productive.listeners.Listener;
 import co.infinum.productive.models.Assignee;
 import co.infinum.productive.models.Task;
+import co.infinum.productive.mvp.interactors.CacheInteractor;
 import co.infinum.productive.mvp.interactors.TaskDetailsInteractor;
 import co.infinum.productive.mvp.interactors.TaskInteractor;
 import co.infinum.productive.mvp.presenters.TasksPresenter;
@@ -27,18 +28,26 @@ public class TasksPresenterImpl implements TasksPresenter {
 
     public static final int ORGANIZATIONS = 491;
 
+    public static final String USER_ID = "userId";
+
     private TaskInteractor taskInteractor;
 
     private TaskDetailsInteractor taskDetailsInteractor;
 
     private TasksView view;
 
+    private CacheInteractor cacheInteractor;
+
+    private Context context;
 
     @Inject
-    public TasksPresenterImpl(TaskInteractor taskInteractor, TasksView view, TaskDetailsInteractor taskDetailsInteractor) {
+    public TasksPresenterImpl(TaskInteractor taskInteractor, TasksView view, TaskDetailsInteractor taskDetailsInteractor,
+            CacheInteractor cacheInteractor, Context context) {
         this.taskInteractor = taskInteractor;
         this.view = view;
         this.taskDetailsInteractor = taskDetailsInteractor;
+        this.cacheInteractor = cacheInteractor;
+        this.context = context;
     }
 
     @Override
@@ -73,6 +82,21 @@ public class TasksPresenterImpl implements TasksPresenter {
     @Override
     public void setupSubscribers(SubscribersViewGroupWrapper container, Context context, ArrayList<Assignee> fetchedSubscribers, float px) {
         container.addElementsToContainer(container, fetchedSubscribers, px);
+    }
+
+    @Override
+    public void getAllTasksOnProject(int projectId) {
+        /*
+        TODO temporary solution because in organization 491 we have more projects and therefore tasks, will get modified as soon as
+        TODO the testing phase is done
+        taskInteractor.fetchTasks(tasksListener, cacheInteractor.getOrganizations().get(0).getId());
+        */
+        taskInteractor.fetchTaskPerProject(taskPerProjectListener, ORGANIZATIONS, projectId);
+    }
+
+    @Override
+    public void showMyTasksOnly(int projectId) {
+        taskInteractor.fetchMyTasks(taskPerProjectListener, ORGANIZATIONS, projectId);
     }
 
     @Override
@@ -111,6 +135,23 @@ public class TasksPresenterImpl implements TasksPresenter {
         @Override
         public void onFailure(String message) {
             view.onTaskSubscriberError(message);
+        }
+
+        @Override
+        public void onConnectionFailure(String message) {
+
+        }
+    };
+
+    private Listener<ArrayList<Task>> taskPerProjectListener = new Listener<ArrayList<Task>>() {
+        @Override
+        public void onSuccess(ArrayList<Task> tasks) {
+            view.onTaskPerProjectFetched(tasks);
+        }
+
+        @Override
+        public void onFailure(String message) {
+            view.onTaskPerProjectFailed(message);
         }
 
         @Override

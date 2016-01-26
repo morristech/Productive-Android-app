@@ -1,5 +1,7 @@
 package co.infinum.productive.dagger.components;
 
+import co.infinum.productive.activities.TasksListActivity;
+import co.infinum.productive.dagger.modules.AppContextModule;
 import co.infinum.productive.dagger.modules.CacheModule;
 import co.infinum.productive.dagger.modules.NetworkModule;
 import co.infinum.productive.dagger.modules.TasksModule;
@@ -13,10 +15,12 @@ import dagger.Component;
 @Component(modules = {
         CacheModule.class,
         NetworkModule.class,
-        TasksModule.class
+        TasksModule.class,
+        AppContextModule.class
 })
 public interface TasksComponent {
 
     void inject(TasksFragment fragment);
     void inject(TaskDetailsFragment fragment);
+    void inject(TasksListActivity activity);
 }

@@ -10,6 +10,9 @@ import co.infinum.productive.models.Task;
  */
 public interface TaskInteractor extends BaseInteractor {
 
-    void fetchTasks(Listener<ArrayList<Task>> listener, int projectId);
+    void fetchTasks(Listener<ArrayList<Task>> listener, int organizationId);
 
+    void fetchTaskPerProject(Listener<ArrayList<Task>> listener, int organizationId, int projectId);
+
+    void fetchMyTasks(Listener<ArrayList<Task>> taskPerProjectListener, int organizations, int projectId);
 }

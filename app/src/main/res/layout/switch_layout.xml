@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/switch_text"
+            android:layout_marginRight="10dp"
+            android:padding="@dimen/nano_spacing"
+            android:text="Show only my tasks"
+            android:layout_centerVertical="true"
+            />
+
+    <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/toggle_my_projects"
+            android:layout_toRightOf="@+id/switch_text"
+            android:text=""
+            android:layout_centerVertical="true"/>
+
+</RelativeLayout>

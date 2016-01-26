@@ -20,6 +20,8 @@ import retrofit.Response;
  */
 public class TaskInteractorImpl implements TaskInteractor {
 
+    public static final int MY_CURRENT_TASKS_ID = -3;
+
     private ApiService apiService;
 
     private Call<BaseResponse<ArrayList<Task>>> call;
@@ -44,6 +46,44 @@ public class TaskInteractorImpl implements TaskInteractor {
             @Override
             public void onSuccess(BaseResponse<ArrayList<Task>> body, Response<BaseResponse<ArrayList<Task>>> response) {
                 listener.onSuccess(body.getResponse());
+            }
+        };
+
+        call.enqueue(callback);
+    }
+
+    @Override
+    public void fetchTaskPerProject(final Listener<ArrayList<Task>> listener, int organizationId, int projectId) {
+        call = apiService.getTaskPerProject(organizationId, projectId);
+
+        callback = new BaseCallback<BaseResponse<ArrayList<Task>>>() {
+            @Override
+            public void onUnknownError(@Nullable String error) {
+                listener.onFailure(error);
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<ArrayList<Task>> body, Response<BaseResponse<ArrayList<Task>>> response) {
+                listener.onSuccess(body.getResponse());
+            }
+        };
+
+        call.enqueue(callback);
+    }
+
+    @Override
+    public void fetchMyTasks(final Listener<ArrayList<Task>> taskPerProjectListener, int organizations, int projectId) {
+        call = apiService.getMyTasks(organizations, projectId, MY_CURRENT_TASKS_ID);
+
+        callback = new BaseCallback<BaseResponse<ArrayList<Task>>>() {
+            @Override
+            public void onUnknownError(@Nullable String error) {
+                taskPerProjectListener.onFailure(error);
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<ArrayList<Task>> body, Response<BaseResponse<ArrayList<Task>>> response) {
+                taskPerProjectListener.onSuccess(body.getResponse());
             }
         };
 

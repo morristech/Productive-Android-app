@@ -150,7 +150,8 @@ public class ProjectPresenterImpl implements ProjectPresenter {
                                 project.getClient().getAvatarUrl(),
                                 project.getClient().getName(),
                                 ElapsedTimeFormatter.getElapsedTime(project.getUpdatedAt(), resources),
-                                activities.get(0).getPerson().getName());
+                                activities.get(0).getPerson().getName(),
+                                project.getId());
                         break;
                     }
                 }
@@ -174,7 +175,8 @@ public class ProjectPresenterImpl implements ProjectPresenter {
                             project.getClient().getAvatarUrl(),
                             project.getClient().getName(),
                             ElapsedTimeFormatter.getElapsedTime(project.getUpdatedAt(), resources),
-                            project.getProjectManager().getName()));
+                            project.getProjectManager().getName(),
+                            project.getId()));
                 }
             }
 

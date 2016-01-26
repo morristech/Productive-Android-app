@@ -7,8 +7,6 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,8 +32,8 @@ public class TaskDetailsFragment extends BaseFragment implements TasksView {
 
     public static final String TASK = "task";
 
-    @Bind(R.id.task_list_spinner)
-    Spinner taskListSpinner;
+    @Bind(R.id.task_list)
+    TextView taskListTv;
 
     @Inject
     TasksPresenter presenter;
@@ -78,16 +76,11 @@ public class TaskDetailsFragment extends BaseFragment implements TasksView {
 
     private void populateScreenWithData() {
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.task_list, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        taskListSpinner.setAdapter(adapter);
-
         if (task.getAssignee() != null) {
             Glide.with(getActivity())
                     .load(task.getAssignee().getAvatarUrl())
                     .into(assigneeAvatarIcon);
-
+            taskListTv.setText(task.getTaskList().getName());
             assigneeName.setText(task.getAssignee().getName());
         } else {
             assigneeName.setText(R.string.no_assignee_message);
@@ -131,6 +124,21 @@ public class TaskDetailsFragment extends BaseFragment implements TasksView {
     @Override
     public void onTaskSubscriberError(String error) {
         showError(error);
+    }
+
+    @Override
+    public void onTaskPerProjectFetched(ArrayList<Task> tasks) {
+        //nothing
+    }
+
+    @Override
+    public void onTaskPerProjectFailed(String error) {
+        //nothing
+    }
+
+    @Override
+    public void removeOtherTasks(ArrayList<Task> onlyMyTasks) {
+
     }
 
 }

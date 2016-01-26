@@ -20,6 +20,7 @@ import retrofit.http.GET;
 import retrofit.http.PATCH;
 import retrofit.http.POST;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 public interface ApiService {
 
@@ -50,6 +51,15 @@ public interface ApiService {
     Call<BaseResponse<ArrayList<Assignee>>> getSubscribersOnTask(@Path("organizationId") int organizationId,
             @Path("projectId") int projectId,
             @Path("taskId") int taskId);
+
+
+    @GET("/api/v1/{organizationId}/projects/{projectId}/tasks")
+    Call<BaseResponse<ArrayList<Task>>> getTaskPerProject(@Path("organizationId") int organizationId, @Path("projectId") int projectId);
+
+    @GET("/api/v1/{organizationId}/projects/{projectId}/tasks")
+    Call<BaseResponse<ArrayList<Task>>> getMyTasks(@Path("organizationId") int organizationId,
+            @Path("projectId") int projectId, @Query("filter_id") int id);
+
 
     @POST("/api/v1/{organizationId}/comments")
     Call<BaseResponse<TaskActivityResponse>> postComment(@Path("organizationId") int organizationId);

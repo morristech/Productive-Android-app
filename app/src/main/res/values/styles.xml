@@ -210,4 +210,12 @@
         <item name="android:layout_marginBottom">@dimen/default_spacing</item>
     </style>
 
+    <style name="TaskDetailsTaskListTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:layout_marginTop">@dimen/default_spacing</item>
+        <item name="android:padding">@dimen/default_spacing</item>
+    </style>
+
 </resources>

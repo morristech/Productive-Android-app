@@ -22,4 +22,8 @@ public interface TasksPresenter extends BasePresenter {
     String modifyTime(LocalDate time);
 
     void setupSubscribers(SubscribersViewGroupWrapper container, Context context, ArrayList<Assignee> fetchedSubscribers, float px);
+
+    void getAllTasksOnProject(int projectId);
+
+    void showMyTasksOnly(int projectId);
 }

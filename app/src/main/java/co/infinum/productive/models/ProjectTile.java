@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class ProjectTile implements Serializable {
 
+    private int id;
     private String projectName;
     private String avatarUrl;
     private String clientName;
@@ -17,12 +18,13 @@ public class ProjectTile implements Serializable {
         // hello
     }
 
-    public ProjectTile(String projectName, String avatarUrl, String clientName, String elapsedTime, String updatedBy) {
+    public ProjectTile(String projectName, String avatarUrl, String clientName, String elapsedTime, String updatedBy, int id) {
         this.projectName = projectName;
         this.avatarUrl = avatarUrl;
         this.clientName = clientName;
         this.elapsedTime = elapsedTime;
         this.updatedBy = updatedBy;
+        this.id = id;
     }
 
     public String getProjectName() {
@@ -63,5 +65,13 @@ public class ProjectTile implements Serializable {
 
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
