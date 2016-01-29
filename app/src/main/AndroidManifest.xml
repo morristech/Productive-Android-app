@@ -31,6 +31,8 @@
         </activity>
         <activity android:name=".activities.TaskContentActivity">
         </activity>
+        <activity android:name=".activities.NewTaskActivity">
+        </activity>
     </application>
 
 </manifest>

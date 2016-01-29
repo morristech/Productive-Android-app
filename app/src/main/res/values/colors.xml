@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#174B89</color>
     <color name="colorPrimaryDark">#0E2E53</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#e36539</color>
     <color name="signinButtonDefaultColor">#e36539</color>
     <color name="signinButtonHighlight">#cc6539</color>
     <color name="registerButtonHighlight">#e7e7e8</color>
@@ -17,6 +17,8 @@
     <color name="separatorBackgroundColor">#e4e3e3</color>
     <color name="separatorTextColor">#999999</color>
     <color name="listTitleColor">#333333</color>
+    <color name="taskActivitiesDefaultFont">#C5C5C5</color>
     <color name="subscriberBackgroundColor">#345a87</color>
     <color name="taskDetailsBackgroundColor">#e9edf2</color>
+    <color name="taskActivitiesComment">#F0F0F0</color>
 </resources>

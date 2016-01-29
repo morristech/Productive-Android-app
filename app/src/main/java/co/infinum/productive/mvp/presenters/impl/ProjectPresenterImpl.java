@@ -14,7 +14,7 @@ import co.infinum.productive.helpers.ElapsedTimeFormatter;
 import co.infinum.productive.helpers.ProjectTitleComparator;
 import co.infinum.productive.helpers.TaskByDateComparator;
 import co.infinum.productive.listeners.Listener;
-import co.infinum.productive.listeners.TaskActivityListener;
+import co.infinum.productive.listeners.TaskActivitiesListener;
 import co.infinum.productive.models.Project;
 import co.infinum.productive.models.ProjectTile;
 import co.infinum.productive.models.Task;
@@ -120,7 +120,7 @@ public class ProjectPresenterImpl implements ProjectPresenter {
         }
     };
 
-    private TaskActivityListener taskActivitiesListener = new TaskActivityListener() {
+    private TaskActivitiesListener taskActivitiesListener = new TaskActivitiesListener() {
         @Override
         public void onSuccess(List<TaskActivityResponse> taskActivityResponse, int projectId) {
             --tasksCnt;
@@ -150,7 +150,8 @@ public class ProjectPresenterImpl implements ProjectPresenter {
                                 project.getClient().getAvatarUrl(),
                                 project.getClient().getName(),
                                 ElapsedTimeFormatter.getElapsedTime(project.getUpdatedAt(), resources),
-                                activities.get(0).getPerson().getName());
+                                activities.get(0).getPerson().getName(),
+                                project.getId());
                         break;
                     }
                 }
@@ -174,7 +175,8 @@ public class ProjectPresenterImpl implements ProjectPresenter {
                             project.getClient().getAvatarUrl(),
                             project.getClient().getName(),
                             ElapsedTimeFormatter.getElapsedTime(project.getUpdatedAt(), resources),
-                            project.getProjectManager().getName()));
+                            project.getProjectManager().getName(),
+                            project.getId()));
                 }
             }
 
